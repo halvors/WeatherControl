@@ -1,0 +1,3 @@
+name: WeatherControl
+main: com.halvors.WeatherControl.WeatherControl
+version: 0.1
