@@ -30,6 +30,7 @@ public class WeatherControlBlockListener extends BlockListener {
         plugin = instance;
     }
     
+    /*
     public void onBlockIgnite(BlockIgniteEvent event) {
     	if (!event.isCancelled()) {
     		if (event.getCause() == IgniteCause.LIGHTNING) {
@@ -37,4 +38,5 @@ public class WeatherControlBlockListener extends BlockListener {
     		}
     	}
     }
+    */
 }
