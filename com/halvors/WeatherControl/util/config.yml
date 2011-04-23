@@ -1,0 +1,16 @@
+LightningStrikeItem: 348
+
+Messages:
+    # Messages
+    
+    # Rain
+    Its_now_raining: It's now raining.
+    Its_no_longer_raining: It's no longer raining.
+    
+    # Thunder
+    Its_now_thundering: It's now thundering.
+    Its_no_longer_thundering: It's no longer thundering.
+    
+    # Clear
+    Its_now_clearing: It's now clearing.
+    Its_already_clear: It's already clear.

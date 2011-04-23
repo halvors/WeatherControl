@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -31,6 +32,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
+
+import com.halvors.WeatherControl.util.ConfigManager;
 
 public class WeatherControl extends JavaPlugin {
 	public static String name;
@@ -40,6 +43,11 @@ public class WeatherControl extends JavaPlugin {
 	private PluginManager pm;
 	private PluginDescriptionFile pdfFile;
 
+	private ConfigManager configManager;
+	
+	private WeatherControlBlockListener blockListener;
+	private WeatherControlPlayerListener playerListener;
+	
     public static PermissionHandler Permissions;
     
     private HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
@@ -48,20 +56,58 @@ public class WeatherControl extends JavaPlugin {
     	pm = this.getServer().getPluginManager();
     	pdfFile = this.getDescription();
     	
+    	configManager = new ConfigManager(this);
+    	
+    	blockListener = new WeatherControlBlockListener(this);
+    	playerListener = new WeatherControlPlayerListener(this);
+    	
         // Load name and version from pdfFile
         name = pdfFile.getName();
         version = pdfFile.getVersion();
+        
+        // Load configuration
+        try {
+            configManager.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log(Level.WARNING, "Error encountered while loading data. Disabling " + name + ".");
+            getServer().getPluginManager().disablePlugin(this);
+            
+            return;
+        }
 
+        try {
+            configManager.save();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log(Level.WARNING, "Error encountered while saving data. " + name + ".");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        
         // Register our events
+        pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Event.Priority.Normal, this);
+        
+        pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Event.Priority.Normal, this);
         
 		// Register our commands
+        getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));
 		
         log(Level.INFO, "version " + version + " is enabled!");
         
         setupPermissions();
     }
     
-    public void onDisable() {   	
+    public void onDisable() {
+    	try {
+            configManager.save();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log(Level.WARNING, "Error encountered while saving data. " + name + ".");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+    	
     	log(Level.INFO, "Plugin disabled!");
     }
     
@@ -99,5 +145,9 @@ public class WeatherControl extends JavaPlugin {
     
     public void log(Level level, String msg) {
         this.log.log(level, "[" + name + "] " + msg);
+    }
+    
+    public ConfigManager getConfigManager() {
+    	return configManager;
     }
 }
