@@ -25,6 +25,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 
+import com.halvors.WeatherControl.util.WorldConfig;
+
 public class WeatherControlPlayerListener extends PlayerListener {
     private final WeatherControl plugin;
 
@@ -37,27 +39,23 @@ public class WeatherControlPlayerListener extends PlayerListener {
     	if (!event.isCancelled()) {
     		Player player = event.getPlayer();
     		Action action = event.getAction();
+    		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(player.getWorld());
     		
-    		if (WeatherControl.hasPermissions(player, "WeatherControl.LightningStrike")) {
-        		if (action == Action.LEFT_CLICK_AIR) {
-                    Block block = player.getTargetBlock(null, 300);
+    		
+    		if ((WeatherControl.hasPermissions(player, "WeatherControl.lightningstrike")) && (worldConfig.clickLightning)) {
+    			if (player.getItemInHand().getTypeId() == worldConfig.clickLightningItem) {
+    				if (action == Action.LEFT_CLICK_AIR) {
+    					Block block = player.getTargetBlock(null, 300);
                     
-                    if (block != null) {
-                        player.getWorld().strikeLightning(block.getLocation());
-                    }
-                } else if (action == Action.LEFT_CLICK_BLOCK) {
-                    Block block = event.getClickedBlock();
-                    player.getWorld().strikeLightning(block.getLocation());
-                }
+    					if (block != null) {
+    						player.getWorld().strikeLightning(block.getLocation());
+    					}
+    				} else if (action == Action.LEFT_CLICK_BLOCK) {
+    					Block block = event.getClickedBlock();
+    					player.getWorld().strikeLightning(block.getLocation());
+    				}
+    			}
         	}
     	}
     }
 }
-    		
-    		/*
-    		if (WeatherControl.hasPermissions(player, "WeatherControl.LightningStrike")) {
-    			if ((action.equals(Action.LEFT_CLICK_BLOCK)) && (player.getItemInHand().getTypeId() == plugin.getConfigManager().LightningStrikeItem)) {
-    				player.getWorld().strikeLightning(block.getLocation());
-    			}
-    		}
-    		*/

@@ -66,24 +66,7 @@ public class WeatherControl extends JavaPlugin {
         version = pdfFile.getVersion();
         
         // Load configuration
-        try {
-            configManager.load();
-        } catch (Exception e) {
-            e.printStackTrace();
-            log(Level.WARNING, "Error encountered while loading data. Disabling " + name + ".");
-            getServer().getPluginManager().disablePlugin(this);
-            
-            return;
-        }
-
-        try {
-            configManager.save();
-        } catch (Exception e) {
-            e.printStackTrace();
-            log(Level.WARNING, "Error encountered while saving data. " + name + ".");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
+        configManager.load();
         
         // Register our events
         pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Event.Priority.Normal, this);
@@ -99,14 +82,7 @@ public class WeatherControl extends JavaPlugin {
     }
     
     public void onDisable() {
-    	try {
-            configManager.save();
-        } catch (Exception e) {
-            e.printStackTrace();
-            log(Level.WARNING, "Error encountered while saving data. " + name + ".");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
+    	configManager.unload();
     	
     	log(Level.INFO, "Plugin disabled!");
     }

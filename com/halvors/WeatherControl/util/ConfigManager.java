@@ -21,125 +21,132 @@ package com.halvors.WeatherControl.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.logging.Level;
 
+import org.bukkit.World;
 import org.bukkit.util.config.Configuration;
-import org.bukkit.util.config.ConfigurationNode;
 
 import com.halvors.WeatherControl.WeatherControl;
 
+/**
+ * Represents the global configuration and also delegates configuration
+ * for individual worlds.
+ * 
+ * @author halvors
+ */
 public class ConfigManager {
-	private final WeatherControl plugin;
-	
-	private File configFile;
+
+    /**
+     * Reference to the plugin.
+     */
+    private final WeatherControl plugin;
     
-	// General
-	public int LightningStrikeItem;
-	
- 	// Messages
-	
-	// Rain
-	public String Its_now_raining;
-	public String Its_no_longer_raining;
-	
-	// Thunder
-	public String Its_now_thundering;
-	public String Its_no_longer_thundering;
-	
-	// Clear
-	public String Its_now_clearing;
-	public String Its_already_clear;
-	
-	public ConfigManager(WeatherControl instance) {
-		plugin = instance;
-		
-	    configFile = new File(plugin.getDataFolder(), "config.yml");
-	}
-	
-	// Load configuration
-	public void load() {
-		checkConfig();
-		
-        Configuration config = new Configuration(configFile);
+    /**
+     * Holds configurations for different worlds.
+     */
+    private HashMap<String, WorldConfig> worlds;
+
+    /**
+     * Construct the object.
+     * 
+     * @param plugin
+     */
+    public ConfigManager(WeatherControl plugin) {
+        this.plugin = plugin;
+        this.worlds = new HashMap<String, WorldConfig>();
+    }
+
+    /**
+     * Load the configuration.
+     */
+    public void load() {
+        // Create the default configuration file
+        createDefaultConfig(new File(plugin.getDataFolder(), "config.yml"), "config.yml");
+        
+        Configuration config = plugin.getConfiguration();
         config.load();
         
-        loadGlobals(config);
+        // Load configurations for each world
+        for (World world : plugin.getServer().getWorlds()) {
+            getWorldConfig(world);
+        }
     }
 
-	// Save configuration
-	public void save() {
-		Configuration config = new Configuration(configFile);
-
-		saveGlobals(config);
-		
-		config.save();
-	}
-	
-	// Reload configuration
-	public void reload() {
-        load();
+    /**
+     * Unload the configuration.
+     */
+    public void unload() {
+        worlds.clear();
     }
-	
-	private void checkConfig() {
-        if (!configFile.exists()) {
-            try {
-                configFile.getParentFile().mkdir();
-                configFile.createNewFile();
-                OutputStream output = new FileOutputStream(configFile, false);
-                InputStream input = ConfigManager.class.getResourceAsStream("config.yml");
-                byte[] buf = new byte[8192];
-                while (true) {
-                    int length = input.read(buf);
-                    if (length < 0) {
-                        break;
+    
+    /**
+    * Create a default configuration file from the .jar.
+    *
+    * @param actual
+    * @param defaultName
+    */
+    public void createDefaultConfig(File actual, String defaultName) {
+    	// Make parent directories
+        File parent = actual.getParentFile();
+        
+        if (!parent.exists()) {
+        	parent.mkdirs();
+        }
+
+        if (!actual.exists()) {
+        	InputStream input = ConfigManager.class.getResourceAsStream(defaultName);
+            
+            if (input != null) {
+                FileOutputStream output = null;
+
+                try {
+                    output = new FileOutputStream(actual);
+                    byte[] buf = new byte[8192];
+                    int length = 0;
+                    while ((length = input.read(buf)) > 0) {
+                        output.write(buf, 0, length);
                     }
-                    output.write(buf, 0, length);
+
+                    plugin.log(Level.INFO, "Configuration file written: " + actual.getAbsolutePath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (input != null) {
+                            input.close();
+                        }
+                    } catch (IOException e) {
+                    }
+
+                    try {
+                        if (output != null) {
+                            output.close();
+                        }
+                    } catch (IOException e) {
+                    }
                 }
-                input.close();
-                output.close();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }
-	
-	private void loadGlobals(Configuration config) {
-		LightningStrikeItem = config.getInt("LightningStrikeItem", LightningStrikeItem);
-		
-        // Messages
-		ConfigurationNode messages = config.getNode("Messages");
-		
-		// Rain
-		Its_now_raining = messages.getString("Its_now_raining", Its_now_raining);
-		Its_no_longer_raining = messages.getString("Its_no_longer_raining", Its_no_longer_raining);
-		
-		// Thunder
-		Its_now_thundering = messages.getString("Its_now_thundering", Its_now_thundering);
-		Its_no_longer_thundering = messages.getString("Its_no_longer_thundering", Its_no_longer_thundering);
-		
-		// Clear
-		Its_now_clearing = messages.getString("Its_now_clearing", Its_now_clearing);
-		Its_already_clear = messages.getString("Its_already_clear", Its_already_clear);
-	}
-	
-    private void saveGlobals(Configuration config) {
-    	config.setProperty("LightningStrikeItem", LightningStrikeItem);
-
-        // Messages
-		
-		// Rain
-		config.setProperty("Messages.Its_now_raining", Its_now_raining);
-		config.setProperty("Messages.Its_no_longer_raining", Its_no_longer_raining);
-		
-		// Thunder
-		config.setProperty("Messages.Its_now_thundering", Its_now_thundering);
-		config.setProperty("Messages.Its_no_longer_thundering", Its_no_longer_thundering);
-		
-		// Clear
-		config.setProperty("Messages.Its_now_clearing", Its_now_clearing);
-		config.setProperty("Messages.Its_already_clear", Its_already_clear);
+    
+    /**
+     * Get the configuration for a world.
+     * 
+     * @param world
+     * @return
+     */
+    public WorldConfig getWorldConfig(World world) {
+        String worldName = world.getName();
+        WorldConfig config = worlds.get(worldName);
         
-        config.save();
+        if (config == null) {
+            config = new WorldConfig(plugin, worldName);
+            worlds.put(worldName, config);
+        }
+
+        return config;
     }
 }

@@ -19,9 +19,12 @@
 
 package com.halvors.WeatherControl;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.event.block.BlockListener;
+
+import com.halvors.WeatherControl.util.WorldConfig;
 
 public class WeatherControlBlockListener extends BlockListener {
     private final WeatherControl plugin;
@@ -30,13 +33,17 @@ public class WeatherControlBlockListener extends BlockListener {
         plugin = instance;
     }
     
-    /*
+    @Override
     public void onBlockIgnite(BlockIgniteEvent event) {
     	if (!event.isCancelled()) {
-    		if (event.getCause() == IgniteCause.LIGHTNING) {
-    			event.setCancelled(true);
+    		Player player = event.getPlayer();
+    		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(player.getWorld());
+    		
+    		if (plugin.getConfigManager().getWorldConfig(event.getPlayer().getWorld()).blockLightningFire) {
+    			if (event.getCause() == IgniteCause.LIGHTNING) {
+    				event.setCancelled(true);
+    			}
     		}
     	}
     }
-    */
 }
