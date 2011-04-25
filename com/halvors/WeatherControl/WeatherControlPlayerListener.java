@@ -19,6 +19,7 @@
 
 package com.halvors.WeatherControl;
 
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
@@ -27,23 +28,50 @@ import org.bukkit.event.player.PlayerListener;
 
 import com.halvors.WeatherControl.util.WorldConfig;
 
+/**
+ * Handle events for all Player related events
+ * @author halvors
+ */
 public class WeatherControlPlayerListener extends PlayerListener {
     private final WeatherControl plugin;
 
     public WeatherControlPlayerListener(WeatherControl instance) {
         plugin = instance;
-    }
-    
+    }   
+
     @Override
     public void onPlayerInteract(PlayerInteractEvent event) {
     	if (!event.isCancelled()) {
+    		Action action = event.getAction();
+    		Player player = event.getPlayer();
+    		World world = player.getWorld();
+    		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(player.getWorld());
+    		
+    		if (worldConfig.wandLightningStrike && player.getItemInHand().getTypeId() == worldConfig.wandLightningStrikeItem) {
+    			if (action == Action.LEFT_CLICK_AIR) {
+					Block block = player.getTargetBlock(null, 300);
+                
+					if (block != null) {
+						world.strikeLightning(block.getLocation());
+					}
+				} else if (action == Action.LEFT_CLICK_BLOCK) {
+					Block block = event.getClickedBlock();
+					world.strikeLightning(block.getLocation());
+				}
+			}
+    	}
+    }
+}
+    		/*
     		Player player = event.getPlayer();
     		Action action = event.getAction();
     		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(player.getWorld());
     		
-    		
-    		if ((WeatherControl.hasPermissions(player, "WeatherControl.lightningstrike")) && (worldConfig.clickLightning)) {
-    			if (player.getItemInHand().getTypeId() == worldConfig.clickLightningItem) {
+    		if (WeatherControl.hasPermissions(player, "WeatherControl.lightningstrike") && worldConfig.clickLightning) {
+    			player.sendMessage(String.valueOf(worldConfig.clickLightning));
+    			event.getPlayer().sendMessage("Test");
+    			
+    			if (player.getItemInHand().getTypeId() == plugin.getConfigManager().clickLightningItem) {
     				if (action == Action.LEFT_CLICK_AIR) {
     					Block block = player.getTargetBlock(null, 300);
                     
@@ -56,6 +84,4 @@ public class WeatherControlPlayerListener extends PlayerListener {
     				}
     			}
         	}
-    	}
-    }
-}
+        	*/

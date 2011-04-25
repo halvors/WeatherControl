@@ -19,31 +19,35 @@
 
 package com.halvors.WeatherControl;
 
-import org.bukkit.entity.Player;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.event.block.BlockListener;
 
 import com.halvors.WeatherControl.util.WorldConfig;
 
+/**
+ * Handle events for all Block related events
+ * @author halvors
+ */
 public class WeatherControlBlockListener extends BlockListener {
-    private final WeatherControl plugin;
-
+	private final WeatherControl plugin;
+	
     public WeatherControlBlockListener(WeatherControl instance) {
         plugin = instance;
     }
-    
-    @Override
-    public void onBlockIgnite(BlockIgniteEvent event) {
-    	if (!event.isCancelled()) {
-    		Player player = event.getPlayer();
-    		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(player.getWorld());
-    		
-    		if (plugin.getConfigManager().getWorldConfig(event.getPlayer().getWorld()).blockLightningFire) {
-    			if (event.getCause() == IgniteCause.LIGHTNING) {
-    				event.setCancelled(true);
-    			}
-    		}
-    	}
-    }
+	
+	public void onBlockIgnite(BlockIgniteEvent event) {
+		if (!event.isCancelled()) {
+			Block block = event.getBlock();
+			World world = block.getWorld();
+			IgniteCause cause = event.getCause();
+			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+			
+			if (worldConfig.disableLightningStrikeFire && cause == IgniteCause.LIGHTNING) {
+				event.setCancelled(true);
+			}
+		}
+	}
 }

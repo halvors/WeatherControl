@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
@@ -30,10 +31,9 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.halvors.WeatherControl.util.ConfigManager;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
-
-import com.halvors.WeatherControl.util.ConfigManager;
 
 public class WeatherControl extends JavaPlugin {
 	public static String name;
@@ -46,11 +46,12 @@ public class WeatherControl extends JavaPlugin {
 	private ConfigManager configManager;
 	
 	private WeatherControlBlockListener blockListener;
+	private WeatherControlEntityListener entityListener;
 	private WeatherControlPlayerListener playerListener;
 	
     public static PermissionHandler Permissions;
     
-    private HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
+    private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
     
     public void onEnable() {
     	pm = this.getServer().getPluginManager();
@@ -59,6 +60,7 @@ public class WeatherControl extends JavaPlugin {
     	configManager = new ConfigManager(this);
     	
     	blockListener = new WeatherControlBlockListener(this);
+    	entityListener = new WeatherControlEntityListener(this);
     	playerListener = new WeatherControlPlayerListener(this);
     	
         // Load name and version from pdfFile
@@ -68,8 +70,14 @@ public class WeatherControl extends JavaPlugin {
         // Load configuration
         configManager.load();
         
+        for (World world : this.getServer().getWorlds()) {
+    		configManager.getWorldConfig(world).load();
+    	}
+        
         // Register our events
         pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Event.Priority.Normal, this);
+        
+        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
         
         pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Event.Priority.Normal, this);
         
@@ -82,7 +90,11 @@ public class WeatherControl extends JavaPlugin {
     }
     
     public void onDisable() {
-    	configManager.unload();
+    	configManager.save();
+    	
+    	for (World world : this.getServer().getWorlds()) {
+    		configManager.getWorldConfig(world).save();
+    	}
     	
     	log(Level.INFO, "Plugin disabled!");
     }

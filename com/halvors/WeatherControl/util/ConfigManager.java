@@ -48,15 +48,15 @@ public class ConfigManager {
      * Holds configurations for different worlds.
      */
     private HashMap<String, WorldConfig> worlds;
-
+    
     /**
      * Construct the object.
      * 
      * @param plugin
      */
-    public ConfigManager(WeatherControl plugin) {
-        this.plugin = plugin;
-        this.worlds = new HashMap<String, WorldConfig>();
+    public ConfigManager(WeatherControl instance) {
+        plugin = instance;
+        worlds = new HashMap<String, WorldConfig>();
     }
 
     /**
@@ -64,7 +64,7 @@ public class ConfigManager {
      */
     public void load() {
         // Create the default configuration file
-        createDefaultConfig(new File(plugin.getDataFolder(), "config.yml"), "config.yml");
+        checkConfig(new File(plugin.getDataFolder(), "config.yml"), "config.yml");
         
         Configuration config = plugin.getConfiguration();
         config.load();
@@ -74,12 +74,23 @@ public class ConfigManager {
             getWorldConfig(world);
         }
     }
-
+    
     /**
-     * Unload the configuration.
+     * Save the configuration.
      */
-    public void unload() {
-        worlds.clear();
+    public void save() {
+    	Configuration config = plugin.getConfiguration();
+    	
+    	worlds.clear();
+    	
+        config.save();
+    }
+    
+    /**
+     * Reload the configuration.
+     */
+    public void reload()  {
+    	load();
     }
     
     /**
@@ -88,45 +99,48 @@ public class ConfigManager {
     * @param actual
     * @param defaultName
     */
-    public void createDefaultConfig(File actual, String defaultName) {
-    	// Make parent directories
-        File parent = actual.getParentFile();
+    public void checkConfig(File actual, String defaultName) {
+    	if (!actual.exists()) {
+    	
+    		// Make parent directories
+    		File parent = actual.getParentFile();
         
-        if (!parent.exists()) {
-        	parent.mkdirs();
-        }
-
-        if (!actual.exists()) {
-        	InputStream input = ConfigManager.class.getResourceAsStream(defaultName);
+    		if (!parent.exists()) {
+    			parent.mkdirs();
+    		}
+    		
+    		if (!actual.exists()) {
+    			InputStream input = ConfigManager.class.getResourceAsStream(defaultName);
             
-            if (input != null) {
-                FileOutputStream output = null;
+    			if (input != null) {
+    				FileOutputStream output = null;
 
-                try {
-                    output = new FileOutputStream(actual);
-                    byte[] buf = new byte[8192];
-                    int length = 0;
-                    while ((length = input.read(buf)) > 0) {
-                        output.write(buf, 0, length);
-                    }
+    				try {
+    					output = new FileOutputStream(actual);
+                    	byte[] buf = new byte[8192];
+                    	int length = 0;
+                    	while ((length = input.read(buf)) > 0) {
+                    		output.write(buf, 0, length);
+                    	}
 
-                    plugin.log(Level.INFO, "Configuration file written: " + actual.getAbsolutePath());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        if (input != null) {
-                            input.close();
-                        }
-                    } catch (IOException e) {
-                    }
+                    	plugin.log(Level.INFO, "Configuration file written: " + actual.getAbsolutePath());
+    				} catch (IOException e) {
+    					e.printStackTrace();
+    				} finally {
+    					try {
+    						if (input != null) {
+    							input.close();
+    						}
+    					} catch (IOException e) {
+    					}
 
-                    try {
-                        if (output != null) {
-                            output.close();
-                        }
-                    } catch (IOException e) {
-                    }
+    					try {
+    						if (output != null) {
+    							output.close();
+    						}
+    					} catch (IOException e) {
+    					}
+    				}
                 }
             }
         }
@@ -140,13 +154,13 @@ public class ConfigManager {
      */
     public WorldConfig getWorldConfig(World world) {
         String worldName = world.getName();
-        WorldConfig config = worlds.get(worldName);
+        WorldConfig worldConfig = worlds.get(worldName);
         
-        if (config == null) {
-            config = new WorldConfig(plugin, worldName);
-            worlds.put(worldName, config);
+        if (worldConfig == null) {
+            worldConfig = new WorldConfig(plugin, worldName);
+            worlds.put(worldName, worldConfig);
         }
 
-        return config;
+        return worldConfig;
     }
 }

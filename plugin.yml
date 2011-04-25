@@ -1,6 +1,6 @@
 name: WeatherControl
 main: com.halvors.WeatherControl.WeatherControl
-version: 0.1
+version: 0.2
 commands:
     wc:
         description: Command for using WeatherControl
