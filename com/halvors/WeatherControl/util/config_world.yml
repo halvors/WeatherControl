@@ -1,0 +1,11 @@
+# WeatherControl's configuration file.
+#
+# This is the a per-world configuration file. It only affects one
+# corresponding world.
+
+wandLightningStrike: true
+wandLightningStrikeItem: 348
+
+protection:
+    disableLightningStrikeDamage: false
+    disableLightningStrikeFire: false

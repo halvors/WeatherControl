@@ -62,26 +62,3 @@ public class WeatherControlPlayerListener extends PlayerListener {
     	}
     }
 }
-    		/*
-    		Player player = event.getPlayer();
-    		Action action = event.getAction();
-    		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(player.getWorld());
-    		
-    		if (WeatherControl.hasPermissions(player, "WeatherControl.lightningstrike") && worldConfig.clickLightning) {
-    			player.sendMessage(String.valueOf(worldConfig.clickLightning));
-    			event.getPlayer().sendMessage("Test");
-    			
-    			if (player.getItemInHand().getTypeId() == plugin.getConfigManager().clickLightningItem) {
-    				if (action == Action.LEFT_CLICK_AIR) {
-    					Block block = player.getTargetBlock(null, 300);
-                    
-    					if (block != null) {
-    						player.getWorld().strikeLightning(block.getLocation());
-    					}
-    				} else if (action == Action.LEFT_CLICK_BLOCK) {
-    					Block block = event.getClickedBlock();
-    					player.getWorld().strikeLightning(block.getLocation());
-    				}
-    			}
-        	}
-        	*/
