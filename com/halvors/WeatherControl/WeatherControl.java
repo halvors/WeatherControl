@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -74,12 +75,12 @@ public class WeatherControl extends JavaPlugin {
     		configManager.getWorldConfig(world).load();
     	}
         
-        // Register our events
-        pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Event.Priority.Normal, this);
+        // Register our events Type.
+        pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Priority.Normal, this);
         
-        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Normal, this);
         
-        pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Priority.Normal, this);
         
 		// Register our commands
         getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));
@@ -91,10 +92,6 @@ public class WeatherControl extends JavaPlugin {
     
     public void onDisable() {
     	configManager.save();
-    	
-    	for (World world : this.getServer().getWorlds()) {
-    		configManager.getWorldConfig(world).save();
-    	}
     	
     	log(Level.INFO, "Plugin disabled!");
     }

@@ -3,9 +3,13 @@
 # This is the a per-world configuration file. It only affects one
 # corresponding world.
 
-wandLightningStrike: true
-wandLightningStrikeItem: 348
+clickLightningStrike: true
+clickLightningStrikeItem: 348
 
-protection:
+weather:
+    # Default 5 minutes (300 secounds)
+    defaultWeatherDuration: 300
+
+lightning:
     disableLightningStrikeDamage: false
     disableLightningStrikeFire: false

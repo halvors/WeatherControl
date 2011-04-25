@@ -39,8 +39,8 @@ public class WorldConfig {
     private File configFile;
 
     /* Configuration data start */
-    public boolean wandLightningStrike;
-    public int wandLightningStrikeItem;
+    public boolean clickLightningStrike;
+    public int clickLightningStrikeItem;
     public boolean disableLightningStrikeDamage;
     public boolean disableLightningStrikeFire;
     /* Configuration data end */
@@ -74,23 +74,11 @@ public class WorldConfig {
         Configuration config = new Configuration(configFile);
         config.load();
         
-        wandLightningStrike = config.getBoolean("wandLightningStrike", wandLightningStrike);
-        wandLightningStrikeItem = config.getInt("wandLightningStrikeItem", wandLightningStrikeItem);
+        clickLightningStrike = config.getBoolean("clickLightningStrike", clickLightningStrike);
+        clickLightningStrikeItem = config.getInt("clickLightningStrikeItem", clickLightningStrikeItem);
         
         disableLightningStrikeDamage = config.getBoolean("protection.disableLightningStrikeDamage", disableLightningStrikeDamage);
         disableLightningStrikeFire = config.getBoolean("protection.disableLightningStrikeFire", disableLightningStrikeFire);
-    }
-    
-    public void save() {
-    	Configuration config = new Configuration(configFile);
-    	
-        config.setProperty("wandLightningStrike", wandLightningStrike);
-        config.setProperty("wandLightningStrikeItem", wandLightningStrikeItem);
-    	
-    	config.setProperty("protection.disableLightningStrikeDamage", disableLightningStrikeDamage);
-    	config.setProperty("protection.disableLightningStrikeFire", disableLightningStrikeFire);
-    	
-    	config.save();
     }
 
     public String getWorldName() {

@@ -61,6 +61,25 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 			} else if (args[0].equalsIgnoreCase("weather")) {
 				if (WeatherControl.hasPermissions(player, "WeatherControl.weather")) {
 					World world = player.getWorld();
+					
+					world.setStorm(true);
+					world.setThundering(false);
+					
+					switch (args.length) {
+					case 1:
+						break;
+					case 2:
+						break;
+					}
+					
+					
+					
+					return true;
+				}
+				
+					
+					/*
+					World world = player.getWorld();
 					int duration;
 					
 					if (args.length == 2) {
@@ -89,9 +108,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 					} else {
 						player.sendMessage(ChatColor.RED + "World does not exist!");
 					}
-
-					return true;
-				}
+					*/
 			} else if (args[0].equalsIgnoreCase("lightning")) {
 				if (WeatherControl.hasPermissions(player, "WeatherControl.lightning")) {
 					World world = player.getWorld();
@@ -146,7 +163,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 					return true;
 				}
 			} else if (args[0].equalsIgnoreCase("strike")) {
-				if (WeatherControl.hasPermissions(player, "WeatherControl.strike")) {			
+				if (WeatherControl.hasPermissions(player, "WeatherControl.lightningstrike")) {			
 					if (args.length >= 2) {
 						Player target = plugin.getServer().getPlayer(args[1]);
 						World world = player.getWorld();
