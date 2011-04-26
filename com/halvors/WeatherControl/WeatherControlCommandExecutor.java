@@ -43,6 +43,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player)sender;
+			String subCommand = args[0];
 			
 			if (args.length == 0) {
 				if (WeatherControl.hasPermissions(player, "WeatherControl.help")) {
@@ -52,94 +53,63 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 				}
 			}
         
-			if (args[0].equalsIgnoreCase("help")) {
+			if (subCommand.equalsIgnoreCase("help")) {
 				if (WeatherControl.hasPermissions(player, "WeatherControl.help")) {
 					showHelp(player);
 					
 					return true;
 				}
-			} else if (args[0].equalsIgnoreCase("weather")) {
+			} else if (subCommand.equalsIgnoreCase("weather")) {
 				if (WeatherControl.hasPermissions(player, "WeatherControl.weather")) {
 					World world = player.getWorld();
+					WorldConfig worldConfig = configManager.getWorldConfig(world);
 					
-					world.setStorm(true);
-					world.setThundering(false);
-					
-					switch (args.length) {
-					case 1:
-						break;
-					case 2:
-						break;
+					if (world.hasStorm()) {
+						world.setStorm(false);
+						
+						player.sendMessage(ChatColor.GREEN + "It's no longer storm.");
+					} else {
+						world.setStorm(true);
+						
+						if (args.length == 2) {
+							world.setWeatherDuration(Integer.parseInt(args[1]) * 20);
+						} else {
+							world.setWeatherDuration(worldConfig.defaultWeatherDuration * 20);
+						}
+						player.sendMessage(ChatColor.GREEN + "It's now storm.");
 					}
-					
-					
 					
 					return true;
-				}
-				
-					
-					/*
+				}		
+			} else if (subCommand.equalsIgnoreCase("thundering")) {
+				if (WeatherControl.hasPermissions(player, "WeatherControl.thunder")) {
 					World world = player.getWorld();
-					int duration;
+					WorldConfig worldConfig = configManager.getWorldConfig(world);
 					
-					if (args.length == 2) {
-						duration = Integer.parseInt(args[1]);
+					if (world.isThundering()) {
+						world.setStorm(false);
+						world.setThundering(false);
 						
-						if (!world.hasStorm()) {
-							world.setWeatherDuration(duration);
-						}
-					} else if (args.length >= 3) {
-						world = plugin.getServer().getWorld(args[2]);
-						duration = Integer.parseInt(args[1]);
+						player.sendMessage(ChatColor.GREEN + "It's no longer thunder.");
+					} else {
+						world.setStorm(true);
+						world.setThundering(true);
 						
-						if (!world.hasStorm()) {
+						if (args.length == 2) {
+							int duration = Integer.parseInt(args[1]) * 20;
 							world.setWeatherDuration(duration);
-						}
-					}
-					
-					if (world != null) {
-						if (world.hasStorm()) {
-							world.setStorm(false);
-							player.sendMessage(ChatColor.GREEN + "It's no longer storm.");
+							world.setThunderDuration(duration);
 						} else {
-							world.setStorm(true);
-							player.sendMessage(ChatColor.GREEN + "It's now storm.");
+							world.setWeatherDuration(worldConfig.defaultThunderDuration * 20);
+							world.setThunderDuration(worldConfig.defaultThunderDuration * 20);
 						}
-					} else {
-						player.sendMessage(ChatColor.RED + "World does not exist!");
-					}
-					*/
-			} else if (args[0].equalsIgnoreCase("lightning")) {
-				if (WeatherControl.hasPermissions(player, "WeatherControl.lightning")) {
-					World world = player.getWorld();
-					int duration;
-					
-					if (args.length == 2) {
-						duration = Integer.parseInt(args[1]);
-
-						world.setThunderDuration(duration);
-					} else if (args.length >= 3) {
-						world = plugin.getServer().getWorld(args[2]);
-						duration = Integer.parseInt(args[1]);
-
-						world.setThunderDuration(duration);
-					}
-					
-					if (world != null) {
-						if (world.isThundering()) {
-							world.setThundering(false);
-							player.sendMessage(ChatColor.GREEN + "It's no longer lightning.");
-						} else {
-							world.setThundering(true);
-							player.sendMessage(ChatColor.GREEN + "It's now lightning.");
-						}
-					} else {
-						player.sendMessage(ChatColor.RED + "World does not exist!");
+						
+						player.sendMessage(ChatColor.GREEN + "It's now thunder.");
 					}
 
 					return true;
 				}
-			} else if (args[0].equalsIgnoreCase("clear")) {
+			} else if (subCommand.equalsIgnoreCase("clear")) {
 				if (WeatherControl.hasPermissions(player, "WeatherControl.clear")) {
 					World world = player.getWorld();
 					
@@ -162,7 +132,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 	
 					return true;
 				}
-			} else if (args[0].equalsIgnoreCase("strike")) {
+			} else if (subCommand.equalsIgnoreCase("strike")) {
 				if (WeatherControl.hasPermissions(player, "WeatherControl.lightningstrike")) {			
 					if (args.length >= 2) {
 						Player target = plugin.getServer().getPlayer(args[1]);
@@ -177,7 +147,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 					
 					return true;
 				}
-			} else if (args[0].equalsIgnoreCase("reload")) {
+			} else if (subCommand.equalsIgnoreCase("reload")) {
 				if (WeatherControl.hasPermissions(player, "WeatherControl.reload")) {
 					configManager.reload();
 					
@@ -205,8 +175,8 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 			player.sendMessage(command + "weather " + ChatColor.GREEN + "<" + ChatColor.WHITE + "duration" + ChatColor.GREEN + "> <" + ChatColor.WHITE + "world" + ChatColor.GREEN + ">" + ChatColor.YELLOW + " - Toogle weather.");
 		}
 		
-		if (WeatherControl.hasPermissions(player, "WeatherControl.lightning")) {
-			player.sendMessage(command + "lightning " + ChatColor.GREEN + "<" + ChatColor.WHITE + "duration" + ChatColor.GREEN + "> <" + ChatColor.WHITE + "world" + ChatColor.GREEN + ">" + ChatColor.YELLOW + " - Toogle lightning.");
+		if (WeatherControl.hasPermissions(player, "WeatherControl.thundering")) {
+			player.sendMessage(command + "thundering " + ChatColor.GREEN + "<" + ChatColor.WHITE + "duration" + ChatColor.GREEN + "> <" + ChatColor.WHITE + "world" + ChatColor.GREEN + ">" + ChatColor.YELLOW + " - Toogle thundering.");
 		}
 		
 		if (WeatherControl.hasPermissions(player, "WeatherControl.clear")) {

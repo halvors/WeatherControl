@@ -49,6 +49,7 @@ public class WeatherControl extends JavaPlugin {
 	private WeatherControlBlockListener blockListener;
 	private WeatherControlEntityListener entityListener;
 	private WeatherControlPlayerListener playerListener;
+	private WeatherControlWeatherListener weatherListener;
 	
     public static PermissionHandler Permissions;
     
@@ -63,6 +64,7 @@ public class WeatherControl extends JavaPlugin {
     	blockListener = new WeatherControlBlockListener(this);
     	entityListener = new WeatherControlEntityListener(this);
     	playerListener = new WeatherControlPlayerListener(this);
+    	weatherListener = new WeatherControlWeatherListener(this);
     	
         // Load name and version from pdfFile
         name = pdfFile.getName();
@@ -79,8 +81,14 @@ public class WeatherControl extends JavaPlugin {
         pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Priority.Normal, this);
         
         pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.CREEPER_POWER, entityListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.PIG_ZAP, entityListener, Priority.Normal, this);
         
         pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Priority.Normal, this);
+        
+        pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.THUNDER_CHANGE, weatherListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.LIGHTNING_STRIKE, weatherListener, Priority.Normal, this);
         
 		// Register our commands
         getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));

@@ -3,13 +3,19 @@
 # This is the a per-world configuration file. It only affects one
 # corresponding world.
 
-clickLightningStrike: true
-clickLightningStrikeItem: 348
-
 weather:
-    # Default 5 minutes (300 secounds)
-    defaultWeatherDuration: 300
-
+    disableWeather: false # Disable weather.
+    defaultWeatherDuration: 300 # Default 5 minutes (300 secounds).
+    
+thunder:
+    disableThunder: false # Disable thunder.
+    defaultThunderDuration: 300 # Default 5 minutes (300 secounds).
+    
 lightning:
+    disableLightningStrike: false # Disable lightning strike.
+    disableCreeperPower: false # Disable creeper power
+    disablePigZap: false # Disable pig zap
     disableLightningStrikeDamage: false
     disableLightningStrikeFire: false
+    clickLightningStrike: true
+    clickLightningStrikeItem: 348
