@@ -25,8 +25,6 @@ import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.weather.WeatherListener;
 
-import org.bukkit.craftbukkit.CraftWorld;
-
 import com.halvors.WeatherControl.util.WorldConfig;
 
 public class WeatherControlWeatherListener extends WeatherListener {
@@ -43,7 +41,9 @@ public class WeatherControlWeatherListener extends WeatherListener {
 			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
 
 			if (worldConfig.disableWeather) {
-				event.setCancelled(true);
+				if (event.toWeatherState()) {
+					event.setCancelled(true);
+				}
 			}
 		}
 	}
@@ -55,7 +55,9 @@ public class WeatherControlWeatherListener extends WeatherListener {
 			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
 		
 			if ((worldConfig.disableWeather) || worldConfig.disableThunder) {
-				event.setCancelled(true);
+				if (event.toThunderState()) {
+					event.setCancelled(true);
+				}
 			}
 		}
 	}

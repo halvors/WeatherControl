@@ -56,17 +56,19 @@ public class WeatherControl extends JavaPlugin {
     
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
     
-    public void onEnable() {
-    	pm = this.getServer().getPluginManager();
-    	pdfFile = this.getDescription();
-    	
+    public WeatherControl() {
     	configManager = new ConfigManager(this);
     	
     	blockListener = new WeatherControlBlockListener(this);
     	entityListener = new WeatherControlEntityListener(this);
     	playerListener = new WeatherControlPlayerListener(this);
     	weatherListener = new WeatherControlWeatherListener(this);
-    	
+    }
+   
+    public void onEnable() {
+    	pm = this.getServer().getPluginManager();
+    	pdfFile = this.getDescription();
+
         // Load name and version from pdfFile
         name = pdfFile.getName();
         version = pdfFile.getVersion();
@@ -90,17 +92,17 @@ public class WeatherControl extends JavaPlugin {
     	}
         
         // Register our events Type.
-        pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Event.Priority.Normal, this);
         
-        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Normal, this);
-        pm.registerEvent(Event.Type.CREEPER_POWER, entityListener, Priority.Normal, this);
-        pm.registerEvent(Event.Type.PIG_ZAP, entityListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.CREEPER_POWER, entityListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PIG_ZAP, entityListener, Event.Priority.Normal, this);
         
-        pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Event.Priority.Normal, this);
         
-        pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Priority.Normal, this);
-        pm.registerEvent(Event.Type.THUNDER_CHANGE, weatherListener, Priority.Normal, this);
-        pm.registerEvent(Event.Type.LIGHTNING_STRIKE, weatherListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.THUNDER_CHANGE, weatherListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.LIGHTNING_STRIKE, weatherListener, Event.Priority.Normal, this);
         
 		// Register our commands
         getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));

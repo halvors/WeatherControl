@@ -36,7 +36,7 @@ public class WeatherControlPlayerListener extends PlayerListener {
     private final WeatherControl plugin;
 
     public WeatherControlPlayerListener(WeatherControl instance) {
-        plugin = instance;
+        this.plugin = instance;
     }   
 
     @Override
@@ -49,8 +49,8 @@ public class WeatherControlPlayerListener extends PlayerListener {
 		if (!worldConfig.disableLightningStrike) {
     		if (event.hasItem()) {
     			if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
-    				if (event.getItem().getTypeId() == worldConfig.clickLightningStrikeItem) {
-    					if (WeatherControl.hasPermissions(player, "WeatherControl.clicklightning")) {
+    				if (event.getItem().getTypeId() == worldConfig.lightningStrikeWandItem) {
+    					if (WeatherControl.hasPermissions(player, "WeatherControl.lightningwand")) {
     						world.strikeLightning(player.getTargetBlock(null, 500).getLocation());
     					}
     				}

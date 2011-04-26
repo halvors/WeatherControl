@@ -31,7 +31,6 @@ import com.halvors.WeatherControl.WeatherControl;
  *
  * @author halvors
  */
-
 public class WorldConfig {
 	private final WeatherControl plugin;
 	
@@ -39,20 +38,20 @@ public class WorldConfig {
     private File configFile;
 
     /* Configuration data start */
-    public boolean disableWeather;
     public int defaultWeatherDuration;
+    public boolean disableWeather;
     
-    
-    public boolean disableThunder;
     public int defaultThunderDuration;
+    public boolean disableThunder;
     
+    public boolean lightningStrikeExplosion;
+    public boolean lightningStrikeWand;
+    public int lightningStrikeWandItem;
     public boolean disableLightningStrike;
     public boolean disableCreeperPower;
     public boolean disablePigZap;
     public boolean disableLightningStrikeDamage;
     public boolean disableLightningStrikeFire;
-    public boolean clickLightningStrike;
-    public int clickLightningStrikeItem;
     /* Configuration data end */
 
     /**
@@ -61,9 +60,8 @@ public class WorldConfig {
      * @param plugin
      * @param worldName
      */
-    
     public WorldConfig(WeatherControl instance, String worldName) {
-    	plugin = instance;
+    	this.plugin = instance;
     	this.worldName = worldName;
     	
     	File baseFolder = new File(plugin.getDataFolder(), "worlds/");
@@ -79,26 +77,29 @@ public class WorldConfig {
     /**
      * Load the configuration.
      */
-    
     public void load() {	
         Configuration config = new Configuration(configFile);
         config.load();
         
-        disableWeather = config.getBoolean("weather.disableWeather", disableWeather);
         defaultWeatherDuration = config.getInt("weather.defaultWeatherDuration", defaultWeatherDuration);
+        disableWeather = config.getBoolean("weather.disableWeather", disableWeather);
         
-        disableThunder = config.getBoolean("thunder.disableThunder", disableThunder);
         defaultThunderDuration = config.getInt("thunder.defaultThunderDuration", defaultThunderDuration);
+        disableThunder = config.getBoolean("thunder.disableThunder", disableThunder);
         
+        lightningStrikeWand = config.getBoolean("lightning.lightningStrikeWand", lightningStrikeWand);
+        lightningStrikeWandItem = config.getInt("lightning.lightningStrikeWandItem", lightningStrikeWandItem);
         disableLightningStrike = config.getBoolean("lightning.disableLightningStrike", disableLightningStrike);
         disableCreeperPower = config.getBoolean("lightning.disableCreeperPower", disableCreeperPower);
         disablePigZap = config.getBoolean("lightning.disablePigZap", disablePigZap);
         disableLightningStrikeDamage = config.getBoolean("lightning.disableLightningStrikeDamage", disableLightningStrikeDamage);
         disableLightningStrikeFire = config.getBoolean("lightning.disableLightningStrikeFire", disableLightningStrikeFire);
-        clickLightningStrike = config.getBoolean("lightning.clickLightningStrike", clickLightningStrike);
-        clickLightningStrikeItem = config.getInt("lightning.clickLightningStrikeItem", clickLightningStrikeItem);
     }
 
+    /**
+     * Get world name.
+     * @return worldName
+     */
     public String getWorldName() {
         return this.worldName;
     }

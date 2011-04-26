@@ -39,7 +39,7 @@ public class WeatherControlEntityListener extends EntityListener {
 	private final WeatherControl plugin;
 	
     public WeatherControlEntityListener(WeatherControl instance) {
-        plugin = instance;
+        this.plugin = instance;
     }
     
     @Override

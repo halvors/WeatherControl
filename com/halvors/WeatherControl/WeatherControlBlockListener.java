@@ -35,7 +35,7 @@ public class WeatherControlBlockListener extends BlockListener {
 	private final WeatherControl plugin;
 	
     public WeatherControlBlockListener(WeatherControl instance) {
-        plugin = instance;
+        this.plugin = instance;
     }
 	
     @Override
