@@ -1,0 +1,11 @@
+Version 0.3
+    - Compatible with Craftbukkit #733.
+    - Added option for disable weather, thunder, lightningstrike, creeper power or pig zap.
+    - Cleanup.
+
+Version 0.2
+    - Added lightning fire and damage protection.
+    - Multiworld support.
+
+Version 0.1
+    - Initital release.
