@@ -19,12 +19,15 @@
 
 package com.halvors.WeatherControl;
 
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.CreeperPowerEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityListener;
+import org.bukkit.event.entity.PigZapEvent;
 
 import com.halvors.WeatherControl.util.WorldConfig;
 
@@ -52,5 +55,29 @@ public class WeatherControlEntityListener extends EntityListener {
     			}
     		}
         }
+    }
+    
+    @Override
+    public void onCreeperPower(CreeperPowerEvent event) {
+    	if (!event.isCancelled()) {
+    		World world = event.getEntity().getWorld();
+    		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+    	
+    		if (worldConfig.disableCreeperPower) {
+    			event.setCancelled(true);
+    		}
+    	}
+    }
+    
+    @Override
+    public void onPigZap(PigZapEvent event) {
+    	if (!event.isCancelled()) {
+    		World world = event.getEntity().getWorld();
+    		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+    	
+    		if (worldConfig.disablePigZap) {
+    			event.setCancelled(true);
+    		}
+    	}
     }
 }

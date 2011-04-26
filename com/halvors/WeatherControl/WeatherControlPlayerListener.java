@@ -19,6 +19,7 @@
 
 package com.halvors.WeatherControl;
 
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
@@ -45,14 +46,18 @@ public class WeatherControlPlayerListener extends PlayerListener {
     	World world = player.getWorld();
     	WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
     	
-    	if (event.hasItem()) {
-    		if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
-    			if (event.getItem().getTypeId() == worldConfig.clickLightningStrikeItem) {
-    				if (WeatherControl.hasPermissions(player, "WeatherControl.clicklightningstrike")) {
-    					player.getWorld().strikeLightning(player.getTargetBlock(null, 600).getLocation());
+		if (!worldConfig.disableLightningStrike) {
+    		if (event.hasItem()) {
+    			if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
+    				if (event.getItem().getTypeId() == worldConfig.clickLightningStrikeItem) {
+    					if (WeatherControl.hasPermissions(player, "WeatherControl.clicklightningstrike")) {
+    						player.getWorld().strikeLightning(player.getTargetBlock(null, 600).getLocation());
+    					}
     				}
     			}
     		}
-    	}
+		} else {
+			player.sendMessage(ChatColor.RED + "Lightning strike is disabled!");
+		}
     }
 }

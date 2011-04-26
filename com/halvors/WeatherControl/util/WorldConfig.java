@@ -39,10 +39,20 @@ public class WorldConfig {
     private File configFile;
 
     /* Configuration data start */
-    public boolean clickLightningStrike;
-    public int clickLightningStrikeItem;
+    public boolean disableWeather;
+    public int defaultWeatherDuration;
+    
+    
+    public boolean disableThunder;
+    public int defaultThunderDuration;
+    
+    public boolean disableLightningStrike;
+    public boolean disableCreeperPower;
+    public boolean disablePigZap;
     public boolean disableLightningStrikeDamage;
     public boolean disableLightningStrikeFire;
+    public boolean clickLightningStrike;
+    public int clickLightningStrikeItem;
     /* Configuration data end */
 
     /**
@@ -74,11 +84,19 @@ public class WorldConfig {
         Configuration config = new Configuration(configFile);
         config.load();
         
-        clickLightningStrike = config.getBoolean("clickLightningStrike", clickLightningStrike);
-        clickLightningStrikeItem = config.getInt("clickLightningStrikeItem", clickLightningStrikeItem);
+        disableWeather = config.getBoolean("weather.disableWeather", disableWeather);
+        defaultWeatherDuration = config.getInt("weather.defaultWeatherDuration", defaultWeatherDuration);
         
-        disableLightningStrikeDamage = config.getBoolean("protection.disableLightningStrikeDamage", disableLightningStrikeDamage);
-        disableLightningStrikeFire = config.getBoolean("protection.disableLightningStrikeFire", disableLightningStrikeFire);
+        disableThunder = config.getBoolean("thunder.disableThunder", disableThunder);
+        defaultThunderDuration = config.getInt("thunder.defaultThunderDuration", defaultThunderDuration);
+        
+        disableLightningStrike = config.getBoolean("lightning.disableLightningStrike", disableLightningStrike);
+        disableCreeperPower = config.getBoolean("lightning.disableCreeperPower", disableCreeperPower);
+        disablePigZap = config.getBoolean("lightning.disablePigZap", disablePigZap);
+        disableLightningStrikeDamage = config.getBoolean("lightning.disableLightningStrikeDamage", disableLightningStrikeDamage);
+        disableLightningStrikeFire = config.getBoolean("lightning.disableLightningStrikeFire", disableLightningStrikeFire);
+        clickLightningStrike = config.getBoolean("lightning.clickLightningStrike", clickLightningStrike);
+        clickLightningStrikeItem = config.getInt("lightning.clickLightningStrikeItem", clickLightningStrikeItem);
     }
 
     public String getWorldName() {
