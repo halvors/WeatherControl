@@ -38,6 +38,7 @@ public class WeatherControlBlockListener extends BlockListener {
         plugin = instance;
     }
 	
+    @Override
 	public void onBlockIgnite(BlockIgniteEvent event) {
 		if (!event.isCancelled()) {
 			Block block = event.getBlock();

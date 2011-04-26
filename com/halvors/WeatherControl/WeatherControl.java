@@ -33,6 +33,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.halvors.WeatherControl.util.ConfigManager;
+import com.halvors.WeatherControl.util.WorldConfig;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
@@ -75,6 +76,17 @@ public class WeatherControl extends JavaPlugin {
         
         for (World world : this.getServer().getWorlds()) {
     		configManager.getWorldConfig(world).load();
+    		
+    		if ((world.hasStorm()) || (world.isThundering())) {
+    			WorldConfig worldConfig = configManager.getWorldConfig(world);
+    			
+    			if ((worldConfig.disableWeather)) {
+    				world.setStorm(false);
+    				world.setThundering(false);
+    			} else if (worldConfig.disableThunder) {
+    				world.setThundering(false);
+    			}
+    		}
     	}
         
         // Register our events Type.

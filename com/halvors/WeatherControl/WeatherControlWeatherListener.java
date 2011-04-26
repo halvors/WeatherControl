@@ -52,7 +52,7 @@ public class WeatherControlWeatherListener extends WeatherListener {
 			World world = event.getWorld();
 			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
 		
-			if (worldConfig.disableThunder) {
+			if ((worldConfig.disableWeather) || worldConfig.disableThunder) {
 				event.setCancelled(true);
 			}
 		}
