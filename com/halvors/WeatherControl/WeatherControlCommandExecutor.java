@@ -66,10 +66,71 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 					WorldConfig worldConfig = configManager.getWorldConfig(world);
 					
 					if (!worldConfig.disableWeather) {
+						if (args.length == 0) {
+							if (world.hasStorm()) {
+								player.sendMessage(ChatColor.GREEN + "It's storm for " + world.getWeatherDuration() / 20 + " secounds.");
+							} else {
+								player.sendMessage(ChatColor.GREEN + "No actice storm.");
+							}
+						} else if (args.length == 1) {
+							if (args[1].equalsIgnoreCase("on")) {
+								if (!world.hasStorm()) {
+									world.setStorm(true);
+									
+									player.sendMessage(ChatColor.GREEN + "It's now storm.");
+								} else {
+									player.sendMessage(ChatColor.GREEN + "It's alrady a storm active!");
+								}
+							} else if (args[1].equalsIgnoreCase("off")) {
+								if (world.hasStorm()) {
+									player.sendMessage(ChatColor.GREEN + "It's no longer storm.");
+								} else {
+									player.sendMessage(ChatColor.GREEN + "It's alrady a storm active!");
+								}
+						}
+							
+						if (args.length == 2){
+							if (args[1].equalsIgnoreCase("on")) {
+								if (!world.hasStorm()) {
+									world.setWeatherDuration(worldConfig.defaultWeatherDuration * 20);
+								}
+							}
+						} else {
+							if (args[1].equalsIgnoreCase("on")) {
+								if (!world.hasStorm()) {
+									world.setWeatherDuration(worldConfig.defaultWeatherDuration * 20);
+								}
+							}
+						}
+						
+						
+						switch (args.length) {
+							case 1:
+								
+								break;
+							
+							case 2:
+								
+								} else {
+									// TODO: Error message here.
+								}
+								break;
+								
+							case 3:
+								
+								break;
+						}
+					} else {
+						player.sendMessage(ChatColor.RED + "Weather is disabled!");
+					}
+					
+					return true;
+				}
+					/*
 						if (world.hasStorm()) {
 							world.setStorm(false);
 							
-							player.sendMessage(ChatColor.GREEN + "It's no longer storm.");
+							
 						} else {
 							world.setStorm(true);
 							
@@ -80,12 +141,8 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 							}
 							player.sendMessage(ChatColor.GREEN + "It's now storm.");
 						}
-					} else {
-						player.sendMessage(ChatColor.RED + "Weather is disabled!");
-					}
-
-					return true;
-				}		
+					
+					*/
 			} else if (subCommand.equalsIgnoreCase("thunder")) {
 				if (WeatherControl.hasPermissions(player, "WeatherControl.thunder")) {
 					World world = player.getWorld();
@@ -200,3 +257,32 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 		}
 	}
 }
+
+/*
+ * } else if (subCommand.equalsIgnoreCase("weather")) {
+				if (WeatherControl.hasPermissions(player, "WeatherControl.weather")) {
+					World world = player.getWorld();
+					WorldConfig worldConfig = configManager.getWorldConfig(world);
+					
+					if (!worldConfig.disableWeather) {
+						if (world.hasStorm()) {
+							world.setStorm(false);
+							
+							player.sendMessage(ChatColor.GREEN + "It's no longer storm.");
+						} else {
+							world.setStorm(true);
+							
+							if (args.length == 2) {
+								world.setWeatherDuration(Integer.parseInt(args[1]) * 20);
+							} else {
+								world.setWeatherDuration(worldConfig.defaultWeatherDuration * 20);
+							}
+							player.sendMessage(ChatColor.GREEN + "It's now storm.");
+						}
+					} else {
+						player.sendMessage(ChatColor.RED + "Weather is disabled!");
+					}
+
+					return true;
+				}	
+ */

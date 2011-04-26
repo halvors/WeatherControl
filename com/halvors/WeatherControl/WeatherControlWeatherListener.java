@@ -25,6 +25,8 @@ import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.weather.WeatherListener;
 
+import org.bukkit.craftbukkit.CraftWorld;
+
 import com.halvors.WeatherControl.util.WorldConfig;
 
 public class WeatherControlWeatherListener extends WeatherListener {

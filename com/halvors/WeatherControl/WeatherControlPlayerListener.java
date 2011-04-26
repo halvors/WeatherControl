@@ -50,8 +50,8 @@ public class WeatherControlPlayerListener extends PlayerListener {
     		if (event.hasItem()) {
     			if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
     				if (event.getItem().getTypeId() == worldConfig.clickLightningStrikeItem) {
-    					if (WeatherControl.hasPermissions(player, "WeatherControl.clicklightningstrike")) {
-    						player.getWorld().strikeLightning(player.getTargetBlock(null, 600).getLocation());
+    					if (WeatherControl.hasPermissions(player, "WeatherControl.clicklightning")) {
+    						world.strikeLightning(player.getTargetBlock(null, 500).getLocation());
     					}
     				}
     			}
