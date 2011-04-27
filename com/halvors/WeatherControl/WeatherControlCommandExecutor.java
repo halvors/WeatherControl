@@ -19,11 +19,16 @@
 
 package com.halvors.WeatherControl;
 
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -47,17 +52,17 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 			
 			if (args.length == 0) {
 				if (WeatherControl.hasPermissions(player, "WeatherControl.help")) {
-					showHelp(player);
+					showHelp(player, label);
 					
 					return true;
 				}
 			}
-        
+			
 			String subCommand = args[0];
 			
 			if (subCommand.equalsIgnoreCase("help")) {
 				if (WeatherControl.hasPermissions(player, "WeatherControl.help")) {
-					showHelp(player);
+					showHelp(player, label);
 					
 					return true;
 				}
@@ -66,7 +71,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 					World world = player.getWorld();
 					WorldConfig worldConfig = configManager.getWorldConfig(world);
 					
-					if (!worldConfig.disableWeather) {
+					if (worldConfig.weatherEnable) {
 						if (args.length == 1) {
 							if (world.hasStorm()) {
 								player.sendMessage(ChatColor.GREEN + "It will storm in " + world.getWeatherDuration() / 20 + " secounds.");
@@ -83,7 +88,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 									int duration = Integer.parseInt(args[2]) * 20;	
 									world.setWeatherDuration(duration);
 								} else {
-									world.setWeatherDuration(worldConfig.defaultWeatherDuration * 20);
+									world.setWeatherDuration(worldConfig.weatherDefaultWeatherDuration * 20);
 								}
 								
 								player.sendMessage(ChatColor.GREEN + "It will storm in " + world.getWeatherDuration() / 20 + " secounds.");
@@ -109,7 +114,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 					World world = player.getWorld();
 					WorldConfig worldConfig = configManager.getWorldConfig(world);
 					
-					if (!worldConfig.disableThunder) {
+					if (worldConfig.thunderEnable) {
 						if (args.length == 1) {
 							if (world.isThundering()) {
 								player.sendMessage(ChatColor.GREEN + "It will thunder in " + world.getThunderDuration() / 20 + " secounds.");
@@ -125,7 +130,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 									int duration = Integer.parseInt(args[2]) * 20;	
 									world.setThunderDuration(duration);
 								} else {
-									world.setThunderDuration(worldConfig.defaultThunderDuration * 20);
+									world.setThunderDuration(worldConfig.thunderDefaultThunderDuration * 20);
 								}
 								
 								player.sendMessage(ChatColor.GREEN + "It will thunder in " + world.getThunderDuration() / 20 + " secounds.");
@@ -161,35 +166,83 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 						
 					return true;
 				}
-			} else if (subCommand.equalsIgnoreCase("lightning")) {
-				if (WeatherControl.hasPermissions(player, "WeatherControl.lightning")) {	
+			} else if (subCommand.equalsIgnoreCase("strike")) {
+				if (WeatherControl.hasPermissions(player, "WeatherControl.strike")) {
 					World world = player.getWorld();
-					WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+					WorldConfig worldConfig = configManager.getWorldConfig(world);
+					int distance = 0;
 					
-					if (!worldConfig.disableLightningStrike) {
-						if (args.length >= 2) {
-							Player target = plugin.getServer().getPlayer(args[1]);
-							world = player.getWorld();
+					switch (args.length) {
+					case 1:
+						world.strikeLightning(player.getLocation());
+						player.sendMessage(ChatColor.GREEN + "You have been struck by lightning!");
+						break;
 						
-							world.strikeLightning(target.getLocation());
+					case 2:
+						distance = worldConfig.lightningLightningStrikeDistance;
+						break;
 						
-							player.sendMessage(ChatColor.GREEN + player.getName() + " has been struck by lightning!");
-						} else {
-							world.strikeLightning(player.getLocation());
-						}
-					} else {
-						player.sendMessage(ChatColor.RED + "Lightning strike is disabled!");
+					case 3:
+						distance = Integer.parseInt(args[2]);
+						break;
 					}
 					
-					return true;
+					if (distance != 0) {
+						List<Entity> entities = player.getNearbyEntities(distance, distance, distance);
+						String entityType = null;
+						
+						if (args[1].equalsIgnoreCase("creeper")) {
+							entityType = "creeper";
+							
+							for (Entity entity : entities) {
+								if (entity instanceof Creeper) {
+									world = entity.getWorld();
+									world.strikeLightning(entity.getLocation());
+		          				}
+							}
+							
+							if (entities.size() > 1) {
+								entityType += "s";
+							}
+						
+							player.sendMessage(ChatColor.GREEN + Integer.toString(entities.size()) + " " + entityType + " have been struck by lightning!");
+						} else if (args[1].equalsIgnoreCase("pig")) {
+							entityType = "pig";
+							
+							for (Entity entity : entities) {
+								if (entity instanceof Pig) {
+									world = entity.getWorld();
+									world.strikeLightning(entity.getLocation());
+		          				}
+							}
+							
+							if (entities.size() > 1) {
+								entityType += "s";
+							}
+						
+							player.sendMessage(ChatColor.GREEN + Integer.toString(entities.size()) + " " + entityType + " have been struck by lightning!");
+						} else {
+							Player target = plugin.getServer().getPlayer(args[1]);
+							world = target.getWorld();
+							
+							world.strikeLightning(target.getLocation());
+							player.sendMessage(ChatColor.GREEN + player.getName() + " have been struck by lightning!");
+						}
+					}
 				}
 			} else if (subCommand.equalsIgnoreCase("wand")) {
 				if (WeatherControl.hasPermissions(player, "WeatherControl.wand")) {
 					World world = player.getWorld();
 					WorldConfig worldConfig = configManager.getWorldConfig(world);
 					
-					player.getInventory().addItem(new ItemStack(worldConfig.lightningStrikeWandItem, 1));
-					player.sendMessage(ChatColor.GREEN + "You got the lightning strike wand.");
+					int item = worldConfig.lightningLightningStrikeWandItem;
+					
+					if (item != 0) {
+						player.getInventory().addItem(new ItemStack(item, 1));
+						player.sendMessage(ChatColor.GREEN + "You got the lightning strike wand.");
+					} else {
+						player.sendMessage(ChatColor.RED + "Error: Wand not set in configuration file!");
+					}
 					
 					return true;
 				}
@@ -201,40 +254,42 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 					
 					return true;
 				}
+			} else {
+				showHelp(player, label);
 			}
 		}
 		
 		return false;
 	}
 
-	private void showHelp(Player player) {
+	private void showHelp(Player player, String label) {
+		String command = "/" + label + " ";
+		
 		player.sendMessage(ChatColor.GREEN + WeatherControl.name + ChatColor.GREEN + " (" + ChatColor.WHITE + WeatherControl.version + ChatColor.GREEN + ")");
 		player.sendMessage(ChatColor.RED + "[]" + ChatColor.WHITE + " Required, " + ChatColor.GREEN + "<>" + ChatColor.WHITE + " Optional.");
 
-		String command = "/wc ";
-		
 		if (WeatherControl.hasPermissions(player, "WeatherControl.help")) {
 			player.sendMessage(command + "help" + ChatColor.YELLOW + " - Show help.");
 		}
 		
 		if (WeatherControl.hasPermissions(player, "WeatherControl.weather")) {
-			player.sendMessage(command + "weather " + ChatColor.GREEN + "<" + ChatColor.WHITE + "on|off" + ChatColor.GREEN + "> <" + ChatColor.WHITE + "duration" + ChatColor.GREEN + ">" + ChatColor.YELLOW + " - Toogle weather.");
+			player.sendMessage(command + "weather " + ChatColor.GREEN + "<" + ChatColor.WHITE + "on|off" + ChatColor.GREEN + "> <" + ChatColor.WHITE + "duration" + ChatColor.GREEN + ">" + ChatColor.YELLOW + " - Show or toogle weather.");
 		}
 		
 		if (WeatherControl.hasPermissions(player, "WeatherControl.thunder")) {
-			player.sendMessage(command + "thunder " + ChatColor.GREEN + "<" + ChatColor.WHITE + "on|off" + ChatColor.GREEN + "> <" + ChatColor.WHITE + "duration" + ChatColor.GREEN + ">" + ChatColor.YELLOW + " - Toogle thunder.");
+			player.sendMessage(command + "thunder " + ChatColor.GREEN + "<" + ChatColor.WHITE + "on|off" + ChatColor.GREEN + "> <" + ChatColor.WHITE + "duration" + ChatColor.GREEN + ">" + ChatColor.YELLOW + " - Show or toogle thunder.");
 		}
 		
 		if (WeatherControl.hasPermissions(player, "WeatherControl.clear")) {
 			player.sendMessage(command + "clear " + ChatColor.YELLOW + " - Toogle clear.");
 		}
 		
-		if (WeatherControl.hasPermissions(player, "WeatherControl.lightning")) {
-			player.sendMessage(command + "lightning " + ChatColor.GREEN + "<" + ChatColor.WHITE + "player" + ChatColor.GREEN + ">" + ChatColor.YELLOW + " - Lightning strike yourself and/or other player.");
+		if (WeatherControl.hasPermissions(player, "WeatherControl.strike")) {
+			player.sendMessage(command + "strike " + ChatColor.GREEN + "<" + ChatColor.WHITE + "player|pig|creeper" + ChatColor.GREEN + "> <" + ChatColor.WHITE + "distance" + ChatColor.GREEN + ">" + ChatColor.YELLOW + " - Lightning strike player/pig/creeper.");
 		}
 		
 		if (WeatherControl.hasPermissions(player, "WeatherControl.wand")) {
-			player.sendMessage(command + "wand" + ChatColor.YELLOW + " - Give wand item.");
+			player.sendMessage(command + "wand" + ChatColor.YELLOW + " - Give you the wand item.");
 		}
 		
 		if (WeatherControl.hasPermissions(player, "WeatherControl.reload")) {

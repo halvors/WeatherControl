@@ -38,20 +38,24 @@ public class WorldConfig {
     private File configFile;
 
     /* Configuration data start */
-    public int defaultWeatherDuration;
-    public boolean disableWeather;
+    public boolean weatherEnable;
+    public int weatherDefaultWeatherDuration;
     
-    public int defaultThunderDuration;
-    public boolean disableThunder;
+    public boolean thunderEnable;
+    public int thunderDefaultThunderDuration;
     
-    public boolean lightningStrikeExplosion;
-    public boolean lightningStrikeWand;
-    public int lightningStrikeWandItem;
-    public boolean disableLightningStrike;
-    public boolean disableCreeperPower;
-    public boolean disablePigZap;
-    public boolean disableLightningStrikeDamage;
-    public boolean disableLightningStrikeFire;
+    public boolean lightningEnable;
+    
+    public boolean lightningLightningStrikeWand;
+    public int lightningLightningStrikeWandItem;
+    public int lightningLightningStrikeWandMultiCount;
+    public int lightningLightningStrikeDistance;
+    
+    public boolean lightningDisableCreeperPower;
+    public boolean lightningDisablePigZap;
+    public boolean lightningDisableLightningStrikePlayerDamage;
+    public boolean lightningDisableLightningStrikeMobDamage;
+    public boolean lightningDisableLightningStrikeFire;
     /* Configuration data end */
 
     /**
@@ -81,19 +85,24 @@ public class WorldConfig {
         Configuration config = new Configuration(configFile);
         config.load();
         
-        defaultWeatherDuration = config.getInt("weather.defaultWeatherDuration", defaultWeatherDuration);
-        disableWeather = config.getBoolean("weather.disableWeather", disableWeather);
+        weatherEnable = config.getBoolean("weather.enable", weatherEnable);
+        weatherDefaultWeatherDuration = config.getInt("weather.defaultWeatherDuration", weatherDefaultWeatherDuration);
         
-        defaultThunderDuration = config.getInt("thunder.defaultThunderDuration", defaultThunderDuration);
-        disableThunder = config.getBoolean("thunder.disableThunder", disableThunder);
+        thunderEnable = config.getBoolean("thunder.enable", thunderEnable);
+        thunderDefaultThunderDuration = config.getInt("thunder.defaultThunderDuration", thunderDefaultThunderDuration);
         
-        lightningStrikeWand = config.getBoolean("lightning.lightningStrikeWand", lightningStrikeWand);
-        lightningStrikeWandItem = config.getInt("lightning.lightningStrikeWandItem", lightningStrikeWandItem);
-        disableLightningStrike = config.getBoolean("lightning.disableLightningStrike", disableLightningStrike);
-        disableCreeperPower = config.getBoolean("lightning.disableCreeperPower", disableCreeperPower);
-        disablePigZap = config.getBoolean("lightning.disablePigZap", disablePigZap);
-        disableLightningStrikeDamage = config.getBoolean("lightning.disableLightningStrikeDamage", disableLightningStrikeDamage);
-        disableLightningStrikeFire = config.getBoolean("lightning.disableLightningStrikeFire", disableLightningStrikeFire);
+        lightningEnable = config.getBoolean("lightning.enable", lightningEnable);
+        
+        lightningLightningStrikeWand = config.getBoolean("lightning.lightningStrikeWand", lightningLightningStrikeWand);
+        lightningLightningStrikeWandItem = config.getInt("lightning.lightningStrikeWandItem", lightningLightningStrikeWandItem);
+        lightningLightningStrikeWandMultiCount = config.getInt("lightning.lightningStrikeWandMultiCount", lightningLightningStrikeWandMultiCount);
+        lightningLightningStrikeDistance = config.getInt("lightning.lightningStrikeDistance", lightningLightningStrikeDistance);
+        
+        lightningDisableCreeperPower = config.getBoolean("lightning.disableCreeperPower", lightningDisableCreeperPower);
+        lightningDisablePigZap = config.getBoolean("lightning.disablePigZap", lightningDisablePigZap);
+        lightningDisableLightningStrikePlayerDamage = config.getBoolean("lightning.disableLightningStrikePlayerDamage", lightningDisableLightningStrikePlayerDamage);
+        lightningDisableLightningStrikeMobDamage = config.getBoolean("lightning.disableLightningStrikeMobDamage", lightningDisableLightningStrikeMobDamage);
+        lightningDisableLightningStrikeFire = config.getBoolean("lightning.disableLightningStrikeFire", lightningDisableLightningStrikeFire);
     }
 
     /**

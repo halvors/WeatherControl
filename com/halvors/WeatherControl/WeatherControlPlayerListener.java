@@ -46,15 +46,32 @@ public class WeatherControlPlayerListener extends PlayerListener {
     	World world = player.getWorld();
     	WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
     	
-		if (!worldConfig.disableLightningStrike) {
-    		if (event.hasItem()) {
-    			if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
-    				if (event.getItem().getTypeId() == worldConfig.lightningStrikeWandItem) {
-    					if (WeatherControl.hasPermissions(player, "WeatherControl.lightningwand")) {
-    						world.strikeLightning(player.getTargetBlock(null, 500).getLocation());
-    					}
-    				}
-    			}
+		if (worldConfig.lightningEnable) {
+			if (WeatherControl.hasPermissions(player, "WeatherControl.lightning")) {
+				if (event.hasItem()) {
+					int item = worldConfig.lightningLightningStrikeWandItem;
+					int count = worldConfig.lightningLightningStrikeWandMultiCount;
+					
+					if (item != 0) {
+						if (event.getItem().getTypeId() == item) {
+							if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
+								world.strikeLightning(player.getTargetBlock(null, 500).getLocation());
+							}
+							
+							if ((action == Action.RIGHT_CLICK_BLOCK) || (action == Action.RIGHT_CLICK_AIR)) {
+								if (count != 0) {
+									for (int i = 0; i < count; i++) {
+										world.strikeLightning(player.getTargetBlock(null, 500).getLocation());
+									}
+								} else {
+									player.sendMessage(ChatColor.RED + "Error: Count not set in configuration file!");
+								}
+							}
+						}
+					} else {
+						player.sendMessage(ChatColor.RED + "Error: Wand not set in configuration file!");
+					}
+				}
     		}
 		} else {
 			player.sendMessage(ChatColor.RED + "Lightning strike is disabled!");

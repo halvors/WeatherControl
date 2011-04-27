@@ -4,18 +4,23 @@
 # corresponding world.
 
 weather:
+    enable: true # Enable weather.
     defaultWeatherDuration: 300 # Default 5 minutes (300 secounds).
-    disableWeather: false # Disable weather.
     
 thunder:
+    enable: true # Enable thunder.
     defaultThunderDuration: 300 # Default 5 minutes (300 secounds).
-    disableThunder: false # Disable thunder.
     
 lightning:
-    lightningStrikeWand: true 
-    lightningStrikeWandItem: 348
-    disableLightningStrike: false # Disable lightning strike.
+    enable: true # Enable lightning strike.
+    
+    lightningStrikeWand: true # Enable wand to strike lightning.
+    lightningStrikeWandItem: 348 # Wand item.
+    lightningStrikeWandMultiCount: 5 # Multi lightning strike count.
+    lightningLightningStrikeDistance: 10 # Default distance for strike command.
+    
     disableCreeperPower: false # Disable creeper power.
     disablePigZap: false # Disable pig zap.
-    disableLightningStrikeDamage: false # Prevent players to be damaged by lightning stirke.
+    disableLightningStrikePlayerDamage: false # Prevent players to be damaged by lightning stirke.
+    disableLightningStrikeMobDamage: false # Prevent mobs to be damaged by lightning stirke.
     disableLightningStrikeFire: false # Prevent lightning strike to cause fire.

@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -82,10 +81,10 @@ public class WeatherControl extends JavaPlugin {
     		if ((world.hasStorm()) || (world.isThundering())) {
     			WorldConfig worldConfig = configManager.getWorldConfig(world);
     			
-    			if ((worldConfig.disableWeather)) {
+    			if ((!worldConfig.weatherEnable)) {
     				world.setStorm(false);
     				world.setThundering(false);
-    			} else if (worldConfig.disableThunder) {
+    			} else if (!worldConfig.thunderEnable) {
     				world.setThundering(false);
     			}
     		}
@@ -106,6 +105,7 @@ public class WeatherControl extends JavaPlugin {
         
 		// Register our commands
         getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));
+        getCommand("weather").setExecutor(new WeatherControlCommandExecutor(this));
 		
         log(Level.INFO, "version " + version + " is enabled!");
         

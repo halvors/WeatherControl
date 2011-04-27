@@ -42,11 +42,11 @@ public class WeatherControlBlockListener extends BlockListener {
 	public void onBlockIgnite(BlockIgniteEvent event) {
 		if (!event.isCancelled()) {
 			Block block = event.getBlock();
-			World world = block.getWorld();
 			IgniteCause cause = event.getCause();
+			World world = block.getWorld();
 			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
 			
-			if (worldConfig.disableLightningStrikeFire && cause == IgniteCause.LIGHTNING) {
+			if (worldConfig.lightningDisableLightningStrikeFire && cause == IgniteCause.LIGHTNING) {
 				event.setCancelled(true);
 			}
 		}
