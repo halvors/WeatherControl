@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * Copyright (C) 2011 halvors <halvors@skymiastudios.com>.
  *
@@ -18,8 +17,6 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-=======
->>>>>>> 482fb8815fa8d13e587d4cf60eb186f89487eed4
 package com.halvors.WeatherControl;
 
 import org.bukkit.World;
@@ -39,7 +36,6 @@ public class WeatherControlWeatherListener extends WeatherListener {
 	
 	@Override
 	public void onWeatherChange(WeatherChangeEvent event) {
-<<<<<<< HEAD
 		if (!event.isCancelled()) {
 			World world = event.getWorld();
 			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
@@ -49,19 +45,11 @@ public class WeatherControlWeatherListener extends WeatherListener {
 					event.setCancelled(true);
 				}
 			}
-=======
-		World world = event.getWorld();
-		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
-		
-		if (worldConfig.disableWeather) {
-			event.setCancelled(true);
->>>>>>> 482fb8815fa8d13e587d4cf60eb186f89487eed4
 		}
 	}
 	
 	@Override
 	public void onThunderChange(ThunderChangeEvent event) {
-<<<<<<< HEAD
 		if (!event.isCancelled()) {
 			World world = event.getWorld();
 			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
@@ -71,33 +59,18 @@ public class WeatherControlWeatherListener extends WeatherListener {
 					event.setCancelled(true);
 				}
 			}
-=======
-		World world = event.getWorld();
-		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
-		
-		if (worldConfig.disableThunder) {
-			event.setCancelled(true);
->>>>>>> 482fb8815fa8d13e587d4cf60eb186f89487eed4
 		}
 	}
 
 	@Override
 	public void onLightningStrike(LightningStrikeEvent event) {
-<<<<<<< HEAD
 		if (!event.isCancelled()) {
 			World world = event.getWorld();
 			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
 		
-			if (!worldConfig.lightningEnable) {
+			if (worldConfig.disableLightningStrike) {
 				event.setCancelled(true);
 			}
-=======
-		World world = event.getWorld();
-		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
-		
-		if (worldConfig.disableLightningStrike) {
-			event.setCancelled(true);
->>>>>>> 482fb8815fa8d13e587d4cf60eb186f89487eed4
 		}
 	}
 }
