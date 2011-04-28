@@ -62,12 +62,16 @@ public class WeatherControl extends JavaPlugin {
     	entityListener = new WeatherControlEntityListener(this);
     	playerListener = new WeatherControlPlayerListener(this);
     	weatherListener = new WeatherControlWeatherListener(this);
+<<<<<<< HEAD
     }
    
     public void onEnable() {
     	pm = this.getServer().getPluginManager();
     	pdfFile = this.getDescription();
 
+=======
+    	
+>>>>>>> 482fb8815fa8d13e587d4cf60eb186f89487eed4
         // Load name and version from pdfFile
         name = pdfFile.getName();
         version = pdfFile.getVersion();
@@ -97,11 +101,21 @@ public class WeatherControl extends JavaPlugin {
         pm.registerEvent(Event.Type.CREEPER_POWER, entityListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PIG_ZAP, entityListener, Event.Priority.Normal, this);
         
+<<<<<<< HEAD
         pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Event.Priority.Normal, this);
+=======
+        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.CREEPER_POWER, entityListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.PIG_ZAP, entityListener, Priority.Normal, this);
+>>>>>>> 482fb8815fa8d13e587d4cf60eb186f89487eed4
         
         pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.THUNDER_CHANGE, weatherListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.LIGHTNING_STRIKE, weatherListener, Event.Priority.Normal, this);
+        
+        pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.THUNDER_CHANGE, weatherListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.LIGHTNING_STRIKE, weatherListener, Priority.Normal, this);
         
 		// Register our commands
         getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));

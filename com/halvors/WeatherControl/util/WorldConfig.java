@@ -38,6 +38,7 @@ public class WorldConfig {
     private File configFile;
 
     /* Configuration data start */
+<<<<<<< HEAD
     public boolean weatherEnable;
     public int weatherDefaultWeatherDuration;
     
@@ -56,6 +57,20 @@ public class WorldConfig {
     public boolean lightningDisableLightningStrikePlayerDamage;
     public boolean lightningDisableLightningStrikeMobDamage;
     public boolean lightningDisableLightningStrikeFire;
+=======
+    public boolean disableWeather;
+    public int defaultWeatherDuration;
+    
+    
+    public boolean disableThunder;
+    public int defaultThunderDuration;
+    
+    public boolean disableLightningStrike;
+    public boolean disableLightningStrikeDamage;
+    public boolean disableLightningStrikeFire;
+    public boolean clickLightningStrike;
+    public int clickLightningStrikeItem;
+>>>>>>> 482fb8815fa8d13e587d4cf60eb186f89487eed4
     /* Configuration data end */
 
     /**
@@ -85,6 +100,7 @@ public class WorldConfig {
         Configuration config = new Configuration(configFile);
         config.load();
         
+<<<<<<< HEAD
         weatherEnable = config.getBoolean("weather.enable", weatherEnable);
         weatherDefaultWeatherDuration = config.getInt("weather.defaultWeatherDuration", weatherDefaultWeatherDuration);
         
@@ -103,6 +119,19 @@ public class WorldConfig {
         lightningDisableLightningStrikePlayerDamage = config.getBoolean("lightning.disableLightningStrikePlayerDamage", lightningDisableLightningStrikePlayerDamage);
         lightningDisableLightningStrikeMobDamage = config.getBoolean("lightning.disableLightningStrikeMobDamage", lightningDisableLightningStrikeMobDamage);
         lightningDisableLightningStrikeFire = config.getBoolean("lightning.disableLightningStrikeFire", lightningDisableLightningStrikeFire);
+=======
+        disableWeather = config.getBoolean("disableWeather", disableWeather);
+        defaultWeatherDuration = config.getInt("defaultWeatherDuration", defaultWeatherDuration);
+        
+        disableThunder = config.getBoolean("disableThunder", disableThunder);
+        defaultThunderDuration = config.getInt("defaultThunderDuration", defaultThunderDuration);
+        
+        disableLightningStrike = config.getBoolean("disableLightningStrike", disableLightningStrike);
+        disableLightningStrikeDamage = config.getBoolean("protection.disableLightningStrikeDamage", disableLightningStrikeDamage);
+        disableLightningStrikeFire = config.getBoolean("protection.disableLightningStrikeFire", disableLightningStrikeFire);
+        clickLightningStrike = config.getBoolean("clickLightningStrike", clickLightningStrike);
+        clickLightningStrikeItem = config.getInt("clickLightningStrikeItem", clickLightningStrikeItem);
+>>>>>>> 482fb8815fa8d13e587d4cf60eb186f89487eed4
     }
 
     /**
