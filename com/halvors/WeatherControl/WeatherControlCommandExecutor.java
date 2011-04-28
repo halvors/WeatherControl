@@ -74,7 +74,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 					if (worldConfig.weatherEnable) {
 						if (args.length == 1) {
 							if (world.hasStorm()) {
-								player.sendMessage(ChatColor.GREEN + "It will storm in " + world.getWeatherDuration() / 20 + " secounds.");
+								player.sendMessage(ChatColor.GREEN + "It will storm in " + world.getWeatherDuration() / 20 + " seconds.");
 							} else {
 								player.sendMessage(ChatColor.GREEN + "No active storm.");
 							
@@ -91,7 +91,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 									world.setWeatherDuration(worldConfig.weatherDefaultWeatherDuration * 20);
 								}
 								
-								player.sendMessage(ChatColor.GREEN + "It will storm in " + world.getWeatherDuration() / 20 + " secounds.");
+								player.sendMessage(ChatColor.GREEN + "It will storm in " + world.getWeatherDuration() / 20 + " seconds.");
 							} else if (args[1].equalsIgnoreCase("off")) {
 								if (world.hasStorm()) {
 									world.setStorm(false);
@@ -117,7 +117,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 					if (worldConfig.thunderEnable) {
 						if (args.length == 1) {
 							if (world.isThundering()) {
-								player.sendMessage(ChatColor.GREEN + "It will thunder in " + world.getThunderDuration() / 20 + " secounds.");
+								player.sendMessage(ChatColor.GREEN + "It will thunder in " + world.getThunderDuration() / 20 + " seconds.");
 							} else {
 								player.sendMessage(ChatColor.GREEN + "No active thunder.");
 							}
@@ -133,7 +133,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 									world.setThunderDuration(worldConfig.thunderDefaultThunderDuration * 20);
 								}
 								
-								player.sendMessage(ChatColor.GREEN + "It will thunder in " + world.getThunderDuration() / 20 + " secounds.");
+								player.sendMessage(ChatColor.GREEN + "It will thunder in " + world.getThunderDuration() / 20 + " seconds.");
 							} else if (args[1].equalsIgnoreCase("off")) {
 								if (world.isThundering()) {
 									world.setStorm(false);
