@@ -68,7 +68,7 @@ public class WeatherControlWeatherListener extends WeatherListener {
 			World world = event.getWorld();
 			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
 		
-			if (worldConfig.disableLightningStrike) {
+			if (!worldConfig.lightningEnable) {
 				event.setCancelled(true);
 			}
 		}

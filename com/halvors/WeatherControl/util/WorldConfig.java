@@ -57,19 +57,6 @@ public class WorldConfig {
     public boolean lightningDisableLightningStrikePlayerDamage;
     public boolean lightningDisableLightningStrikeMobDamage;
     public boolean lightningDisableLightningStrikeFire;
-    
-    public boolean disableWeather;
-    public int defaultWeatherDuration;
-    
-    
-    public boolean disableThunder;
-    public int defaultThunderDuration;
-    
-    public boolean disableLightningStrike;
-    public boolean disableLightningStrikeDamage;
-    public boolean disableLightningStrikeFire;
-    public boolean clickLightningStrike;
-    public int clickLightningStrikeItem;
     /* Configuration data end */
 
     /**

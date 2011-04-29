@@ -41,40 +41,42 @@ public class WeatherControlPlayerListener extends PlayerListener {
 
     @Override
     public void onPlayerInteract(PlayerInteractEvent event) {
-    	Action action = event.getAction();
-    	Player player = event.getPlayer();
-    	World world = player.getWorld();
-    	WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+		Action action = event.getAction();
+		Player player = event.getPlayer();
+		World world = player.getWorld();
+		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
     	
-		if (worldConfig.lightningEnable) {
-			if (WeatherControl.hasPermissions(player, "WeatherControl.lightning")) {
-				if (event.hasItem()) {
-					int item = worldConfig.lightningLightningStrikeWandItem;
-					int count = worldConfig.lightningLightningStrikeWandMultiCount;
+    	if (WeatherControl.hasPermissions(player, "WeatherControl.lightning")) {
+			if (worldConfig.lightningEnable) {
+				if (worldConfig.lightningLightningStrikeWand) {
+					if (event.hasItem()) {
+						int item = worldConfig.lightningLightningStrikeWandItem;
+						int count = worldConfig.lightningLightningStrikeWandMultiCount;
 					
-					if (item != 0) {
-						if (event.getItem().getTypeId() == item) {
-							if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
-								world.strikeLightning(player.getTargetBlock(null, 500).getLocation());
-							}
-							
-							if ((action == Action.RIGHT_CLICK_BLOCK) || (action == Action.RIGHT_CLICK_AIR)) {
-								if (count != 0) {
-									for (int i = 0; i < count; i++) {
-										world.strikeLightning(player.getTargetBlock(null, 500).getLocation());
+						if (item != 0) {
+							if (event.getItem().getTypeId() == item) {
+								if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
+									world.strikeLightning(player.getTargetBlock(null, 500).getLocation());
+								} else if ((action == Action.RIGHT_CLICK_BLOCK) || (action == Action.RIGHT_CLICK_AIR)) {
+									if (count != 0) {
+										for (int i = 0; i < count; i++) {
+											world.strikeLightning(player.getTargetBlock(null, 500).getLocation());
+										}
+									} else {
+										player.sendMessage(ChatColor.RED + "Error: Count not set in configuration file!");
 									}
-								} else {
-									player.sendMessage(ChatColor.RED + "Error: Count not set in configuration file!");
 								}
 							}
+						} else {
+							player.sendMessage(ChatColor.RED + "Error: Wand not set in configuration file!");
 						}
-					} else {
-						player.sendMessage(ChatColor.RED + "Error: Wand not set in configuration file!");
 					}
+				} else {
+					player.sendMessage(ChatColor.RED + "Wand is disabled!");
 				}
-    		}
-		} else {
-			player.sendMessage(ChatColor.RED + "Lightning strike is disabled!");
-		}
+			} else {
+				player.sendMessage(ChatColor.RED + "Lightning is disabled!");
+			}
+    	}
     }
 }

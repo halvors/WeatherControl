@@ -17,7 +17,7 @@ lightning:
     lightningStrikeWand: true # Enable wand to strike lightning.
     lightningStrikeWandItem: 348 # Wand item.
     lightningStrikeWandMultiCount: 5 # Multi lightning strike count.
-    lightningLightningStrikeDistance: 10 # Default distance for strike command.
+    lightningStrikeDistance: 10 # Default distance for strike command.
     
     disableCreeperPower: false # Disable creeper power.
     disablePigZap: false # Disable pig zap.

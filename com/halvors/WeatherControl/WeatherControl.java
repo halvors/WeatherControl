@@ -105,7 +105,6 @@ public class WeatherControl extends JavaPlugin {
         
 		// Register our commands
         getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));
-        getCommand("weather").setExecutor(new WeatherControlCommandExecutor(this));
 		
         log(Level.INFO, "version " + version + " is enabled!");
         
