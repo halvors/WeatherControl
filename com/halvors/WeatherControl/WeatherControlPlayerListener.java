@@ -48,11 +48,11 @@ public class WeatherControlPlayerListener extends PlayerListener {
     	
     	if (WeatherControl.hasPermissions(player, "WeatherControl.lightning")) {
 			if (worldConfig.lightningEnable) {
-				if (worldConfig.lightningLightningStrikeWand) {
-					if (event.hasItem()) {
+				if (event.hasItem()) {
+					if (worldConfig.lightningLightningStrikeWand) {
 						int item = worldConfig.lightningLightningStrikeWandItem;
 						int count = worldConfig.lightningLightningStrikeWandMultiCount;
-					
+						
 						if (item != 0) {
 							if (event.getItem().getTypeId() == item) {
 								if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
@@ -66,16 +66,14 @@ public class WeatherControlPlayerListener extends PlayerListener {
 										player.sendMessage(ChatColor.RED + "Error: Count not set in configuration file!");
 									}
 								}
+							} else {
+								player.sendMessage(ChatColor.RED + "Error: Wand not set in configuration file!");
 							}
-						} else {
-							player.sendMessage(ChatColor.RED + "Error: Wand not set in configuration file!");
 						}
 					}
-				} else {
-					player.sendMessage(ChatColor.RED + "Wand is disabled!");
+				}  else {
+					player.sendMessage(ChatColor.RED + "Lightning is disabled!");
 				}
-			} else {
-				player.sendMessage(ChatColor.RED + "Lightning is disabled!");
 			}
     	}
     }

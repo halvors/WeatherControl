@@ -173,7 +173,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 						WorldConfig worldConfig = configManager.getWorldConfig(world);
 					
 						
-						if (!worldConfig.lightningEnable) {
+						if (worldConfig.lightningEnable) {
 							Player target = null;
 
 							switch (args.length) {
