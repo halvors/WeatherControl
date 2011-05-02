@@ -171,24 +171,30 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 					if (WeatherControl.hasPermissions(player, "WeatherControl.strike")) {
 						World world = player.getWorld();
 						WorldConfig worldConfig = configManager.getWorldConfig(world);
-					
 						
 						if (worldConfig.lightningEnable) {
 							Player target = null;
 
 							switch (args.length) {
-								case 1:
-									target = player;
-									player.sendMessage(ChatColor.GREEN + "You have been struck by lightning!");
-									break;
-						
-								case 2:
-									target = plugin.getServer().getPlayer(args[1]);
+							case 1:
+								target = player;
+								player.sendMessage(ChatColor.GREEN + "You have been struck by lightning!");
+								break;
+								
+							case 2:
+								target = plugin.getServer().getPlayer(args[1]);
+								
+								if (target != null) {
 									player.sendMessage(ChatColor.GREEN + player.getName() + " have been struck by lightning!");
-									break;
+								} else {
+									player.sendMessage(ChatColor.RED + "Player does not exist!");
+								}
+								break;
 							}
-
-							target.getWorld().strikeLightning(target.getLocation());
+							
+							if (target != null) {
+								target.getWorld().strikeLightning(target.getLocation());
+							}
 						} else {
 							player.sendMessage(ChatColor.RED + "Lightning is disabled!");
 						}
