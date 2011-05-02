@@ -1,4 +1,16 @@
-
-/.project
+# Eclipse
 /.classpath
+/.project
+/.settings
+
+# Netbeans
+/nbproject
+
+# Various other potential build files
+/build
+/bin
+/dist
+/manifest.mf
+
+# Classes
 *.class
