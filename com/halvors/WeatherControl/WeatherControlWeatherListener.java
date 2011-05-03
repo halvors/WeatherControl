@@ -30,8 +30,8 @@ import com.halvors.WeatherControl.util.WorldConfig;
 public class WeatherControlWeatherListener extends WeatherListener {
 	private final WeatherControl plugin;
 	
-	public WeatherControlWeatherListener(WeatherControl instance) {
-		this.plugin = instance;
+	public WeatherControlWeatherListener(WeatherControl plugin) {
+		this.plugin = plugin;
 	}
 	
 	@Override

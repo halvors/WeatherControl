@@ -41,8 +41,8 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 
 	private ConfigManager configManager;
 	
-	public WeatherControlCommandExecutor(WeatherControl instance) {
-		this.plugin = instance;
+	public WeatherControlCommandExecutor(WeatherControl plugin) {
+		this.plugin = plugin;
 		
 		configManager = plugin.getConfigManager();
 	}

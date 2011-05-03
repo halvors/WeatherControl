@@ -40,34 +40,26 @@ public class WeatherControl extends JavaPlugin {
 	public static String name;
 	public static String version;
 	
-	private Logger log = Logger.getLogger("Minecraft");
-	private PluginManager pm;
-	private PluginDescriptionFile pdfFile;
+	private final Logger log = Logger.getLogger("Minecraft");
+	private final PluginManager pm = this.getServer().getPluginManager();
+	private final PluginDescriptionFile pdfFile = this.getDescription();
 
-	private ConfigManager configManager;
+	private final ConfigManager configManager = new ConfigManager(this);
 	
-	private WeatherControlBlockListener blockListener;
-	private WeatherControlEntityListener entityListener;
-	private WeatherControlPlayerListener playerListener;
-	private WeatherControlWeatherListener weatherListener;
+	private final WeatherControlBlockListener blockListener = new WeatherControlBlockListener(this);
+	private final WeatherControlEntityListener entityListener = new WeatherControlEntityListener(this);
+	private final WeatherControlPlayerListener playerListener = new WeatherControlPlayerListener(this);
+	private final WeatherControlWeatherListener weatherListener = new WeatherControlWeatherListener(this);
 	
     public static PermissionHandler Permissions;
     
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
     
     public WeatherControl() {
-    	configManager = new ConfigManager(this);
     	
-    	blockListener = new WeatherControlBlockListener(this);
-    	entityListener = new WeatherControlEntityListener(this);
-    	playerListener = new WeatherControlPlayerListener(this);
-    	weatherListener = new WeatherControlWeatherListener(this);
     }
    
     public void onEnable() {
-    	pm = this.getServer().getPluginManager();
-    	pdfFile = this.getDescription();
-
         // Load name and version from pdfFile
         name = pdfFile.getName();
         version = pdfFile.getVersion();

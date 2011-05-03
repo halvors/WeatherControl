@@ -34,8 +34,8 @@ import com.halvors.WeatherControl.util.WorldConfig;
 public class WeatherControlBlockListener extends BlockListener {
 	private final WeatherControl plugin;
 	
-    public WeatherControlBlockListener(WeatherControl instance) {
-        this.plugin = instance;
+    public WeatherControlBlockListener(WeatherControl plugin) {
+        this.plugin = plugin;
     }
 	
     @Override
