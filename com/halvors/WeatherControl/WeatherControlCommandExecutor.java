@@ -185,7 +185,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 								target = plugin.getServer().getPlayer(args[1]);
 								
 								if (target != null) {
-									player.sendMessage(ChatColor.GREEN + player.getName() + " have been struck by lightning!");
+									player.sendMessage(ChatColor.GREEN + target.getName() + " have been struck by lightning!");
 								} else {
 									player.sendMessage(ChatColor.RED + "Player does not exist!");
 								}

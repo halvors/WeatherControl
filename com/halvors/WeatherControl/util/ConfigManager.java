@@ -38,7 +38,6 @@ import com.halvors.WeatherControl.WeatherControl;
  * @author halvors
  */
 public class ConfigManager {
-
     /**
      * Reference to the plugin.
      */
