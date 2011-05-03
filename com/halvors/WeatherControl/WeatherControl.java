@@ -41,8 +41,8 @@ public class WeatherControl extends JavaPlugin {
 	public static String version;
 	
 	private final Logger log = Logger.getLogger("Minecraft");
-	private final PluginManager pm = this.getServer().getPluginManager();
-	private final PluginDescriptionFile pdfFile = this.getDescription();
+	private PluginManager pm;
+	private PluginDescriptionFile pdfFile;
 
 	private final ConfigManager configManager = new ConfigManager(this);
 	
@@ -60,6 +60,9 @@ public class WeatherControl extends JavaPlugin {
     }
    
     public void onEnable() {
+    	pm = this.getServer().getPluginManager();
+    	pdfFile = this.getDescription();
+    	
         // Load name and version from pdfFile
         name = pdfFile.getName();
         version = pdfFile.getVersion();
