@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
@@ -123,13 +124,19 @@ public class WeatherControl extends JavaPlugin {
             }
         }
     }
-
-    public static boolean hasPermissions(Player p, String s) {
-        if (Permissions != null) {
-            return Permissions.has(p, s);
-        } else {
-            return p.isOp();
+    
+    public static boolean hasPermissions(CommandSender sender, String node) {
+        if (sender instanceof Player) {
+            Player player = (Player)sender;
+            
+            if (Permissions != null) {
+                return Permissions.has(player, node);
+        	} else {
+                return player.isOp();
+            }
         }
+
+        return true;
     }
     
     public boolean isDebugging(final Player player) {
