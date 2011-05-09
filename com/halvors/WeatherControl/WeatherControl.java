@@ -24,7 +24,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.World;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
@@ -46,6 +45,7 @@ public class WeatherControl extends JavaPlugin {
 	private PluginDescriptionFile pdfFile;
 
 	private final ConfigManager configManager = new ConfigManager(this);
+	private final WeatherManager weatherManager = new WeatherManager(this);
 	
 	private final WeatherControlBlockListener blockListener = new WeatherControlBlockListener(this);
 	private final WeatherControlEntityListener entityListener = new WeatherControlEntityListener(this);
@@ -60,6 +60,7 @@ public class WeatherControl extends JavaPlugin {
     	
     }
    
+    @Override
     public void onEnable() {
     	pm = this.getServer().getPluginManager();
     	pdfFile = this.getDescription();
@@ -77,10 +78,8 @@ public class WeatherControl extends JavaPlugin {
     		if ((world.hasStorm()) || (world.isThundering())) {
     			WorldConfig worldConfig = configManager.getWorldConfig(world);
     			
-    			if ((!worldConfig.weatherEnable)) {
+    			if ((!worldConfig.weatherEnable) || (!worldConfig.thunderEnable)) {
     				world.setStorm(false);
-    				world.setThundering(false);
-    			} else if (!worldConfig.thunderEnable) {
     				world.setThundering(false);
     			}
     		}
@@ -100,13 +99,14 @@ public class WeatherControl extends JavaPlugin {
         pm.registerEvent(Event.Type.THUNDER_CHANGE, weatherListener, Event.Priority.Normal, this);
         
 		// Register our commands
-        getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));
+        this.getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));
 		
         log(Level.INFO, "version " + version + " is enabled!");
         
         setupPermissions();
     }
     
+    @Override
     public void onDisable() {
     	configManager.save();
     	
@@ -125,19 +125,14 @@ public class WeatherControl extends JavaPlugin {
         }
     }
     
-    public static boolean hasPermissions(CommandSender sender, String node) {
-        if (sender instanceof Player) {
-            Player player = (Player)sender;
-            
-            if (Permissions != null) {
-                return Permissions.has(player, node);
-        	} else {
-                return player.isOp();
-            }
+    public static boolean hasPermissions(Player player, String node) {
+        if (Permissions != null) {
+            return Permissions.has(player, node);
+        } else {
+            return player.isOp();
         }
-
-        return true;
     }
+    
     
     public boolean isDebugging(final Player player) {
         if (debugees.containsKey(player)) {
@@ -157,5 +152,9 @@ public class WeatherControl extends JavaPlugin {
     
     public ConfigManager getConfigManager() {
     	return configManager;
+    }
+    
+    public WeatherManager getWeatherManager() {
+    	return weatherManager;
     }
 }

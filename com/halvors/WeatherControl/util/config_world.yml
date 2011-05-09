@@ -5,19 +5,16 @@
 
 weather:
     enable: true # Enable weather.
-    defaultWeatherDuration: 300 # Default 5 minutes (300 secounds).
+    interval: 0
     
 thunder:
     enable: true # Enable thunder.
-    defaultThunderDuration: 300 # Default 5 minutes (300 secounds).
+    interval: 0 
     
 lightning:
     enable: true # Enable lightning strike.
-    
-    lightningStrikeWand: true # Enable wand to strike lightning.
-    lightningStrikeWandItem: 348 # Wand item.
-    lightningStrikeWandMultiCount: 5 # Multi lightning strike count.
-    lightningStrikeDistance: 10 # Default distance for strike command.
+    wand: 348
+    distance: 10 # Default distance for strikemob command.
     
     disableCreeperPower: false # Disable creeper power.
     disablePigZap: false # Disable pig zap.

@@ -27,7 +27,7 @@ import org.bukkit.util.config.Configuration;
 import com.halvors.WeatherControl.WeatherControl;
 
 /**
- * Holds the configuration for individual worlds.
+ * Holds the configuration for individual worlds
  *
  * @author halvors
  */
@@ -40,17 +40,12 @@ public class WorldConfig {
     /* Configuration data start */
 
     public boolean weatherEnable;
-    public int weatherDefaultWeatherDuration;
-    
+
     public boolean thunderEnable;
-    public int thunderDefaultThunderDuration;
     
     public boolean lightningEnable;
-    
-    public boolean lightningLightningStrikeWand;
-    public int lightningLightningStrikeWandItem;
-    public int lightningLightningStrikeWandMultiCount;
-    public int lightningLightningStrikeDistance;
+    public int lightningWand;
+    public int lightningDistance;
     
     public boolean lightningDisableCreeperPower;
     public boolean lightningDisablePigZap;
@@ -65,8 +60,8 @@ public class WorldConfig {
      * @param plugin
      * @param worldName
      */
-    public WorldConfig(WeatherControl instance, String worldName) {
-    	this.plugin = instance;
+    public WorldConfig(WeatherControl plugin, String worldName) {
+    	this.plugin = plugin;
     	this.worldName = worldName;
     	
     	File baseFolder = new File(plugin.getDataFolder(), "worlds/");
@@ -87,17 +82,12 @@ public class WorldConfig {
         config.load();
         
         weatherEnable = config.getBoolean("weather.enable", weatherEnable);
-        weatherDefaultWeatherDuration = config.getInt("weather.defaultWeatherDuration", weatherDefaultWeatherDuration);
-        
+
         thunderEnable = config.getBoolean("thunder.enable", thunderEnable);
-        thunderDefaultThunderDuration = config.getInt("thunder.defaultThunderDuration", thunderDefaultThunderDuration);
-        
+
         lightningEnable = config.getBoolean("lightning.enable", lightningEnable);
-        
-        lightningLightningStrikeWand = config.getBoolean("lightning.lightningStrikeWand", lightningLightningStrikeWand);
-        lightningLightningStrikeWandItem = config.getInt("lightning.lightningStrikeWandItem", lightningLightningStrikeWandItem);
-        lightningLightningStrikeWandMultiCount = config.getInt("lightning.lightningStrikeWandMultiCount", lightningLightningStrikeWandMultiCount);
-        lightningLightningStrikeDistance = config.getInt("lightning.lightningStrikeDistance", lightningLightningStrikeDistance);
+        lightningWand = config.getInt("lightning.wand", lightningWand);
+        lightningDistance = config.getInt("lightning.distance", lightningDistance);
         
         lightningDisableCreeperPower = config.getBoolean("lightning.disableCreeperPower", lightningDisableCreeperPower);
         lightningDisablePigZap = config.getBoolean("lightning.disablePigZap", lightningDisablePigZap);

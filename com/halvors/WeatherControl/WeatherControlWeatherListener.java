@@ -27,6 +27,11 @@ import org.bukkit.event.weather.WeatherListener;
 
 import com.halvors.WeatherControl.util.WorldConfig;
 
+/**
+ * Handle events for all Weather related events
+ * 
+ * @author halvors
+ */
 public class WeatherControlWeatherListener extends WeatherListener {
 	private final WeatherControl plugin;
 	

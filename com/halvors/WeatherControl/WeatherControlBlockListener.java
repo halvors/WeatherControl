@@ -29,6 +29,7 @@ import com.halvors.WeatherControl.util.WorldConfig;
 
 /**
  * Handle events for all Block related events
+ * 
  * @author halvors
  */
 public class WeatherControlBlockListener extends BlockListener {
@@ -46,7 +47,7 @@ public class WeatherControlBlockListener extends BlockListener {
 			World world = block.getWorld();
 			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
 			
-			if (worldConfig.lightningDisableLightningStrikeFire && cause == IgniteCause.LIGHTNING) {
+			if ((worldConfig.lightningDisableLightningStrikeFire) && (cause == IgniteCause.LIGHTNING)) {
 				event.setCancelled(true);
 			}
 		}
