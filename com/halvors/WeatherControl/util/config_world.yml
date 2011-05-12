@@ -3,17 +3,20 @@
 # This is the a per-world configuration file. It only affects one
 # corresponding world.
 
+disableSnowForm: false # Prevent snow to be placed by the enviroment
+
 weather:
     enable: true # Enable weather.
-    interval: 0
     
 thunder:
     enable: true # Enable thunder.
-    interval: 0 
     
 lightning:
     enable: true # Enable lightning strike.
-    wand: 348
+    
+    wand: 348 # Define the wand item.
+    count: 1 # Default count of lightning per strike.
+    
     distance: 10 # Default distance for strikemob command.
     
     disableCreeperPower: false # Disable creeper power.

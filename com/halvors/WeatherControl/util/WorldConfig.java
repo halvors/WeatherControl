@@ -38,13 +38,17 @@ public class WorldConfig {
     private File configFile;
 
     /* Configuration data start */
-
+    public boolean disableSnowForm;
+    
     public boolean weatherEnable;
 
     public boolean thunderEnable;
     
     public boolean lightningEnable;
+    
     public int lightningWand;
+    public int lightningCount;
+    
     public int lightningDistance;
     
     public boolean lightningDisableCreeperPower;
@@ -81,12 +85,17 @@ public class WorldConfig {
         Configuration config = new Configuration(configFile);
         config.load();
         
+        disableSnowForm = config.getBoolean("disableSnowForm", disableSnowForm);
+        
         weatherEnable = config.getBoolean("weather.enable", weatherEnable);
 
         thunderEnable = config.getBoolean("thunder.enable", thunderEnable);
 
         lightningEnable = config.getBoolean("lightning.enable", lightningEnable);
+        
         lightningWand = config.getInt("lightning.wand", lightningWand);
+        lightningCount = config.getInt("lightning.count", lightningCount);
+        
         lightningDistance = config.getInt("lightning.distance", lightningDistance);
         
         lightningDisableCreeperPower = config.getBoolean("lightning.disableCreeperPower", lightningDisableCreeperPower);

@@ -57,13 +57,14 @@ public class WeatherControlPlayerListener extends PlayerListener {
     				if ((event.hasItem()) && (event.getItem().getTypeId() == item)) {
     					if (worldConfig.lightningEnable) {
     						Block block = player.getTargetBlock(null, 500);
-							
+							int count = worldConfig.lightningCount;
+    						
     						if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
-    							for (int i = 1; i < plugin.getWeatherManager().getWandCount(player.getName()); i++) {
+    							for (int i = 0; i < count; i++) {
     								world.strikeLightning(block.getLocation());
     							}
     						} else if ((action == Action.RIGHT_CLICK_BLOCK) || (action == Action.RIGHT_CLICK_AIR)) {
-    							for (int i = 1; i < plugin.getWeatherManager().getWandCount(player.getName()); i++) {
+    							for (int i = 0; i < count; i++) {
     								world.strikeLightningEffect(block.getLocation());
     							}
     						}
