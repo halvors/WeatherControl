@@ -57,7 +57,7 @@ public class WeatherControlPlayerListener extends PlayerListener {
     			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
     	
     			if (event.hasItem()) {
-    				int item = worldConfig.lightningWand;
+    				int item = 348;
 
     				if (item != 0) {
     					if (event.getItem().getTypeId() == item) {
