@@ -4,7 +4,7 @@ version: 0.6
 author: halvors
 
 commands:
-    wc:
-        aliases: [weather]
+    weather:
+        aliases: [wc]
         description:
         usage:

@@ -20,6 +20,7 @@
 package com.halvors.WeatherControl;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -37,8 +38,12 @@ import com.halvors.WeatherControl.util.WorldConfig;
 public class WeatherControlPlayerListener extends PlayerListener {
     private final WeatherControl plugin;
 
+    private WeatherManager weatherManager;
+    
     public WeatherControlPlayerListener(WeatherControl plugin) {
         this.plugin = plugin;
+        
+        weatherManager = plugin.getWeatherManager();
     }   
 
     @Override
@@ -51,29 +56,22 @@ public class WeatherControlPlayerListener extends PlayerListener {
     			World world = player.getWorld();
     			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
     	
-    			int item = worldConfig.lightningWand;
-						
-    			if (item != 0) {
-    				if ((event.hasItem()) && (event.getItem().getTypeId() == item)) {
-    					if (worldConfig.lightningEnable) {
-    						Block block = player.getTargetBlock(null, 500);
-							int count = worldConfig.lightningCount;
-    						
-    						if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
-    							for (int i = 0; i < count; i++) {
-    								world.strikeLightning(block.getLocation());
+    			if (event.hasItem()) {
+    				int item = worldConfig.lightningWand;
+
+    				if (item != 0) {
+    					if (event.getItem().getTypeId() == item) {
+    						if (worldConfig.lightningEnable) {
+    							if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
+    								world.strikeLightning(player.getTargetBlock(null, 500).getLocation());
     							}
-    						} else if ((action == Action.RIGHT_CLICK_BLOCK) || (action == Action.RIGHT_CLICK_AIR)) {
-    							for (int i = 0; i < count; i++) {
-    								world.strikeLightningEffect(block.getLocation());
-    							}
+    						} else {
+    							player.sendMessage(ChatColor.RED + "Lightning is disabled!");
     						}
-    					} else {
-    						player.sendMessage(ChatColor.RED + "Lightning is disabled!");
     					}
+    				} else {
+    					player.sendMessage(ChatColor.RED + "Error: Wand not set in configuration file!");
     				}
-    			} else {
-    				player.sendMessage(ChatColor.RED + "Error: Wand not set in configuration file!");
     			}
     		}
     	}

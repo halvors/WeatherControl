@@ -67,6 +67,20 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 						
 						return true;
 					}
+				} else if (subCommand.equalsIgnoreCase("status")) {
+					if (WeatherControl.hasPermissions(player, "WeatherControl.status")) {
+						World world = player.getWorld();
+						
+						if ((world.isThundering()) && (world.hasStorm())) {
+							player.sendMessage(ChatColor.GREEN + "It's thundering.");
+						} else if (world.hasStorm()) {
+							player.sendMessage(ChatColor.GREEN + "It's storming");
+						} else {
+							player.sendMessage(ChatColor.GREEN + "It's clear.");
+						}
+
+						return true;
+					}
 				} else if (subCommand.equalsIgnoreCase("weather")) {
 					if (WeatherControl.hasPermissions(player, "WeatherControl.weather")) {
 						World world = player.getWorld();					
@@ -75,24 +89,24 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 						if (worldConfig.weatherEnable) {
 							if (args.length == 1) {
 								if (world.hasStorm()) {
-									player.sendMessage(ChatColor.GREEN + "It will storm in " + formatTime(world.getWeatherDuration() / 20) + " .");
+									player.sendMessage(ChatColor.GREEN + "It will storm in " + formatTime(world.getWeatherDuration() / 20) + ".");
 								} else {
 									world.setStorm(true);
 									world.setThundering(false);
 									
-									player.sendMessage(ChatColor.GREEN + "It will now storm in " + formatTime(world.getWeatherDuration() / 20) + " .");
+									player.sendMessage(ChatColor.GREEN + "It will now storm in " + formatTime(world.getWeatherDuration() / 20) + ".");
 								}
 							} else if (args.length >= 2) {
 								if (args[1].equalsIgnoreCase("on")) {	
 									world.setStorm(true);
 									world.setThundering(false);
 										
-									if (args.length >= 3) {
+									if (args.length == 3) {
 										int duration = Integer.parseInt(args[2]) * 20;	
 										world.setWeatherDuration(duration);
 									}
 									
-									player.sendMessage(ChatColor.GREEN + "It will storm in " + world.getWeatherDuration() / 20 + " seconds.");
+									player.sendMessage(ChatColor.GREEN + "It will storm in " + formatTime(world.getWeatherDuration() / 20) + ".");
 								} else if (args[1].equalsIgnoreCase("off")) {
 									if (world.hasStorm()) {
 										world.setStorm(false);
@@ -118,9 +132,12 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 						if (worldConfig.thunderEnable) {
 							if (args.length == 1) {
 								if (world.isThundering()) {
-									player.sendMessage(ChatColor.GREEN + "It will thunder in " + world.getThunderDuration() / 20 + " seconds.");
+									player.sendMessage(ChatColor.GREEN + "It will thunder in " + formatTime(world.getThunderDuration() / 20) + ".");
 								} else {
-									player.sendMessage(ChatColor.GREEN + "No active thunder.");
+									world.setStorm(true);
+									world.setThundering(true);
+								
+									player.sendMessage(ChatColor.GREEN + "It will now thunder in " + formatTime(world.getThunderDuration() / 20) + ".");
 								}
 							} else if (args.length >= 2) {
 								if (args[1].equalsIgnoreCase("on")) {	
@@ -128,11 +145,11 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 									world.setThundering(true);
 									
 									if (args.length >= 3) {
-										int duration = Integer.parseInt(args[2]) * 20;	
+										int duration = Integer.parseInt(args[2]) * 20;
 										world.setThunderDuration(duration);
 									}
 									
-									player.sendMessage(ChatColor.GREEN + "It will thunder in " + world.getThunderDuration() / 20 + " seconds.");
+									player.sendMessage(ChatColor.GREEN + "It will thunder in " + formatTime(world.getThunderDuration() / 20) + ".");
 								} else if (args[1].equalsIgnoreCase("off")) {
 									if (world.isThundering()) {
 										world.setStorm(false);
@@ -308,15 +325,19 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 		
 		return false;
 	}
-
+	
 	private void showHelp(Player player, String label) {
 		String command = "/" + label + " ";
 		
-		player.sendMessage(ChatColor.GREEN + WeatherControl.name + ChatColor.GREEN + " (" + ChatColor.WHITE + WeatherControl.version + ChatColor.GREEN + ")");
+		player.sendMessage(ChatColor.YELLOW + WeatherControl.name + ChatColor.GREEN + " (" + ChatColor.WHITE + WeatherControl.version + ChatColor.GREEN + ")");
 		player.sendMessage(ChatColor.RED + "[]" + ChatColor.WHITE + " Required, " + ChatColor.GREEN + "<>" + ChatColor.WHITE + " Optional.");
 
 		if (WeatherControl.hasPermissions(player, "WeatherControl.help")) {
 			player.sendMessage(command + "help" + ChatColor.YELLOW + " - Show help.");
+		}
+		
+		if (WeatherControl.hasPermissions(player, "WeatherControl.status")) {
+			player.sendMessage(command + "status" + ChatColor.YELLOW + " - Show status.");
 		}
 		
 		if (WeatherControl.hasPermissions(player, "WeatherControl.weather")) {
@@ -344,19 +365,40 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 		}
 		
 		if (WeatherControl.hasPermissions(player, "WeatherControl.wand")) {
-			player.sendMessage(command + "wand" + ChatColor.YELLOW + " - Give you the wand item.");
-		}
-		
-		if (WeatherControl.hasPermissions(player, "WeatherControl.reload")) {
-			player.sendMessage(command + "reload" + ChatColor.YELLOW + " - Reload " + WeatherControl.name + ".");
+			player.sendMessage(command + "wand " + ChatColor.GREEN + "<" + ChatColor.WHITE + "count" + ">" + ChatColor.YELLOW + " - Get wand item or set count.");
 		}
 	}
 	
-	private String formatTime(int seconds) {
-		if (seconds >= 60) {
-			return Integer.toString(seconds) + " secounds";
+	private String formatTime(final int seconds) {
+		String format = null;
+		String type = " ";
+		
+		if (seconds >= 3600) {
+			if (seconds > 3600) {
+				type += "hours";
+			} else {
+				type += "hour";
+			}
+			
+			format = Integer.toString(seconds / 3600) + type; 
+		} else if (seconds >= 60) {
+			if (seconds > 60) {
+				type += "minutes";
+			} else {
+				type += "minute";
+			}
+			
+			format = Integer.toString(seconds / 60) + type;
 		} else {
-			return Integer.toString(seconds / 60) + " minutes";
+			if (seconds > 1) {
+				type += "seconds";
+			} else {
+				type += "second";
+			}
+			
+			format = Integer.toString(seconds) + type;
 		}
+		
+		return format;
 	}
 }
