@@ -63,7 +63,7 @@ public class WeatherControlPlayerListener extends PlayerListener {
     					if (event.getItem().getTypeId() == item) {
     						if (worldConfig.lightningEnable) {
     							if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
-    								world.strikeLightning(player.getTargetBlock(null, 500).getLocation());
+    								world.strikeLightning(player.getTargetBlock(null, 200).getLocation());
     							}
     						} else {
     							player.sendMessage(ChatColor.RED + "Lightning is disabled!");
