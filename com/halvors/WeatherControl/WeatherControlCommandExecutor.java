@@ -36,6 +36,9 @@ import org.bukkit.inventory.ItemStack;
 import com.halvors.WeatherControl.util.ConfigManager;
 import com.halvors.WeatherControl.util.WorldConfig;
 
+/**
+ * @author halvors
+ */
 public class WeatherControlCommandExecutor implements CommandExecutor {
 	private final WeatherControl plugin;
 
@@ -46,6 +49,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 		this.plugin = plugin;
 		
 		configManager = plugin.getConfigManager();
+		weatherManager = plugin.getWeatherManager();
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -269,7 +273,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 						}
 					}
 				} else if (subCommand.equalsIgnoreCase("strikepos")) {
-					if (WeatherControl.hasPermissions(player, "WeatherControl.lightning")) {
+					if (WeatherControl.hasPermissions(player, "WeatherControl.strikepos")) {
 						World world = player.getWorld();
 						WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
 								
@@ -337,7 +341,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
 		}
 		
 		if (WeatherControl.hasPermissions(player, "WeatherControl.status")) {
-			player.sendMessage(command + "status" + ChatColor.YELLOW + " - Show status.");
+			player.sendMessage(command + "status" + ChatColor.YELLOW + " - Show weather status.");
 		}
 		
 		if (WeatherControl.hasPermissions(player, "WeatherControl.weather")) {

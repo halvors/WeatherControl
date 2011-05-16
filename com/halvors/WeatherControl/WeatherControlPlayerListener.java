@@ -48,32 +48,42 @@ public class WeatherControlPlayerListener extends PlayerListener {
 
     @Override
     public void onPlayerInteract(PlayerInteractEvent event) {
-    	if (!event.isCancelled()) {
-    		Player player = event.getPlayer();
-    		
-    		if (WeatherControl.hasPermissions(player, "WeatherControl.lightning")) {
-    			Action action = event.getAction();
-    			World world = player.getWorld();
-    			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
-    	
-    			if (event.hasItem()) {
-    				int item = 348;
+        Action action = event.getAction();
+        Player player = event.getPlayer();
+        World world = player.getWorld();
+        WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
 
-    				if (item != 0) {
-    					if (event.getItem().getTypeId() == item) {
-    						if (worldConfig.lightningEnable) {
-    							if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
-    								world.strikeLightning(player.getTargetBlock(null, 200).getLocation());
-    							}
-    						} else {
-    							player.sendMessage(ChatColor.RED + "Lightning is disabled!");
-    						}
-    					}
-    				} else {
-    					player.sendMessage(ChatColor.RED + "Error: Wand not set in configuration file!");
-    				}
-    			}
-    		}
-    	}
+        if (event.hasItem()) {
+        	if (WeatherControl.hasPermissions(player, "WeatherControl.wand")) {
+        		if (worldConfig.lightningEnable) {
+        			int item = worldConfig.lightningWand;
+        			int count = worldConfig.lightningCount;
+        			
+        			if (weatherManager.hasWandCount(player.getName())) {
+        				count = weatherManager.getWandCount(player.getName());
+        			}
+            
+        			if (item != 0) {
+        				if (event.getItem().getTypeId() == item) {
+        					Location pos = player.getTargetBlock(null, 200).getLocation();
+                        
+        					if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
+        						for (int i = 0; i < count; i++) {
+        							world.strikeLightning(pos);
+        						}
+        					} else if ((action == Action.RIGHT_CLICK_BLOCK) || (action == Action.RIGHT_CLICK_AIR)) {
+                                for (int i = 0; i < count; i++) {
+        							world.strikeLightningEffect(pos);
+        						}
+        					}
+        				}
+        			} else {
+        				player.sendMessage(ChatColor.RED + "Error: Wand not set in configuration file!");
+        			}
+        		} else {
+     				player.sendMessage(ChatColor.RED + "Lightning is disabled!");
+     			}
+        	}
+        }
     }
 }

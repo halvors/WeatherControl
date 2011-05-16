@@ -21,6 +21,9 @@ package com.halvors.WeatherControl;
 
 import java.util.HashMap;
 
+/**
+ * @author halvors
+ */
 public class WeatherManager {
 	private final WeatherControl plugin;
 	

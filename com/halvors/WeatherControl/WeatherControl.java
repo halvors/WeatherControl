@@ -36,6 +36,9 @@ import com.halvors.WeatherControl.util.WorldConfig;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
+/**
+ * @author halvors
+ */
 public class WeatherControl extends JavaPlugin {
 	public static String name;
 	public static String version;
@@ -87,7 +90,7 @@ public class WeatherControl extends JavaPlugin {
         
         // Register our events
         pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Event.Priority.Normal, this);
-        //pm.registerEvent(Event.Type.SNOW_FORM, blockListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.SNOW_FORM, blockListener, Event.Priority.Normal, this);
         
         pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.CREEPER_POWER, entityListener, Event.Priority.Normal, this);

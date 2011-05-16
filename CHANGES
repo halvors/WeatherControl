@@ -1,7 +1,53 @@
+Version 0.6
+	- Added time format's to status message.
+
+Version 0.5
+    - Fixed bug reported by sausje.
+    
+Version 0.4.9
+    - Fixed bug with strike command.
+
+Version 0.4.8
+    - Bugfix.
+
+Version 0.4.7
+    - Bugfix.
+
+Version o.4.6
+    - Fixed bug with wand (Reported by RobotGymnast).
+    - Fixed big with strike command (Reported by Gimalo).
+
+Version 0.4.5
+    - Fixed bug with wand (Reported by redsgreens).
+    - Fixed bug with strike command.
+    - Renamed lightning command to strikepos.
+    - Added strikemob command and moved strike pig and creeper functionality to here.
+    - Improved the alias weather.
+
+Version 0.4.4
+    - Compatible with CraftBukkit 740.
+
+Version 0.4.3
+    - Fixed invalid configuration file.
+    - Added support for prevent lightning to cause mob and player damage, this is set in configuration file.
+
+Version 0.4.2
+    - Fixed grammer reported by Azelote.
+    - Added lightning command for lightningstrike a specific position (Command for wand), request by rockNme2349.
+
+Version 0.4.1
+    - Added /weather alias.
+    - Added pig and creepr support to /strike.
+    - Added multiplie lightningstrikes to wand on right click, amount can be set in configuration file.
+    - Now show help on if command is unknown.
+
+Version 0.4
+    - Improved weather and thunder commands.
+    - Added /wand command.
+
 Version 0.3
     - Compatible with Craftbukkit #733.
     - Added option for disable weather, thunder, lightningstrike, creeper power or pig zap.
-    - Cleanup.
 
 Version 0.2
     - Added lightning fire and damage protection.
@@ -9,3 +55,4 @@ Version 0.2
 
 Version 0.1
     - Initital release.
+    
