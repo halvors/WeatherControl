@@ -39,54 +39,54 @@ import com.halvors.WeatherControl.util.WorldConfig;
  * @author halvors
  */
 public class WeatherControlEntityListener extends EntityListener {
-	private final WeatherControl plugin;
-	
+    private final WeatherControl plugin;
+    
     public WeatherControlEntityListener(WeatherControl plugin) {
         this.plugin = plugin;
     }
     
     @Override
     public void onEntityDamage(EntityDamageEvent event) {
-    	if (!event.isCancelled()) {
-    		if (event instanceof EntityDamageByEntityEvent) {
-    			Entity entity = event.getEntity();
-    			DamageCause cause = event.getCause();
-    			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(entity.getWorld());
-    			
-    			if (entity instanceof Player) {
-    				if ((worldConfig.lightningDisableLightningStrikePlayerDamage) && (cause == DamageCause.LIGHTNING)) {
-    					event.setCancelled(true);
-    				}
-    			} else if (entity instanceof Creature) {
-    				if ((worldConfig.lightningDisableLightningStrikeMobDamage) && (cause == DamageCause.LIGHTNING)) {
-    					event.setCancelled(true);
-    				}
-    			}
-    		}
+        if (!event.isCancelled()) {
+            if (event instanceof EntityDamageByEntityEvent) {
+                Entity entity = event.getEntity();
+                DamageCause cause = event.getCause();
+                WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(entity.getWorld());
+                
+                if (entity instanceof Player) {
+                    if ((worldConfig.lightningDisableLightningStrikePlayerDamage) && (cause == DamageCause.LIGHTNING)) {
+                        event.setCancelled(true);
+                    }
+                } else if (entity instanceof Creature) {
+                    if ((worldConfig.lightningDisableLightningStrikeMobDamage) && (cause == DamageCause.LIGHTNING)) {
+                        event.setCancelled(true);
+                    }
+                }
+            }
         }
     }
     
     @Override
     public void onCreeperPower(CreeperPowerEvent event) {
-    	if (!event.isCancelled()) {
-    		World world = event.getEntity().getWorld();
-    		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
-    	
-    		if (worldConfig.lightningDisableCreeperPower) {
-    			event.setCancelled(true);
-    		}
-    	}
+        if (!event.isCancelled()) {
+            World world = event.getEntity().getWorld();
+            WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+        
+            if (worldConfig.lightningDisableCreeperPower) {
+                event.setCancelled(true);
+            }
+        }
     }
     
     @Override
     public void onPigZap(PigZapEvent event) {
-    	if (!event.isCancelled()) {
-    		World world = event.getEntity().getWorld();
-    		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
-    	
-    		if (worldConfig.lightningDisablePigZap) {
-    			event.setCancelled(true);
-    		}
-    	}
+        if (!event.isCancelled()) {
+            World world = event.getEntity().getWorld();
+            WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+        
+            if (worldConfig.lightningDisablePigZap) {
+                event.setCancelled(true);
+            }
+        }
     }
 }

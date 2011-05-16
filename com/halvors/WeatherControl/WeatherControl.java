@@ -40,34 +40,34 @@ import com.nijikokun.bukkit.Permissions.Permissions;
  * @author halvors
  */
 public class WeatherControl extends JavaPlugin {
-	public static String name;
-	public static String version;
-	
-	private final Logger log = Logger.getLogger("Minecraft");
-	private PluginManager pm;
-	private PluginDescriptionFile pdfFile;
+    public static String name;
+    public static String version;
+    
+    private final Logger log = Logger.getLogger("Minecraft");
+    private PluginManager pm;
+    private PluginDescriptionFile pdfFile;
 
-	private final ConfigManager configManager = new ConfigManager(this);
-	private final WeatherManager weatherManager = new WeatherManager(this);
-	
-	private final WeatherControlBlockListener blockListener = new WeatherControlBlockListener(this);
-	private final WeatherControlEntityListener entityListener = new WeatherControlEntityListener(this);
-	private final WeatherControlPlayerListener playerListener = new WeatherControlPlayerListener(this);
-	private final WeatherControlWeatherListener weatherListener = new WeatherControlWeatherListener(this);
-	
+    private final ConfigManager configManager = new ConfigManager(this);
+    private final WeatherManager weatherManager = new WeatherManager(this);
+    
+    private final WeatherControlBlockListener blockListener = new WeatherControlBlockListener(this);
+    private final WeatherControlEntityListener entityListener = new WeatherControlEntityListener(this);
+    private final WeatherControlPlayerListener playerListener = new WeatherControlPlayerListener(this);
+    private final WeatherControlWeatherListener weatherListener = new WeatherControlWeatherListener(this);
+    
     public static PermissionHandler Permissions;
     
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
     
     public WeatherControl() {
-    	
+        
     }
    
     @Override
     public void onEnable() {
-    	pm = this.getServer().getPluginManager();
-    	pdfFile = this.getDescription();
-    	
+        pm = this.getServer().getPluginManager();
+        pdfFile = this.getDescription();
+        
         // Load name and version from pdfFile
         name = pdfFile.getName();
         version = pdfFile.getVersion();
@@ -76,17 +76,17 @@ public class WeatherControl extends JavaPlugin {
         configManager.load();
         
         for (World world : this.getServer().getWorlds()) {
-    		configManager.getWorldConfig(world).load();
-    		
-    		if ((world.hasStorm()) || (world.isThundering())) {
-    			WorldConfig worldConfig = configManager.getWorldConfig(world);
-    			
-    			if ((!worldConfig.weatherEnable) || (!worldConfig.thunderEnable)) {
-    				world.setStorm(false);
-    				world.setThundering(false);
-    			}
-    		}
-    	}
+            configManager.getWorldConfig(world).load();
+            
+            if ((world.hasStorm()) || (world.isThundering())) {
+                WorldConfig worldConfig = configManager.getWorldConfig(world);
+                
+                if ((!worldConfig.weatherEnable) || (!worldConfig.thunderEnable)) {
+                    world.setStorm(false);
+                    world.setThundering(false);
+                }
+            }
+        }
         
         // Register our events
         pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Event.Priority.Normal, this);
@@ -102,9 +102,9 @@ public class WeatherControl extends JavaPlugin {
         pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.THUNDER_CHANGE, weatherListener, Event.Priority.Normal, this);
         
-		// Register our commands
+        // Register our commands
         this.getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));
-		
+        
         log(Level.INFO, "version " + version + " is enabled!");
         
         setupPermissions();
@@ -112,19 +112,19 @@ public class WeatherControl extends JavaPlugin {
     
     @Override
     public void onDisable() {
-    	configManager.save();
-    	
-    	log(Level.INFO, "Plugin disabled!");
+        configManager.save();
+        
+        log(Level.INFO, "Plugin disabled!");
     }
     
     private void setupPermissions() {
-    	Plugin permissions = this.getServer().getPluginManager().getPlugin("Permissions");
+        Plugin permissions = this.getServer().getPluginManager().getPlugin("Permissions");
 
         if (Permissions == null) {
-        	if (permissions != null) {
-            	Permissions = ((Permissions)permissions).getHandler();
+            if (permissions != null) {
+                Permissions = ((Permissions)permissions).getHandler();
             } else {
-            	log(Level.INFO, "Permission system not detected, defaulting to OP");
+                log(Level.INFO, "Permission system not detected, defaulting to OP");
             }
         }
     }
@@ -155,10 +155,10 @@ public class WeatherControl extends JavaPlugin {
     }
     
     public ConfigManager getConfigManager() {
-    	return configManager;
+        return configManager;
     }
     
     public WeatherManager getWeatherManager() {
-    	return weatherManager;
+        return weatherManager;
     }
 }

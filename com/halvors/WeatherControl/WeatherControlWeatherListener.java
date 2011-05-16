@@ -33,49 +33,49 @@ import com.halvors.WeatherControl.util.WorldConfig;
  * @author halvors
  */
 public class WeatherControlWeatherListener extends WeatherListener {
-	private final WeatherControl plugin;
-	
-	public WeatherControlWeatherListener(WeatherControl plugin) {
-		this.plugin = plugin;
-	}
-	
-	@Override
-	public void onWeatherChange(WeatherChangeEvent event) {
-		if (!event.isCancelled()) {
-			World world = event.getWorld();
-			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+    private final WeatherControl plugin;
+    
+    public WeatherControlWeatherListener(WeatherControl plugin) {
+        this.plugin = plugin;
+    }
+    
+    @Override
+    public void onWeatherChange(WeatherChangeEvent event) {
+        if (!event.isCancelled()) {
+            World world = event.getWorld();
+            WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
 
-			if (!worldConfig.weatherEnable) {
-				if (event.toWeatherState()) {
-					event.setCancelled(true);
-				}
-			}
-		}
-	}
-	
-	@Override
-	public void onThunderChange(ThunderChangeEvent event) {
-		if (!event.isCancelled()) {
-			World world = event.getWorld();
-			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
-		
-			if ((!worldConfig.weatherEnable) || (!worldConfig.thunderEnable)) {
-				if (event.toThunderState()) {
-					event.setCancelled(true);
-				}
-			}
-		}
-	}
+            if (!worldConfig.weatherEnable) {
+                if (event.toWeatherState()) {
+                    event.setCancelled(true);
+                }
+            }
+        }
+    }
+    
+    @Override
+    public void onThunderChange(ThunderChangeEvent event) {
+        if (!event.isCancelled()) {
+            World world = event.getWorld();
+            WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+        
+            if ((!worldConfig.weatherEnable) || (!worldConfig.thunderEnable)) {
+                if (event.toThunderState()) {
+                    event.setCancelled(true);
+                }
+            }
+        }
+    }
 
-	@Override
-	public void onLightningStrike(LightningStrikeEvent event) {
-		if (!event.isCancelled()) {
-			World world = event.getWorld();
-			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
-		
-			if (!worldConfig.lightningEnable) {
-				event.setCancelled(true);
-			}
-		}
-	}
+    @Override
+    public void onLightningStrike(LightningStrikeEvent event) {
+        if (!event.isCancelled()) {
+            World world = event.getWorld();
+            WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+        
+            if (!worldConfig.lightningEnable) {
+                event.setCancelled(true);
+            }
+        }
+    }
 }
