@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
@@ -54,14 +55,11 @@ public class WeatherControl extends JavaPlugin {
     private final WeatherControlEntityListener entityListener = new WeatherControlEntityListener(this);
     private final WeatherControlPlayerListener playerListener = new WeatherControlPlayerListener(this);
     private final WeatherControlWeatherListener weatherListener = new WeatherControlWeatherListener(this);
+    private final WeatherControlWorldListener worldListener = new WeatherControlWorldListener(this);
     
     public static PermissionHandler Permissions;
     
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
-    
-    public WeatherControl() {
-        
-    }
    
     @Override
     public void onEnable() {
@@ -74,19 +72,6 @@ public class WeatherControl extends JavaPlugin {
         
         // Load configuration
         configManager.load();
-        
-        for (World world : this.getServer().getWorlds()) {
-            configManager.getWorldConfig(world).load();
-            
-            if ((world.hasStorm()) || (world.isThundering())) {
-                WorldConfig worldConfig = configManager.getWorldConfig(world);
-                
-                if ((!worldConfig.weatherEnable) || (!worldConfig.thunderEnable)) {
-                    world.setStorm(false);
-                    world.setThundering(false);
-                }
-            }
-        }
         
         // Register our events
         pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Event.Priority.Normal, this);
@@ -101,6 +86,8 @@ public class WeatherControl extends JavaPlugin {
         pm.registerEvent(Event.Type.LIGHTNING_STRIKE, weatherListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.THUNDER_CHANGE, weatherListener, Event.Priority.Normal, this);
+        
+        pm.registerEvent(Event.Type.WORLD_LOAD, worldListener, Event.Priority.Normal, this);
         
         // Register our commands
         this.getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));

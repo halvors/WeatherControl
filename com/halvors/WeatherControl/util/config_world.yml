@@ -14,9 +14,9 @@ thunder:
 lightning:
     enable: true # Enable lightning strike.
     
+    explosion: false # Enable TNT-like explosion on lightning strike.
     wand: 348 # Define the wand item.
     count: 1 # Default count of lightning per strike.
-    
     distance: 10 # Default distance for strikemob command.
     
     disableCreeperPower: false # Disable creeper power.

@@ -19,12 +19,17 @@
 
 package com.halvors.WeatherControl;
 
+import net.minecraft.server.WorldServer;
+
+import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.weather.WeatherListener;
 
+import com.halvors.WeatherControl.util.ConfigManager;
 import com.halvors.WeatherControl.util.WorldConfig;
 
 /**
@@ -35,15 +40,18 @@ import com.halvors.WeatherControl.util.WorldConfig;
 public class WeatherControlWeatherListener extends WeatherListener {
     private final WeatherControl plugin;
     
-    public WeatherControlWeatherListener(WeatherControl plugin) {
+    private ConfigManager configManager;
+    
+    public WeatherControlWeatherListener(final WeatherControl plugin) {
         this.plugin = plugin;
+        this.configManager = plugin.getConfigManager();
     }
     
     @Override
     public void onWeatherChange(WeatherChangeEvent event) {
         if (!event.isCancelled()) {
             World world = event.getWorld();
-            WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+            WorldConfig worldConfig = configManager.getWorldConfig(world);
 
             if (!worldConfig.weatherEnable) {
                 if (event.toWeatherState()) {
@@ -57,7 +65,7 @@ public class WeatherControlWeatherListener extends WeatherListener {
     public void onThunderChange(ThunderChangeEvent event) {
         if (!event.isCancelled()) {
             World world = event.getWorld();
-            WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+            WorldConfig worldConfig = configManager.getWorldConfig(world);
         
             if ((!worldConfig.weatherEnable) || (!worldConfig.thunderEnable)) {
                 if (event.toThunderState()) {
@@ -70,9 +78,15 @@ public class WeatherControlWeatherListener extends WeatherListener {
     @Override
     public void onLightningStrike(LightningStrikeEvent event) {
         if (!event.isCancelled()) {
+        	Location pos = event.getLightning().getLocation();
             World world = event.getWorld();
-            WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+            WorldConfig worldConfig = configManager.getWorldConfig(world);
         
+            if (worldConfig.lightningExplosion) {
+                WorldServer worldServer = ((CraftWorld)world).getHandle();
+                worldServer.a(null, pos.getX(), pos.getY(), pos.getZ(), 4F);
+            }
+            
             if (!worldConfig.lightningEnable) {
                 event.setCancelled(true);
             }

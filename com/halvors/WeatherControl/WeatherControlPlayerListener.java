@@ -81,8 +81,8 @@ public class WeatherControlPlayerListener extends PlayerListener {
                         player.sendMessage(ChatColor.RED + "Error: Wand not set in configuration file!");
                     }
                 } else {
-                     player.sendMessage(ChatColor.RED + "Lightning is disabled!");
-                 }
+                    player.sendMessage(ChatColor.RED + "Lightning is disabled!");
+                }
             }
         }
     }

@@ -34,6 +34,8 @@ import com.halvors.WeatherControl.WeatherControl;
 public class WorldConfig {
 	private final WeatherControl plugin;
 	
+	private ConfigManager configManager;
+	
     private String worldName;
     private File configFile;
 
@@ -46,9 +48,9 @@ public class WorldConfig {
     
     public boolean lightningEnable;
     
+    public boolean lightningExplosion;
     public int lightningWand;
     public int lightningCount;
-    
     public int lightningDistance;
     
     public boolean lightningDisableCreeperPower;
@@ -66,13 +68,14 @@ public class WorldConfig {
      */
     public WorldConfig(WeatherControl plugin, String worldName) {
     	this.plugin = plugin;
+    	this.configManager = plugin.getConfigManager();
     	this.worldName = worldName;
     	
     	File baseFolder = new File(plugin.getDataFolder(), "worlds/");
         configFile = new File(baseFolder, worldName + ".yml");
 
-        plugin.getConfigManager().checkConfig(configFile, "config_world.yml");
-
+        configManager.checkConfig(configFile, "config_world.yml");
+        
         load();
 
         plugin.log(Level.INFO, "Loaded configuration for world '" + worldName + "'");
@@ -93,9 +96,9 @@ public class WorldConfig {
 
         lightningEnable = config.getBoolean("lightning.enable", lightningEnable);
         
+        lightningExplosion = config.getBoolean("lightning.explosion", lightningExplosion);
         lightningWand = config.getInt("lightning.wand", lightningWand);
         lightningCount = config.getInt("lightning.count", lightningCount);
-        
         lightningDistance = config.getInt("lightning.distance", lightningDistance);
         
         lightningDisableCreeperPower = config.getBoolean("lightning.disableCreeperPower", lightningDisableCreeperPower);

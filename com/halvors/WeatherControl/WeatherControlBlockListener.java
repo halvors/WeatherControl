@@ -22,6 +22,7 @@ package com.halvors.WeatherControl;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockIgniteEvent;
+import org.bukkit.event.block.SnowFormEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.event.block.BlockListener;
 
@@ -52,4 +53,17 @@ public class WeatherControlBlockListener extends BlockListener {
 			}
 		}
 	}
+    
+    @Override
+    public void onSnowForm(SnowFormEvent event) {
+    	if (!event.isCancelled()) {
+    		Block block = event.getBlock();
+    		World world = block.getWorld();
+    		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+    		
+    		if (worldConfig.disableSnowForm) {
+    			event.setCancelled(true);
+    		}
+    	}
+    }
 }

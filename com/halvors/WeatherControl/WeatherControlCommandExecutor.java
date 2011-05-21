@@ -37,6 +37,8 @@ import com.halvors.WeatherControl.util.ConfigManager;
 import com.halvors.WeatherControl.util.WorldConfig;
 
 /**
+ * Handle commands
+ * 
  * @author halvors
  */
 public class WeatherControlCommandExecutor implements CommandExecutor {
