@@ -85,7 +85,7 @@ public class WeatherControlWeatherListener extends WeatherListener {
         
             if (worldConfig.lightningExplosion) {
                 WorldServer worldServer = ((CraftWorld)world).getHandle();
-                worldServer.a(null, pos.getX(), pos.getY(), pos.getZ(), 100F);
+                worldServer.a(null, pos.getX(), pos.getY(), pos.getZ(), 4F);
             }
             
             if (!worldConfig.lightningEnable) {
