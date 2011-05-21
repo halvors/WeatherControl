@@ -17,17 +17,18 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.halvors.WeatherControl;
+package com.halvors.WeatherControl.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 
+import com.halvors.WeatherControl.WandManager;
+import com.halvors.WeatherControl.WeatherControl;
 import com.halvors.WeatherControl.util.WorldConfig;
 
 /**
@@ -38,12 +39,12 @@ import com.halvors.WeatherControl.util.WorldConfig;
 public class WeatherControlPlayerListener extends PlayerListener {
     private final WeatherControl plugin;
 
-    private WeatherManager weatherManager;
+    private WandManager wandManager;
     
     public WeatherControlPlayerListener(WeatherControl plugin) {
         this.plugin = plugin;
         
-        weatherManager = plugin.getWeatherManager();
+        wandManager = plugin.getWandManager();
     }   
 
     @Override
@@ -59,8 +60,8 @@ public class WeatherControlPlayerListener extends PlayerListener {
                     int item = worldConfig.lightningWand;
                     int count = worldConfig.lightningCount;
                     
-                    if (weatherManager.hasWandCount(player.getName())) {
-                        count = weatherManager.getWandCount(player.getName());
+                    if (wandManager.hasWandCount(player.getName())) {
+                        count = wandManager.getWandCount(player.getName());
                     }
             
                     if (item != 0) {

@@ -45,13 +45,13 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
     private final WeatherControl plugin;
 
     private ConfigManager configManager;
-    private WeatherManager weatherManager;
+    private WandManager wandManager;
     
     public WeatherControlCommandExecutor(WeatherControl plugin) {
         this.plugin = plugin;
         
         configManager = plugin.getConfigManager();
-        weatherManager = plugin.getWeatherManager();
+        wandManager = plugin.getWandManager();
     }
     
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -312,7 +312,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                         } else if (args.length == 2) {
                             int count = Integer.parseInt(args[1]);
                             
-                            weatherManager.addWandCount(player.getName(), count);
+                            wandManager.addWandCount(player.getName(), count);
                             
                             player.sendMessage(ChatColor.GREEN + "Wand count set to " + count + ".");
                         }

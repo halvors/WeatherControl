@@ -17,7 +17,7 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.halvors.WeatherControl;
+package com.halvors.WeatherControl.listeners;
 
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -26,6 +26,7 @@ import org.bukkit.event.block.SnowFormEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.event.block.BlockListener;
 
+import com.halvors.WeatherControl.WeatherControl;
 import com.halvors.WeatherControl.util.WorldConfig;
 
 /**

@@ -32,6 +32,11 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.halvors.WeatherControl.listeners.WeatherControlBlockListener;
+import com.halvors.WeatherControl.listeners.WeatherControlEntityListener;
+import com.halvors.WeatherControl.listeners.WeatherControlPlayerListener;
+import com.halvors.WeatherControl.listeners.WeatherControlWeatherListener;
+import com.halvors.WeatherControl.listeners.WeatherControlWorldListener;
 import com.halvors.WeatherControl.util.ConfigManager;
 import com.halvors.WeatherControl.util.WorldConfig;
 import com.nijiko.permissions.PermissionHandler;
@@ -49,6 +54,7 @@ public class WeatherControl extends JavaPlugin {
     private PluginDescriptionFile pdfFile;
 
     private final ConfigManager configManager = new ConfigManager(this);
+    private final WandManager wandManager = new WandManager(this);
     private final WeatherManager weatherManager = new WeatherManager(this);
     
     private final WeatherControlBlockListener blockListener = new WeatherControlBlockListener(this);
@@ -143,6 +149,10 @@ public class WeatherControl extends JavaPlugin {
     
     public ConfigManager getConfigManager() {
         return configManager;
+    }
+    
+    public WandManager getWandManager() {
+    	return wandManager;
     }
     
     public WeatherManager getWeatherManager() {
