@@ -27,8 +27,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 
-import com.halvors.WeatherControl.WandManager;
 import com.halvors.WeatherControl.WeatherControl;
+import com.halvors.WeatherControl.manager.WandManager;
 import com.halvors.WeatherControl.util.WorldConfig;
 
 /**
@@ -41,10 +41,9 @@ public class WeatherControlPlayerListener extends PlayerListener {
 
     private WandManager wandManager;
     
-    public WeatherControlPlayerListener(WeatherControl plugin) {
+    public WeatherControlPlayerListener(final WeatherControl plugin) {
         this.plugin = plugin;
-        
-        wandManager = plugin.getWandManager();
+        this.wandManager = plugin.getWandManager();
     }   
 
     @Override

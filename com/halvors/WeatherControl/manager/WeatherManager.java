@@ -17,7 +17,9 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.halvors.WeatherControl;
+package com.halvors.WeatherControl.manager;
+
+import com.halvors.WeatherControl.WeatherControl;
 
 /**
  * Manage weather

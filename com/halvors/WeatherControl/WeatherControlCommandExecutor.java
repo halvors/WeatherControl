@@ -33,6 +33,7 @@ import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import com.halvors.WeatherControl.manager.WandManager;
 import com.halvors.WeatherControl.util.ConfigManager;
 import com.halvors.WeatherControl.util.WorldConfig;
 
@@ -47,11 +48,10 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
     private ConfigManager configManager;
     private WandManager wandManager;
     
-    public WeatherControlCommandExecutor(WeatherControl plugin) {
+    public WeatherControlCommandExecutor(final WeatherControl plugin) {
         this.plugin = plugin;
-        
-        configManager = plugin.getConfigManager();
-        wandManager = plugin.getWandManager();
+        this.configManager = plugin.getConfigManager();
+        this.wandManager = plugin.getWandManager();
     }
     
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

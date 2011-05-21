@@ -24,7 +24,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.World;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
@@ -32,11 +31,14 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.halvors.WeahterControl.thread.WeatherControlThread;
 import com.halvors.WeatherControl.listeners.WeatherControlBlockListener;
 import com.halvors.WeatherControl.listeners.WeatherControlEntityListener;
 import com.halvors.WeatherControl.listeners.WeatherControlPlayerListener;
 import com.halvors.WeatherControl.listeners.WeatherControlWeatherListener;
 import com.halvors.WeatherControl.listeners.WeatherControlWorldListener;
+import com.halvors.WeatherControl.manager.WandManager;
+import com.halvors.WeatherControl.manager.WeatherManager;
 import com.halvors.WeatherControl.util.ConfigManager;
 import com.halvors.WeatherControl.util.WorldConfig;
 import com.nijiko.permissions.PermissionHandler;
@@ -53,6 +55,8 @@ public class WeatherControl extends JavaPlugin {
     private PluginManager pm;
     private PluginDescriptionFile pdfFile;
 
+    private Thread thread;
+    
     private final ConfigManager configManager = new ConfigManager(this);
     private final WandManager wandManager = new WandManager(this);
     private final WeatherManager weatherManager = new WeatherManager(this);
@@ -78,6 +82,21 @@ public class WeatherControl extends JavaPlugin {
         
         // Load configuration
         configManager.load();
+        
+        // Create our thread
+        thread = new Thread( new WeatherControlThread(this), "wc_thread" );
+        thread.start();
+        
+        for (World world : this.getServer().getWorlds()) {
+        	WorldConfig worldConfig = configManager.getWorldConfig(world);
+        	
+        	if (worldConfig.intervalEnable) {
+        		world.setThunderDuration(0);
+        		world.setWeatherDuration(0);
+        		
+        		log(Level.INFO, "Disabling vanilla weather.");
+        	}
+        }
         
         // Register our events
         pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Event.Priority.Normal, this);
@@ -107,6 +126,14 @@ public class WeatherControl extends JavaPlugin {
     public void onDisable() {
         configManager.save();
         
+        try {
+            thread.interrupt();
+            thread.join();
+            log(Level.INFO, "Thread successfully joined.");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        
         log(Level.INFO, "Plugin disabled!");
     }
     
@@ -129,7 +156,6 @@ public class WeatherControl extends JavaPlugin {
             return player.isOp();
         }
     }
-    
     
     public boolean isDebugging(final Player player) {
         if (debugees.containsKey(player)) {

@@ -42,6 +42,12 @@ public class WorldConfig {
     /* Configuration data start */
     public boolean disableSnowForm;
     
+    public boolean intervalEnable;
+    public int intervalWeatherLength;
+    public int intervalWeatherInterval;
+    public int intervalThunderLength;
+    public int intervalThunderInterval;
+    
     public boolean weatherEnable;
 
     public boolean thunderEnable;
@@ -66,7 +72,7 @@ public class WorldConfig {
      * @param plugin
      * @param worldName
      */
-    public WorldConfig(WeatherControl plugin, String worldName) {
+    public WorldConfig(final WeatherControl plugin, String worldName) {
     	this.plugin = plugin;
     	this.configManager = plugin.getConfigManager();
     	this.worldName = worldName;
@@ -90,6 +96,12 @@ public class WorldConfig {
         
         disableSnowForm = config.getBoolean("disableSnowForm", disableSnowForm);
         
+        intervalEnable = config.getBoolean("interval.enable", intervalEnable);
+        intervalWeatherLength = config.getInt("interval.weatherLength", intervalWeatherLength);
+        intervalWeatherInterval = config.getInt("interval.weatherInterval", intervalWeatherInterval);
+        intervalThunderLength = config.getInt("interval.thunderLength", intervalThunderLength);
+        intervalThunderInterval = config.getInt("interval.thunderInterval", intervalThunderInterval);
+        
         weatherEnable = config.getBoolean("weather.enable", weatherEnable);
 
         thunderEnable = config.getBoolean("thunder.enable", thunderEnable);
@@ -110,6 +122,7 @@ public class WorldConfig {
 
     /**
      * Get world name.
+     * 
      * @return worldName
      */
     public String getWorldName() {

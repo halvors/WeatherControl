@@ -53,9 +53,9 @@ public class ConfigManager {
      * 
      * @param plugin
      */
-    public ConfigManager(WeatherControl instance) {
-        plugin = instance;
-        worlds = new HashMap<String, WorldConfig>();
+    public ConfigManager(final WeatherControl plugin) {
+        this.plugin = plugin;
+        this.worlds = new HashMap<String, WorldConfig>();
     }
 
     /**
