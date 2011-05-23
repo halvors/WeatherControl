@@ -39,7 +39,7 @@ import com.halvors.WeatherControl.util.WorldConfig;
 public class WeatherControlPlayerListener extends PlayerListener {
     private final WeatherControl plugin;
 
-    private WandManager wandManager;
+    private final WandManager wandManager;
     
     public WeatherControlPlayerListener(final WeatherControl plugin) {
         this.plugin = plugin;

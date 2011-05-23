@@ -41,7 +41,7 @@ import com.halvors.WeatherControl.util.WorldConfig;
 public class WeatherControlWeatherListener extends WeatherListener {
     private final WeatherControl plugin;
     
-    private ConfigManager configManager;
+    private final ConfigManager configManager;
     
     public WeatherControlWeatherListener(final WeatherControl plugin) {
         this.plugin = plugin;
