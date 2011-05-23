@@ -54,7 +54,7 @@ public class WeatherControlPlayerListener extends PlayerListener {
         WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
 
         if (event.hasItem()) {
-            if (WeatherControl.hasPermissions(player, "WeatherControl.wand")) {
+            if (plugin.hasPermissions(player, "WeatherControl.wand")) {
                 if (worldConfig.lightningEnable) {
                     int item = worldConfig.lightningWand;
                     int count = worldConfig.lightningCount;
@@ -65,7 +65,7 @@ public class WeatherControlPlayerListener extends PlayerListener {
             
                     if (item != 0) {
                         if (event.getItem().getTypeId() == item) {
-                            Location pos = player.getTargetBlock(null, 200).getLocation();
+                            Location pos = player.getTargetBlock(null, 120).getLocation();
                         
                             if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
                                 for (int i = 0; i < count; i++) {

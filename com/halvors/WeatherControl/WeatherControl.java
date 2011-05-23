@@ -31,6 +31,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.halvors.WeahterControl.commands.WeatherControlCommandExecutor;
 import com.halvors.WeahterControl.thread.WeatherControlThread;
 import com.halvors.WeatherControl.listeners.WeatherControlBlockListener;
 import com.halvors.WeatherControl.listeners.WeatherControlEntityListener;
@@ -149,7 +150,7 @@ public class WeatherControl extends JavaPlugin {
         }
     }
     
-    public static boolean hasPermissions(Player player, String node) {
+    public boolean hasPermissions(Player player, String node) {
         if (Permissions != null) {
             return Permissions.has(player, node);
         } else {
