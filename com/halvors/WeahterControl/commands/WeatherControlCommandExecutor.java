@@ -96,12 +96,12 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                         if (worldConfig.weatherEnable) {
                             if (args.length == 1) {
                                 if (world.hasStorm()) {
-                                    player.sendMessage(ChatColor.GREEN + "It will storm in " + formatTime(world.getWeatherDuration() / 20) + ".");
+                                    player.sendMessage(ChatColor.GREEN + "It will storm for another " + formatTime(world.getWeatherDuration() / 20) + ".");
                                 } else {
                                     world.setStorm(true);
                                     world.setThundering(false);
                                     
-                                    player.sendMessage(ChatColor.GREEN + "It will now storm in " + formatTime(world.getWeatherDuration() / 20) + ".");
+                                    player.sendMessage(ChatColor.GREEN + "It will now storm for " + formatTime(world.getWeatherDuration() / 20) + ".");
                                 }
                             } else if (args.length >= 2) {
                                 if (args[1].equalsIgnoreCase("on")) {    
@@ -139,12 +139,12 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                         if (worldConfig.thunderEnable) {
                             if (args.length == 1) {
                                 if (world.isThundering()) {
-                                    player.sendMessage(ChatColor.GREEN + "It will thunder in " + formatTime(world.getThunderDuration() / 20) + ".");
+                                    player.sendMessage(ChatColor.GREEN + "It will thunder for another " + formatTime(world.getThunderDuration() / 20) + ".");
                                 } else {
                                     world.setStorm(true);
                                     world.setThundering(true);
                                 
-                                    player.sendMessage(ChatColor.GREEN + "It will now thunder in " + formatTime(world.getThunderDuration() / 20) + ".");
+                                    player.sendMessage(ChatColor.GREEN + "It will now thunder for " + formatTime(world.getThunderDuration() / 20) + ".");
                                 }
                             } else if (args.length >= 2) {
                                 if (args[1].equalsIgnoreCase("on")) {    
@@ -156,7 +156,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                                         world.setThunderDuration(duration);
                                     }
                                     
-                                    player.sendMessage(ChatColor.GREEN + "It will thunder in " + formatTime(world.getThunderDuration() / 20) + ".");
+                                    player.sendMessage(ChatColor.GREEN + "It will thunder for another" + formatTime(world.getThunderDuration() / 20) + ".");
                                 } else if (args[1].equalsIgnoreCase("off")) {
                                     if (world.isThundering()) {
                                         world.setStorm(false);
