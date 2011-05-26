@@ -31,7 +31,8 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.halvors.WeahterControl.commands.WeatherControlCommandExecutor;
+import com.halvors.WeahterControl.command.CommandManager;
+import com.halvors.WeahterControl.command.commands.HelpCommand;
 import com.halvors.WeahterControl.thread.WeatherControlThread;
 import com.halvors.WeatherControl.listeners.WeatherControlBlockListener;
 import com.halvors.WeatherControl.listeners.WeatherControlEntityListener;
@@ -59,6 +60,7 @@ public class WeatherControl extends JavaPlugin {
     private Thread thread;
     
     private final ConfigManager configManager = new ConfigManager(this);
+    private final CommandManager commandManager = new CommandManager(this);
     private final WandManager wandManager = new WandManager(this);
     private final WeatherManager weatherManager = new WeatherManager(this);
     
@@ -115,8 +117,10 @@ public class WeatherControl extends JavaPlugin {
         
         pm.registerEvent(Event.Type.WORLD_LOAD, worldListener, Event.Priority.Normal, this);
         
-        // Register our commands
-        this.getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));
+        // Register our commands        
+        commandManager.addCommand(new HelpCommand(this));
+        
+        this.getCommand("weather").setExecutor(commandManager);
         
         log(Level.INFO, "version " + version + " is enabled!");
         

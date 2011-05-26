@@ -17,7 +17,7 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.halvors.WeahterControl.commands;
+package com.halvors.WeahterControl.command;
 
 import java.util.List;
 
@@ -46,8 +46,8 @@ import com.halvors.WeatherControl.util.WorldConfig;
 public class WeatherControlCommandExecutor implements CommandExecutor {
     private final WeatherControl plugin;
 
-    private ConfigManager configManager;
-    private WandManager wandManager;
+    private final ConfigManager configManager;
+    private final WandManager wandManager;
     
     public WeatherControlCommandExecutor(final WeatherControl plugin) {
         this.plugin = plugin;
