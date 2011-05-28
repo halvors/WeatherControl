@@ -29,6 +29,7 @@ import org.bukkit.event.player.PlayerListener;
 
 import com.halvors.WeatherControl.WeatherControl;
 import com.halvors.WeatherControl.manager.WandManager;
+import com.halvors.WeatherControl.util.ConfigManager;
 import com.halvors.WeatherControl.util.WorldConfig;
 
 /**
@@ -39,10 +40,12 @@ import com.halvors.WeatherControl.util.WorldConfig;
 public class WeatherControlPlayerListener extends PlayerListener {
     private final WeatherControl plugin;
 
+    private final ConfigManager configManager;
     private final WandManager wandManager;
     
     public WeatherControlPlayerListener(final WeatherControl plugin) {
         this.plugin = plugin;
+        this.configManager = plugin.getConfigManager();
         this.wandManager = plugin.getWandManager();
     }   
 
@@ -51,7 +54,7 @@ public class WeatherControlPlayerListener extends PlayerListener {
         Action action = event.getAction();
         Player player = event.getPlayer();
         World world = player.getWorld();
-        WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+        WorldConfig worldConfig = configManager.getWorldConfig(world);
 
         if (event.hasItem()) {
             if (plugin.hasPermissions(player, "WeatherControl.wand")) {

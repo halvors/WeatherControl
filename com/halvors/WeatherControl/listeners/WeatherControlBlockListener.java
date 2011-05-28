@@ -22,11 +22,12 @@ package com.halvors.WeatherControl.listeners;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockIgniteEvent;
-import org.bukkit.event.block.SnowFormEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.event.block.BlockListener;
+import org.bukkit.event.block.SnowFormEvent;
 
 import com.halvors.WeatherControl.WeatherControl;
+import com.halvors.WeatherControl.util.ConfigManager;
 import com.halvors.WeatherControl.util.WorldConfig;
 
 /**
@@ -37,8 +38,11 @@ import com.halvors.WeatherControl.util.WorldConfig;
 public class WeatherControlBlockListener extends BlockListener {
 	private final WeatherControl plugin;
 	
+	private final ConfigManager configManager;
+	
     public WeatherControlBlockListener(final WeatherControl plugin) {
         this.plugin = plugin;
+        this.configManager = plugin.getConfigManager();
     }
 	
     @Override
@@ -47,7 +51,7 @@ public class WeatherControlBlockListener extends BlockListener {
 			Block block = event.getBlock();
 			IgniteCause cause = event.getCause();
 			World world = block.getWorld();
-			WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+			WorldConfig worldConfig = configManager.getWorldConfig(world);
 			
 			if ((worldConfig.lightningDisableLightningStrikeFire) && (cause == IgniteCause.LIGHTNING)) {
 				event.setCancelled(true);
@@ -60,7 +64,7 @@ public class WeatherControlBlockListener extends BlockListener {
     	if (!event.isCancelled()) {
     		Block block = event.getBlock();
     		World world = block.getWorld();
-    		WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+    		WorldConfig worldConfig = configManager.getWorldConfig(world);
     		
     		if (worldConfig.disableSnowForm) {
     			event.setCancelled(true);

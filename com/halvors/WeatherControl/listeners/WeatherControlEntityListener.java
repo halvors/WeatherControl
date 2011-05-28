@@ -31,6 +31,7 @@ import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.PigZapEvent;
 
 import com.halvors.WeatherControl.WeatherControl;
+import com.halvors.WeatherControl.util.ConfigManager;
 import com.halvors.WeatherControl.util.WorldConfig;
 
 /**
@@ -41,8 +42,11 @@ import com.halvors.WeatherControl.util.WorldConfig;
 public class WeatherControlEntityListener extends EntityListener {
     private final WeatherControl plugin;
     
+    private final ConfigManager configManager;
+    
     public WeatherControlEntityListener(final WeatherControl plugin) {
         this.plugin = plugin;
+        this.configManager = plugin.getConfigManager();
     }
     
     @Override
@@ -51,7 +55,7 @@ public class WeatherControlEntityListener extends EntityListener {
             if (event instanceof EntityDamageByEntityEvent) {
                 Entity entity = event.getEntity();
                 DamageCause cause = event.getCause();
-                WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(entity.getWorld());
+                WorldConfig worldConfig = configManager.getWorldConfig(entity.getWorld());
                 
                 if (entity instanceof Player) {
                     if ((worldConfig.lightningDisableLightningStrikePlayerDamage) && (cause == DamageCause.LIGHTNING)) {
@@ -70,7 +74,7 @@ public class WeatherControlEntityListener extends EntityListener {
     public void onCreeperPower(CreeperPowerEvent event) {
         if (!event.isCancelled()) {
             World world = event.getEntity().getWorld();
-            WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+            WorldConfig worldConfig = configManager.getWorldConfig(world);
         
             if (worldConfig.lightningDisableCreeperPower) {
                 event.setCancelled(true);
@@ -82,7 +86,7 @@ public class WeatherControlEntityListener extends EntityListener {
     public void onPigZap(PigZapEvent event) {
         if (!event.isCancelled()) {
             World world = event.getEntity().getWorld();
-            WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+            WorldConfig worldConfig = configManager.getWorldConfig(world);
         
             if (worldConfig.lightningDisablePigZap) {
                 event.setCancelled(true);
