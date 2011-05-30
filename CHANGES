@@ -1,9 +1,30 @@
+Version 0.8.2
+	- Added max wand count for prevent lag.
+	- Possibly fixed errors in console.
+
+Version 0.8.1
+    - Compatible with CraftBukkit 803.
+    - Fixed grammar.
+
+Version 0.8
+    - Added interval support.
+
+Version 0.7
+    - Compatible with CraftBukkit 798.
+    - Fixed disableSnowForm.
+    - Added option to enable explosions on lightning strike, this is set in config file.
+    - Weather does not disable when it's turned on.
+
 Version 0.6
-	- Added time format's to status message.
+    - Compatible with CraftBukkit 766.
+    - Added function for set wand count by the wand command.
+    - Right click now replaced with lightningStrikeEffect.
+    - Added time formats.
+    - Added status command.
 
 Version 0.5
     - Fixed bug reported by sausje.
-    
+
 Version 0.4.9
     - Fixed bug with strike command.
 
@@ -36,6 +57,7 @@ Version 0.4.2
     - Added lightning command for lightningstrike a specific position (Command for wand), request by rockNme2349.
 
 Version 0.4.1
+
     - Added /weather alias.
     - Added pig and creepr support to /strike.
     - Added multiplie lightningstrikes to wand on right click, amount can be set in configuration file.
@@ -48,11 +70,12 @@ Version 0.4
 Version 0.3
     - Compatible with Craftbukkit #733.
     - Added option for disable weather, thunder, lightningstrike, creeper power or pig zap.
+    - Cleanup.
 
 Version 0.2
+
     - Added lightning fire and damage protection.
     - Multiworld support.
 
 Version 0.1
     - Initital release.
-    

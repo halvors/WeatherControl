@@ -312,10 +312,15 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                             }
                         } else if (args.length == 2) {
                             int count = Integer.parseInt(args[1]);
+                            int maxCount = 64;
                             
-                            wandManager.addWandCount(player.getName(), count);
-                            
-                            player.sendMessage(ChatColor.GREEN + "Wand count set to " + count + ".");
+                            if (count <= maxCount) {
+                            	wandManager.addWandCount(player.getName(), count);
+                            	
+                            	player.sendMessage(ChatColor.RED + "Maximum wand count is " + Integer.toString(maxCount) + ".");
+                            } else {
+                            	player.sendMessage(ChatColor.GREEN + "Wand count set to " + count + ".");
+                            }
                         }
                         
                         return true;
