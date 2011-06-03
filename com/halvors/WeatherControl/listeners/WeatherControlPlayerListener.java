@@ -80,8 +80,6 @@ public class WeatherControlPlayerListener extends PlayerListener {
                                 }
                             }
                         }
-                    } else {
-                        player.sendMessage(ChatColor.RED + configManager.Wand_not_set_in_configuration_file);
                     }
                 } else {
                     player.sendMessage(ChatColor.RED + configManager.Lightning_is_disabled);
