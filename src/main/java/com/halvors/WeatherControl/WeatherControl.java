@@ -116,7 +116,7 @@ public class WeatherControl extends JavaPlugin {
         pm.registerEvent(Event.Type.WORLD_LOAD, worldListener, Event.Priority.Normal, this);
         
         // Register our commands        
-        this.getCommand("weather").setExecutor(new WeatherControlCommandExecutor(this));
+        this.getCommand("weatherc").setExecutor(new WeatherControlCommandExecutor(this));
         
         log(Level.INFO, "version " + version + " is enabled!");
         

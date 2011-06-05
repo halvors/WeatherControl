@@ -66,12 +66,6 @@ public class WorldConfig {
     public boolean lightningDisableLightningStrikeFire;
     /* Configuration data end */
 
-    /**
-     * Construct the object.
-     *
-     * @param plugin
-     * @param worldName
-     */
     public WorldConfig(final WeatherControl plugin, String worldName) {
 //    	this.plugin = plugin;
     	this.configManager = plugin.getConfigManager();

@@ -55,7 +55,7 @@ public class WeatherControlPlayerListener extends PlayerListener {
         Player player = event.getPlayer();
         World world = player.getWorld();
         WorldConfig worldConfig = configManager.getWorldConfig(world);
-
+        
         if (event.hasItem()) {
             if (plugin.hasPermissions(player, "WeatherControl.wand")) {
             	int item = worldConfig.lightningWand;
@@ -70,7 +70,7 @@ public class WeatherControlPlayerListener extends PlayerListener {
                 		if (worldConfig.lightningEnable) {
                 			Location pos = player.getTargetBlock(null, 120).getLocation();
                         
-                            if (action.equals(action.LEFT_CLICK_BLOCK) || action.equals(Action.LEFT_CLICK_AIR)) {
+                            if (action.equals(Action.LEFT_CLICK_BLOCK) || action.equals(Action.LEFT_CLICK_AIR)) {
                             	for (int i = 0; i < count; i++) {
                             		world.strikeLightning(pos);
                             	}
