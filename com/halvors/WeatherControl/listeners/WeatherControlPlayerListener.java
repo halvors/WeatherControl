@@ -58,32 +58,32 @@ public class WeatherControlPlayerListener extends PlayerListener {
 
         if (event.hasItem()) {
             if (plugin.hasPermissions(player, "WeatherControl.wand")) {
-                if (worldConfig.lightningEnable) {
-                    int item = worldConfig.lightningWand;
-                    int count = worldConfig.lightningCount;
+            	int item = worldConfig.lightningWand;
+                int count = worldConfig.lightningCount;
                     
-                    if (wandManager.hasWandCount(player.getName())) {
-                        count = wandManager.getWandCount(player.getName());
-                    }
+                if (wandManager.hasWandCount(player.getName())) {
+                	count = wandManager.getWandCount(player.getName());
+                }
             
-                    if (item != 0) {
-                        if (event.getItem().getTypeId() == item) {
-                            Location pos = player.getTargetBlock(null, 120).getLocation();
+                if (item != 0) {
+                	if (event.getItem().getTypeId() == item) {
+                		if (worldConfig.lightningEnable) {
+                			Location pos = player.getTargetBlock(null, 120).getLocation();
                         
-                            if ((action == Action.LEFT_CLICK_BLOCK) || (action == Action.LEFT_CLICK_AIR)) {
-                                for (int i = 0; i < count; i++) {
-                                    world.strikeLightning(pos);
-                                }
-                            } else if ((action == Action.RIGHT_CLICK_BLOCK) || (action == Action.RIGHT_CLICK_AIR)) {
-                                for (int i = 0; i < count; i++) {
-                                    world.strikeLightningEffect(pos);
-                                }
+                            if (action.equals(action.LEFT_CLICK_BLOCK) || action.equals(Action.LEFT_CLICK_AIR)) {
+                            	for (int i = 0; i < count; i++) {
+                            		world.strikeLightning(pos);
+                            	}
+                            } else if (action.equals(Action.RIGHT_CLICK_BLOCK) || action.equals(Action.RIGHT_CLICK_AIR)) {
+                            	for (int i = 0; i < count; i++) {
+                            		world.strikeLightningEffect(pos);
+                            	}
                             }
+                		} else {
+                           player.sendMessage(ChatColor.RED + configManager.Lightning_is_disabled);
                         }
                     }
-                } else {
-                    player.sendMessage(ChatColor.RED + configManager.Lightning_is_disabled);
-                }
+            	}
             }
         }
     }
