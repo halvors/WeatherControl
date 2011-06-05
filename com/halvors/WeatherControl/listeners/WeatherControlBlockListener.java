@@ -36,12 +36,12 @@ import com.halvors.WeatherControl.util.WorldConfig;
  * @author halvors
  */
 public class WeatherControlBlockListener extends BlockListener {
-	private final WeatherControl plugin;
+//	private final WeatherControl plugin;
 	
 	private final ConfigManager configManager;
 	
     public WeatherControlBlockListener(final WeatherControl plugin) {
-        this.plugin = plugin;
+//        this.plugin = plugin;
         this.configManager = plugin.getConfigManager();
     }
 	

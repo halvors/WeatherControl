@@ -10,12 +10,12 @@ import com.halvors.WeatherControl.WeatherControl;
  * @author halvors
  */
 public class WandManager {
-	private final WeatherControl plugin;
+//	private final WeatherControl plugin;
 	
 	private final HashMap<String, Integer> wandCount;
 
 	public WandManager(final WeatherControl plugin) {
-		this.plugin = plugin;
+//		this.plugin = plugin;
 		this.wandCount = new HashMap<String, Integer>();
 	}
 

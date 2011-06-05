@@ -27,9 +27,9 @@ import com.halvors.WeatherControl.WeatherControl;
  * @author halvors
  */
 public class WeatherManager {
-    private final WeatherControl plugin;
+//    private final WeatherControl plugin;
     
     public WeatherManager(final WeatherControl plugin) {
-    	this.plugin = plugin;
+//    	this.plugin = plugin;
     }
 }

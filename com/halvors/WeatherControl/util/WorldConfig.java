@@ -32,7 +32,7 @@ import com.halvors.WeatherControl.WeatherControl;
  * @author halvors
  */
 public class WorldConfig {
-	private final WeatherControl plugin;
+//	private final WeatherControl plugin;
 	
 	private ConfigManager configManager;
 	
@@ -73,7 +73,7 @@ public class WorldConfig {
      * @param worldName
      */
     public WorldConfig(final WeatherControl plugin, String worldName) {
-    	this.plugin = plugin;
+//    	this.plugin = plugin;
     	this.configManager = plugin.getConfigManager();
     	this.worldName = worldName;
     	

@@ -40,12 +40,12 @@ import com.halvors.WeatherControl.util.WorldConfig;
  * @author halvors
  */
 public class WeatherControlEntityListener extends EntityListener {
-    private final WeatherControl plugin;
+//    private final WeatherControl plugin;
     
     private final ConfigManager configManager;
     
     public WeatherControlEntityListener(final WeatherControl plugin) {
-        this.plugin = plugin;
+//        this.plugin = plugin;
         this.configManager = plugin.getConfigManager();
     }
     

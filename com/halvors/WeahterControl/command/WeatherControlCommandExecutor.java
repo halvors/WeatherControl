@@ -57,7 +57,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
     
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
-            Player player = (Player)sender;
+            Player player = (Player) sender;
             
             if (args.length == 0) {
                 if (plugin.hasPermissions(player, "WeatherControl.help")) {

@@ -24,17 +24,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.logging.Level;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.Creeper;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Pig;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.config.Configuration;
 
 import com.halvors.WeatherControl.WeatherControl;
@@ -46,9 +38,6 @@ import com.halvors.WeatherControl.WeatherControl;
  * @author halvors
  */
 public class ConfigManager {
-    /**
-     * Reference to the plugin.
-     */
     private final WeatherControl plugin;
     
     /**
