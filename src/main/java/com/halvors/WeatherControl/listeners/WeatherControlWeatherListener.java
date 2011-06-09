@@ -19,11 +19,8 @@
 
 package com.halvors.WeatherControl.listeners;
 
-import net.minecraft.server.WorldServer;
-
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -84,8 +81,10 @@ public class WeatherControlWeatherListener extends WeatherListener {
             WorldConfig worldConfig = configManager.getWorldConfig(world);
         
             if (worldConfig.lightningExplosion) {
-                WorldServer worldServer = ((CraftWorld) world).getHandle();
-                worldServer.a(null, pos.getX(), pos.getY(), pos.getZ(), 4F);
+            	world.createExplosion(pos.getX(), pos.getY(), pos.getZ(), 4F);
+            	
+//                WorldServer worldServer = ((CraftWorld) world).getHandle();
+//                worldServer.a(null, , pos.getY(), pos.getZ(), 4F);
             }
             
             if (!worldConfig.lightningEnable) {
