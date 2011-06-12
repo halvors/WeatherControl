@@ -76,15 +76,12 @@ public class WeatherControlWeatherListener extends WeatherListener {
     @Override
     public void onLightningStrike(LightningStrikeEvent event) {
         if (!event.isCancelled()) {
-        	Location pos = event.getLightning().getLocation();
+        	Location location = event.getLightning().getLocation();
             World world = event.getWorld();
             WorldConfig worldConfig = configManager.getWorldConfig(world);
         
             if (worldConfig.lightningExplosion) {
-            	world.createExplosion(pos.getX(), pos.getY(), pos.getZ(), 4F);
-            	
-//                WorldServer worldServer = ((CraftWorld) world).getHandle();
-//                worldServer.a(null, , pos.getY(), pos.getZ(), 4F);
+            	world.createExplosion(location, 4F);
             }
             
             if (!worldConfig.lightningEnable) {
