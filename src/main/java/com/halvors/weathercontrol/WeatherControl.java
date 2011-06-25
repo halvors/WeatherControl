@@ -17,9 +17,8 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.halvors.WeatherControl;
+package com.halvors.weathercontrol;
 
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,62 +30,58 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.halvors.WeahterControl.commands.WeatherControlCommandExecutor;
-import com.halvors.WeahterControl.thread.WeatherControlThread;
-import com.halvors.WeatherControl.listeners.WeatherControlBlockListener;
-import com.halvors.WeatherControl.listeners.WeatherControlEntityListener;
-import com.halvors.WeatherControl.listeners.WeatherControlPlayerListener;
-import com.halvors.WeatherControl.listeners.WeatherControlWeatherListener;
-import com.halvors.WeatherControl.listeners.WeatherControlWorldListener;
-import com.halvors.WeatherControl.manager.WandManager;
-import com.halvors.WeatherControl.util.ConfigManager;
-import com.halvors.WeatherControl.util.WorldConfig;
+import com.halvors.weathercontrol.commands.WeatherControlCommandExecutor;
+import com.halvors.weathercontrol.listeners.WeatherControlBlockListener;
+import com.halvors.weathercontrol.listeners.WeatherControlEntityListener;
+import com.halvors.weathercontrol.listeners.WeatherControlPlayerListener;
+import com.halvors.weathercontrol.listeners.WeatherControlWeatherListener;
+import com.halvors.weathercontrol.listeners.WeatherControlWorldListener;
+import com.halvors.weathercontrol.thread.WeatherControlThread;
+import com.halvors.weathercontrol.util.ConfigManager;
+import com.halvors.weathercontrol.util.WorldConfig;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
-/**
- * @author halvors
- */
 public class WeatherControl extends JavaPlugin {
-    private String name;
-    private String version;
-    
     private final Logger log = Logger.getLogger("Minecraft");
     private PluginManager pm;
-    private PluginDescriptionFile pdfFile;
+    private PluginDescriptionFile desc;
 
     private Thread thread;
     
-    private final ConfigManager configManager = new ConfigManager(this);
-    private final WandManager wandManager = new WandManager(this);
+    private final ConfigManager configManager;
     
-    private final WeatherControlBlockListener blockListener = new WeatherControlBlockListener(this);
-    private final WeatherControlEntityListener entityListener = new WeatherControlEntityListener(this);
-    private final WeatherControlPlayerListener playerListener = new WeatherControlPlayerListener(this);
-    private final WeatherControlWeatherListener weatherListener = new WeatherControlWeatherListener(this);
-    private final WeatherControlWorldListener worldListener = new WeatherControlWorldListener(this);
+    private final WeatherControlBlockListener blockListener;
+    private final WeatherControlEntityListener entityListener;
+    private final WeatherControlPlayerListener playerListener;
+    private final WeatherControlWeatherListener weatherListener;
+    private final WeatherControlWorldListener worldListener;
     
     public static PermissionHandler Permissions;
     
-    private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
-   
-    @Override
+    public WeatherControl() {
+        configManager = new ConfigManager(this);
+        
+        blockListener = new WeatherControlBlockListener(this);
+        entityListener = new WeatherControlEntityListener(this);
+        playerListener = new WeatherControlPlayerListener(this);
+        weatherListener = new WeatherControlWeatherListener(this);
+        worldListener = new WeatherControlWorldListener(this);
+    }
+    
+    
     public void onEnable() {
         pm = getServer().getPluginManager();
-        pdfFile = getDescription();
+        desc = getDescription();
         
-        // Load name and version from pdfFile
-        name = pdfFile.getName();
-        version = pdfFile.getVersion();
-        
-        // Load configuration
+        // Load configuration.
         configManager.load();
         
-        // Create our thread
+        // Create our thread.
         thread = new Thread( new WeatherControlThread(this), "wc_thread" );
         thread.start();
         
-        for (World world : this.getServer().getWorlds()) {
+        for (World world : getServer().getWorlds()) {
         	WorldConfig worldConfig = configManager.getWorldConfig(world);
         	
         	if (worldConfig.intervalEnable) {
@@ -97,7 +92,7 @@ public class WeatherControl extends JavaPlugin {
         	}
         }
         
-        // Register our events
+        // Register our events.
         pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.SNOW_FORM, blockListener, Event.Priority.Normal, this);
         
@@ -114,15 +109,15 @@ public class WeatherControl extends JavaPlugin {
         pm.registerEvent(Event.Type.WORLD_LOAD, worldListener, Event.Priority.Normal, this);
         
         // Register our commands        
-        this.getCommand("weatherc").setExecutor(new WeatherControlCommandExecutor(this));
+        getCommand("weatherc").setExecutor(new WeatherControlCommandExecutor(this));
         
-        log(Level.INFO, "version " + version + " is enabled!");
+        log(Level.INFO, "version " + getVersion() + " is enabled!");
         
         setupPermissions();
     }
     
-    @Override
     public void onDisable() {
+    	// Save configuration.
         configManager.save();
         
         try {
@@ -156,35 +151,19 @@ public class WeatherControl extends JavaPlugin {
         }
     }
     
-    public boolean isDebugging(final Player player) {
-        if (debugees.containsKey(player)) {
-            return debugees.get(player);
-        } else {
-            return false;
-        }
-    }
-
-    public void setDebugging(final Player player, final boolean value) {
-        debugees.put(player, value);
-    }
-    
     public String getName() {
-    	return name;
+    	return desc.getName();
     }
     
     public String getVersion() {
-    	return version;
+    	return desc.getVersion();
     }
     
     public void log(Level level, String msg) {
-        this.log.log(level, "[" + name + "] " + msg);
+        this.log.log(level, "[" + getName() + "] " + msg);
     }
     
     public ConfigManager getConfigManager() {
         return configManager;
-    }
-    
-    public WandManager getWandManager() {
-    	return wandManager;
     }
 }

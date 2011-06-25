@@ -1,0 +1,29 @@
+#surefire
+#Sat Jun 25 12:38:04 CEST 2011
+testClassesDirectory=/home/halvors/Prosjekter/Bukkit/plugins/WeatherControl/target/test-classes
+classPathUrl.4=/home/halvors/.m2/repository/com/nijikokun/bukkit/Permissions/3.1.5/Permissions-3.1.5.jar
+classPathUrl.3=/home/halvors/.m2/repository/org/bukkit/craftbukkit/0.0.1-SNAPSHOT/craftbukkit-0.0.1-SNAPSHOT.jar
+classPathUrl.2=/home/halvors/.m2/repository/org/bukkit/bukkit/0.0.1-SNAPSHOT/bukkit-0.0.1-SNAPSHOT.jar
+useManifestOnlyJar=true
+classPathUrl.1=/home/halvors/Prosjekter/Bukkit/plugins/WeatherControl/target/classes
+reportsDirectory=/home/halvors/Prosjekter/Bukkit/plugins/WeatherControl/target/surefire-reports
+classPathUrl.0=/home/halvors/Prosjekter/Bukkit/plugins/WeatherControl/target/test-classes
+dirscanner.0=directoryScannerOptions
+providerConfiguration=org.apache.maven.surefire.junit.JUnit3Provider
+testSuiteDefinitionTestSourceDirectory=/home/halvors/Prosjekter/Bukkit/plugins/WeatherControl/src/test/java
+surefireClassPathUrl.1=/home/halvors/.m2/repository/org/apache/maven/surefire/surefire-api/2.7.1/surefire-api-2.7.1.jar
+surefireClassPathUrl.0=/home/halvors/.m2/repository/org/apache/maven/surefire/surefire-junit3/2.7.1/surefire-junit3-2.7.1.jar
+report.2=org.apache.maven.surefire.report.XMLReporter
+useSystemClassLoader=true
+report.1=org.apache.maven.surefire.report.BriefFileReporter
+report.0=org.apache.maven.surefire.report.ForkingConsoleReporter
+excludes0=**/*$*
+isTrimStackTrace=true
+dirscanner.0.params=/home/halvors/Prosjekter/Bukkit/plugins/WeatherControl/target/test-classes|[**/Test*.java, **/*Test.java, **/*TestCase.java]|[**/*$*]
+enableAssertions=true
+includes2=**/*TestCase.java
+failIfNoTests=false
+includes1=**/*Test.java
+dirscanner.0.types=java.io.File|java.util.ArrayList|java.util.ArrayList
+includes0=**/Test*.java
+childDelegation=false

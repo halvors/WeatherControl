@@ -28,7 +28,7 @@ messages:
     Position_has_been_struck_by_lightning: "Position <location> have been struck by lightning!"
     You_have_to_specify_a_valid_position: "You have to specify a valid position!"
     You_got_the_lightning_strike_wand: "You got the lightning strike wand."
-    Maximum_wand_count_is: "Maximum wand count is <count>."
+    Maximum_wand_count_is: "Maximum wand count is <maxcount>."
     Wand_count_set_to: "Wand count set to <count>."
 
     Wand_not_set_in_configuration_file: "Wand not set in configuration file!"

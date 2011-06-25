@@ -17,7 +17,7 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.halvors.WeatherControl.listeners;
+package com.halvors.weathercontrol.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -27,10 +27,10 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 
-import com.halvors.WeatherControl.WeatherControl;
-import com.halvors.WeatherControl.manager.WandManager;
-import com.halvors.WeatherControl.util.ConfigManager;
-import com.halvors.WeatherControl.util.WorldConfig;
+import com.halvors.weathercontrol.WeatherControl;
+import com.halvors.weathercontrol.manager.WandManager;
+import com.halvors.weathercontrol.util.ConfigManager;
+import com.halvors.weathercontrol.util.WorldConfig;
 
 /**
  * Handle events for all Player related events
@@ -41,12 +41,10 @@ public class WeatherControlPlayerListener extends PlayerListener {
     private final WeatherControl plugin;
 
     private final ConfigManager configManager;
-    private final WandManager wandManager;
     
-    public WeatherControlPlayerListener(final WeatherControl plugin) {
+    public WeatherControlPlayerListener(WeatherControl plugin) {
         this.plugin = plugin;
         this.configManager = plugin.getConfigManager();
-        this.wandManager = plugin.getWandManager();
     }   
 
     @Override
@@ -61,8 +59,8 @@ public class WeatherControlPlayerListener extends PlayerListener {
             	int item = worldConfig.lightningWand;
                 int count = worldConfig.lightningCount;
                     
-                if (wandManager.hasWandCount(player.getName())) {
-                	count = wandManager.getWandCount(player.getName());
+                if (WandManager.hasWandCount(player.getName())) {
+                	count = WandManager.getWandCount(player.getName());
                 }
             
                 if (item != 0) {

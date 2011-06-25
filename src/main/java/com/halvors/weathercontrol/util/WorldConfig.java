@@ -17,14 +17,14 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.halvors.WeatherControl.util;
+package com.halvors.weathercontrol.util;
 
 import java.io.File;
 import java.util.logging.Level;
 
 import org.bukkit.util.config.Configuration;
 
-import com.halvors.WeatherControl.WeatherControl;
+import com.halvors.weathercontrol.WeatherControl;
 
 /**
  * Holds the configuration for individual worlds
@@ -32,7 +32,7 @@ import com.halvors.WeatherControl.WeatherControl;
  * @author halvors
  */
 public class WorldConfig {
-//	private final WeatherControl plugin;
+//	private WeatherControl plugin;
 	
 	private ConfigManager configManager;
 	
@@ -66,7 +66,7 @@ public class WorldConfig {
     public boolean lightningDisableLightningStrikeFire;
     /* Configuration data end */
 
-    public WorldConfig(final WeatherControl plugin, String worldName) {
+    public WorldConfig(WeatherControl plugin, String worldName) {
 //    	this.plugin = plugin;
     	this.configManager = plugin.getConfigManager();
     	this.worldName = worldName;

@@ -1,4 +1,4 @@
-package com.halvors.WeatherControl.listeners;
+package com.halvors.weathercontrol.listeners;
 
 import java.util.logging.Level;
 
@@ -6,9 +6,9 @@ import org.bukkit.World;
 import org.bukkit.event.world.WorldListener;
 import org.bukkit.event.world.WorldLoadEvent;
 
-import com.halvors.WeatherControl.WeatherControl;
-import com.halvors.WeatherControl.util.ConfigManager;
-import com.halvors.WeatherControl.util.WorldConfig;
+import com.halvors.weathercontrol.WeatherControl;
+import com.halvors.weathercontrol.util.ConfigManager;
+import com.halvors.weathercontrol.util.WorldConfig;
 
 /**
  * Handle events for all World related events
@@ -16,11 +16,11 @@ import com.halvors.WeatherControl.util.WorldConfig;
  * @author halvors
  */
 public class WeatherControlWorldListener extends WorldListener {
-	private final WeatherControl plugin;
+	private WeatherControl plugin;
 	
 	private final ConfigManager configManager;
 	
-	public WeatherControlWorldListener(final WeatherControl plugin) {
+	public WeatherControlWorldListener(WeatherControl plugin) {
 		this.plugin = plugin;
 		this.configManager = plugin.getConfigManager();
 	}

@@ -17,7 +17,7 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.halvors.WeatherControl.util;
+package com.halvors.weathercontrol.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,7 +29,7 @@ import java.util.logging.Level;
 import org.bukkit.World;
 import org.bukkit.util.config.Configuration;
 
-import com.halvors.WeatherControl.WeatherControl;
+import com.halvors.weathercontrol.WeatherControl;
 
 /**
  * Represents the global configuration and also delegates configuration
@@ -38,7 +38,7 @@ import com.halvors.WeatherControl.WeatherControl;
  * @author halvors
  */
 public class ConfigManager {
-    private final WeatherControl plugin;
+    private WeatherControl plugin;
     
     /**
      * Holds configurations for different worlds.
@@ -89,7 +89,7 @@ public class ConfigManager {
     public String Player_does_not_exist;
     // Lightning is disabled!
     public String Lightning_is_disabled;
-    // Position <location> have been struck by lightning! // TODO: Finish <x> <y> <z>
+    // Position <location> have been struck by lightning!
     public String Position_has_been_struck_by_lightning;
     // You have to specify a valid position!
     public String You_have_to_specify_a_valid_position;

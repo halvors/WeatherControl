@@ -1,14 +1,14 @@
-package com.halvors.WeahterControl.thread;
+package com.halvors.weathercontrol.thread;
 
 import java.util.logging.Level;
 
 import org.bukkit.World;
 
-import com.halvors.WeatherControl.WeatherControl;
-import com.halvors.WeatherControl.util.WorldConfig;
+import com.halvors.weathercontrol.WeatherControl;
+import com.halvors.weathercontrol.util.WorldConfig;
 
 public class WeatherControlThread implements Runnable {
-    private final WeatherControl plugin;
+    private WeatherControl plugin;
     
     public boolean interrupted = false;
     
@@ -17,7 +17,7 @@ public class WeatherControlThread implements Runnable {
     public int thunderSteps = 0; // 1 step = 5 seconds
     public int thunderIntSteps = 0;
 
-    public WeatherControlThread(final WeatherControl plugin) {
+    public WeatherControlThread(WeatherControl plugin) {
         this.plugin = plugin;
     }
 
