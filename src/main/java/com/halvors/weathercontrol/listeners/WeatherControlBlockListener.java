@@ -17,7 +17,7 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.halvors.WeatherControl.listeners;
+package com.halvors.weathercontrol.listeners;
 
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -26,9 +26,9 @@ import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.SnowFormEvent;
 
-import com.halvors.WeatherControl.WeatherControl;
-import com.halvors.WeatherControl.util.ConfigManager;
-import com.halvors.WeatherControl.util.WorldConfig;
+import com.halvors.weathercontrol.WeatherControl;
+import com.halvors.weathercontrol.util.ConfigManager;
+import com.halvors.weathercontrol.util.WorldConfig;
 
 /**
  * Handle events for all Block related events

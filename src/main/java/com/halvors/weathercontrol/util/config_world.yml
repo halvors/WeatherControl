@@ -1,0 +1,33 @@
+# WeatherControl's configuration file.
+#
+# This is the a per-world configuration file. It only affects one
+# corresponding world.
+
+disableSnowForm: false # Prevent snow to be placed by the enviroment
+
+interval:
+    enable: false # Enable interval.
+    weatherLength: 120 # This is the length of weather, deafult 120 seconds.
+    weatherInterval: 600 # This is the time between each weather, default 10 minutes.
+    thunderLength: 30 # This is the length of weather, default 30 seconds.
+    thunderInterval: 60 # This is the time between each thunder, default 60 seconds.
+
+weather:
+    enable: true # Enable weather.
+
+thunder:
+    enable: true # Enable thunder.
+
+lightning:
+    enable: true # Enable lightning strike.
+
+    explosion: false # Enable TNT-like explosion on lightning strike.
+    wand: 348 # Define the wand item.
+    count: 1 # Default count of lightning per strike.
+    distance: 10 # Default distance for strikemob command.
+
+    disableCreeperPower: false # Disable creeper power.
+    disablePigZap: false # Disable pig zap.
+    disableLightningStrikePlayerDamage: false # Prevent players to be damaged by lightning stirke.
+    disableLightningStrikeMobDamage: false # Prevent mobs to be damaged by lightning stirke.
+    disableLightningStrikeFire: false # Prevent lightning strike to cause fire.

@@ -17,7 +17,7 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.halvors.WeatherControl;
+package com.halvors.weathercontrol;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -31,16 +31,15 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.halvors.WeahterControl.commands.WeatherControlCommandExecutor;
-import com.halvors.WeahterControl.thread.WeatherControlThread;
-import com.halvors.WeatherControl.listeners.WeatherControlBlockListener;
-import com.halvors.WeatherControl.listeners.WeatherControlEntityListener;
-import com.halvors.WeatherControl.listeners.WeatherControlPlayerListener;
-import com.halvors.WeatherControl.listeners.WeatherControlWeatherListener;
-import com.halvors.WeatherControl.listeners.WeatherControlWorldListener;
-import com.halvors.WeatherControl.manager.WandManager;
-import com.halvors.WeatherControl.util.ConfigManager;
-import com.halvors.WeatherControl.util.WorldConfig;
+import com.halvors.weathercontrol.listeners.WeatherControlBlockListener;
+import com.halvors.weathercontrol.listeners.WeatherControlEntityListener;
+import com.halvors.weathercontrol.listeners.WeatherControlPlayerListener;
+import com.halvors.weathercontrol.listeners.WeatherControlWeatherListener;
+import com.halvors.weathercontrol.listeners.WeatherControlWorldListener;
+import com.halvors.weathercontrol.manager.WandManager;
+import com.halvors.weathercontrol.thread.WeatherControlThread;
+import com.halvors.weathercontrol.util.ConfigManager;
+import com.halvors.weathercontrol.util.WorldConfig;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 

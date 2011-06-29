@@ -1,8 +1,8 @@
-package com.halvors.WeatherControl.manager;
+package com.halvors.weathercontrol.manager;
 
 import java.util.HashMap;
 
-import com.halvors.WeatherControl.WeatherControl;
+import com.halvors.weathercontrol.WeatherControl;
 
 /**
  * Manage wands
