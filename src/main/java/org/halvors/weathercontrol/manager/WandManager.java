@@ -1,8 +1,8 @@
-package com.halvors.weathercontrol.manager;
+package org.halvors.weathercontrol.manager;
 
 import java.util.HashMap;
 
-import com.halvors.weathercontrol.WeatherControl;
+import org.halvors.weathercontrol.WeatherControl;
 
 /**
  * Manage wands
@@ -10,13 +10,12 @@ import com.halvors.weathercontrol.WeatherControl;
  * @author halvors
  */
 public class WandManager {
-//	private final WeatherControl plugin;
+//	private WeatherControl plugin;
 	
-	private final HashMap<String, Integer> wands;
+	private final HashMap<String, Integer> wands = new HashMap<String, Integer>();
 
-	public WandManager(final WeatherControl plugin) {
+	public WandManager(WeatherControl plugin) {
 //		this.plugin = plugin;
-		this.wands = new HashMap<String, Integer>();
 	}
 
 	public Integer getWandCount(String name) {

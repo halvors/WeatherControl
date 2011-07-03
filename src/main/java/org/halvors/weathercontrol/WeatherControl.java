@@ -17,9 +17,8 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.halvors.weathercontrol;
+package org.halvors.weathercontrol;
 
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,16 +29,17 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.halvors.weathercontrol.commands.WeatherControlCommandExecutor;
+import org.halvors.weathercontrol.listeners.WeatherControlBlockListener;
+import org.halvors.weathercontrol.listeners.WeatherControlEntityListener;
+import org.halvors.weathercontrol.listeners.WeatherControlPlayerListener;
+import org.halvors.weathercontrol.listeners.WeatherControlWeatherListener;
+import org.halvors.weathercontrol.listeners.WeatherControlWorldListener;
+import org.halvors.weathercontrol.manager.WandManager;
+import org.halvors.weathercontrol.thread.WeatherControlThread;
+import org.halvors.weathercontrol.util.ConfigManager;
+import org.halvors.weathercontrol.util.WorldConfig;
 
-import com.halvors.weathercontrol.listeners.WeatherControlBlockListener;
-import com.halvors.weathercontrol.listeners.WeatherControlEntityListener;
-import com.halvors.weathercontrol.listeners.WeatherControlPlayerListener;
-import com.halvors.weathercontrol.listeners.WeatherControlWeatherListener;
-import com.halvors.weathercontrol.listeners.WeatherControlWorldListener;
-import com.halvors.weathercontrol.manager.WandManager;
-import com.halvors.weathercontrol.thread.WeatherControlThread;
-import com.halvors.weathercontrol.util.ConfigManager;
-import com.halvors.weathercontrol.util.WorldConfig;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
@@ -53,22 +53,31 @@ public class WeatherControl extends JavaPlugin {
     private final Logger log = Logger.getLogger("Minecraft");
     private PluginManager pm;
     private PluginDescriptionFile pdfFile;
-
+    
     private Thread thread;
     
-    private final ConfigManager configManager = new ConfigManager(this);
-    private final WandManager wandManager = new WandManager(this);
+    private final ConfigManager configManager;
+    private final WandManager wandManager;
     
-    private final WeatherControlBlockListener blockListener = new WeatherControlBlockListener(this);
-    private final WeatherControlEntityListener entityListener = new WeatherControlEntityListener(this);
-    private final WeatherControlPlayerListener playerListener = new WeatherControlPlayerListener(this);
-    private final WeatherControlWeatherListener weatherListener = new WeatherControlWeatherListener(this);
-    private final WeatherControlWorldListener worldListener = new WeatherControlWorldListener(this);
+    private final WeatherControlBlockListener blockListener;
+    private final WeatherControlEntityListener entityListener;
+    private final WeatherControlPlayerListener playerListener;
+    private final WeatherControlWeatherListener weatherListener;
+    private final WeatherControlWorldListener worldListener;
     
     public static PermissionHandler Permissions;
     
-    private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
-   
+    public WeatherControl() {
+        this.configManager = new ConfigManager(this);
+        this.wandManager = new WandManager(this);
+        
+        this.blockListener = new WeatherControlBlockListener(this);
+        this.entityListener = new WeatherControlEntityListener(this);
+        this.playerListener = new WeatherControlPlayerListener(this);
+        this.weatherListener = new WeatherControlWeatherListener(this);
+        this.worldListener = new WeatherControlWorldListener(this);
+    }
+    
     @Override
     public void onEnable() {
         pm = getServer().getPluginManager();
@@ -82,10 +91,10 @@ public class WeatherControl extends JavaPlugin {
         configManager.load();
         
         // Create our thread
-        thread = new Thread( new WeatherControlThread(this), "wc_thread" );
+        thread = new Thread(new WeatherControlThread(this), "wc_thread" );
         thread.start();
         
-        for (World world : this.getServer().getWorlds()) {
+        for (World world : getServer().getWorlds()) {
         	WorldConfig worldConfig = configManager.getWorldConfig(world);
         	
         	if (worldConfig.intervalEnable) {
@@ -153,18 +162,6 @@ public class WeatherControl extends JavaPlugin {
         } else {
             return player.isOp();
         }
-    }
-    
-    public boolean isDebugging(final Player player) {
-        if (debugees.containsKey(player)) {
-            return debugees.get(player);
-        } else {
-            return false;
-        }
-    }
-
-    public void setDebugging(final Player player, final boolean value) {
-        debugees.put(player, value);
     }
     
     public String getName() {

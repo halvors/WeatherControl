@@ -17,7 +17,7 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.halvors.weathercontrol.listeners;
+package org.halvors.weathercontrol.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -26,11 +26,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
-
-import com.halvors.weathercontrol.WeatherControl;
-import com.halvors.weathercontrol.manager.WandManager;
-import com.halvors.weathercontrol.util.ConfigManager;
-import com.halvors.weathercontrol.util.WorldConfig;
+import org.halvors.weathercontrol.WeatherControl;
+import org.halvors.weathercontrol.manager.WandManager;
+import org.halvors.weathercontrol.util.ConfigManager;
+import org.halvors.weathercontrol.util.WorldConfig;
 
 /**
  * Handle events for all Player related events

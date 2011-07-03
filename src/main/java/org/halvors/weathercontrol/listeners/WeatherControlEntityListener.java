@@ -17,7 +17,7 @@
  * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.halvors.weathercontrol.listeners;
+package org.halvors.weathercontrol.listeners;
 
 import org.bukkit.World;
 import org.bukkit.entity.Creature;
@@ -29,10 +29,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.PigZapEvent;
-
-import com.halvors.weathercontrol.WeatherControl;
-import com.halvors.weathercontrol.util.ConfigManager;
-import com.halvors.weathercontrol.util.WorldConfig;
+import org.halvors.weathercontrol.WeatherControl;
+import org.halvors.weathercontrol.util.ConfigManager;
+import org.halvors.weathercontrol.util.WorldConfig;
 
 /**
  * Handle events for all Entity related events
