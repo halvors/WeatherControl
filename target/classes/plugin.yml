@@ -1,10 +1,10 @@
 name: WeatherControl
-main: com.halvors.WeatherControl.WeatherControl
-version: 0.8.4
+main: org.halvors.weathercontrol.WeatherControl
+version: 0.9.1
 author: halvors
 
 commands:
-    weatherc:
-        aliases: [wc, weather]
+    weather:
+        aliases: [wc]
         description:
         usage:

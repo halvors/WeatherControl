@@ -39,7 +39,7 @@ import org.halvors.weathercontrol.WeatherControl;
 public class ConfigManager {
     private WeatherControl plugin;
     
-    private HashMap<String, WorldConfig> worlds;
+    private final HashMap<String, WorldConfig> worlds;
     
     /* Configuration data start */
     public String It_is_thundering;

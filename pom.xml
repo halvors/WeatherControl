@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.halvors.weathercontrol</groupId>
   <artifactId>weathercontrol</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.9.1-SNAPSHOT</version>
   <name>WeatherControl</name>
   <description></description>
   <url>https://github.com/halvors/WeatherControl</url>
