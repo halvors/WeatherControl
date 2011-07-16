@@ -26,8 +26,8 @@ import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.weather.WeatherListener;
 import org.halvors.weathercontrol.WeatherControl;
-import org.halvors.weathercontrol.util.ConfigManager;
-import org.halvors.weathercontrol.util.WorldConfig;
+import org.halvors.weathercontrol.util.ConfigurationManager;
+import org.halvors.weathercontrol.util.WorldConfiguration;
 
 /**
  * Handle events for all Weather related events
@@ -37,18 +37,18 @@ import org.halvors.weathercontrol.util.WorldConfig;
 public class WeatherControlWeatherListener extends WeatherListener {
 //    private final WeatherControl plugin;
     
-    private final ConfigManager configManager;
+	private final ConfigurationManager configManager;
     
     public WeatherControlWeatherListener(final WeatherControl plugin) {
 //        this.plugin = plugin;
-        this.configManager = plugin.getConfigManager();
+        this.configManager = plugin.getConfigurationManager();
     }
     
     @Override
     public void onWeatherChange(WeatherChangeEvent event) {
         if (!event.isCancelled()) {
             World world = event.getWorld();
-            WorldConfig worldConfig = configManager.getWorldConfig(world);
+            WorldConfiguration worldConfig = configManager.get(world);
 
             if (!worldConfig.weatherEnable) {
                 if (event.toWeatherState()) {
@@ -62,7 +62,7 @@ public class WeatherControlWeatherListener extends WeatherListener {
     public void onThunderChange(ThunderChangeEvent event) {
         if (!event.isCancelled()) {
             World world = event.getWorld();
-            WorldConfig worldConfig = configManager.getWorldConfig(world);
+            WorldConfiguration worldConfig = configManager.get(world);
         
             if ((!worldConfig.weatherEnable) || (!worldConfig.thunderEnable)) {
                 if (event.toThunderState()) {
@@ -77,7 +77,7 @@ public class WeatherControlWeatherListener extends WeatherListener {
         if (!event.isCancelled()) {
         	Location location = event.getLightning().getLocation();
             World world = event.getWorld();
-            WorldConfig worldConfig = configManager.getWorldConfig(world);
+            WorldConfiguration worldConfig = configManager.get(world);
         
             if (worldConfig.lightningExplosion) {
             	world.createExplosion(location, 4F);

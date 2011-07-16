@@ -22,12 +22,12 @@ package org.halvors.weathercontrol.listeners;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockIgniteEvent;
-import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.SnowFormEvent;
+import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.halvors.weathercontrol.WeatherControl;
-import org.halvors.weathercontrol.util.ConfigManager;
-import org.halvors.weathercontrol.util.WorldConfig;
+import org.halvors.weathercontrol.util.ConfigurationManager;
+import org.halvors.weathercontrol.util.WorldConfiguration;
 
 /**
  * Handle events for all Block related events
@@ -37,11 +37,11 @@ import org.halvors.weathercontrol.util.WorldConfig;
 public class WeatherControlBlockListener extends BlockListener {
 //	private final WeatherControl plugin;
 	
-	private final ConfigManager configManager;
+	private final ConfigurationManager configManager;
 	
     public WeatherControlBlockListener(final WeatherControl plugin) {
 //        this.plugin = plugin;
-        this.configManager = plugin.getConfigManager();
+        this.configManager = plugin.getConfigurationManager();
     }
 	
     @Override
@@ -50,7 +50,7 @@ public class WeatherControlBlockListener extends BlockListener {
 			Block block = event.getBlock();
 			IgniteCause cause = event.getCause();
 			World world = block.getWorld();
-			WorldConfig worldConfig = configManager.getWorldConfig(world);
+			WorldConfiguration worldConfig = configManager.get(world);
 			
 			if ((worldConfig.lightningDisableLightningStrikeFire) && (cause == IgniteCause.LIGHTNING)) {
 				event.setCancelled(true);
@@ -63,7 +63,7 @@ public class WeatherControlBlockListener extends BlockListener {
     	if (!event.isCancelled()) {
     		Block block = event.getBlock();
     		World world = block.getWorld();
-    		WorldConfig worldConfig = configManager.getWorldConfig(world);
+    		WorldConfiguration worldConfig = configManager.get(world);
     		
     		if (worldConfig.disableSnowForm) {
     			event.setCancelled(true);

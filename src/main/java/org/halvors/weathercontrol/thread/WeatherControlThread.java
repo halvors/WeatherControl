@@ -4,10 +4,13 @@ import java.util.logging.Level;
 
 import org.bukkit.World;
 import org.halvors.weathercontrol.WeatherControl;
-import org.halvors.weathercontrol.util.WorldConfig;
+import org.halvors.weathercontrol.util.ConfigurationManager;
+import org.halvors.weathercontrol.util.WorldConfiguration;
 
 public class WeatherControlThread implements Runnable {
     private WeatherControl plugin;
+    
+    private final ConfigurationManager configManager;
     
     public boolean interrupted = false;
     
@@ -18,6 +21,7 @@ public class WeatherControlThread implements Runnable {
 
     public WeatherControlThread(WeatherControl plugin) {
         this.plugin = plugin;
+        this.configManager = plugin.getConfigurationManager();
     }
 
     public void run() {
@@ -26,7 +30,7 @@ public class WeatherControlThread implements Runnable {
                 Thread.sleep(5000); // 5 seconds
                 
                 for (World world : plugin.getServer().getWorlds()) {
-                	WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+                	WorldConfiguration worldConfig = configManager.get(world);
                 	
                 	if (worldConfig.intervalEnable) {
                 		if ((rainSteps * 5) >= worldConfig.intervalWeatherInterval) { // 10 seconds

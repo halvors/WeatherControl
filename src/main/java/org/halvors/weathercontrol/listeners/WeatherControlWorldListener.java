@@ -6,8 +6,8 @@ import org.bukkit.World;
 import org.bukkit.event.world.WorldListener;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.halvors.weathercontrol.WeatherControl;
-import org.halvors.weathercontrol.util.ConfigManager;
-import org.halvors.weathercontrol.util.WorldConfig;
+import org.halvors.weathercontrol.util.ConfigurationManager;
+import org.halvors.weathercontrol.util.WorldConfiguration;
 
 /**
  * Handle events for all World related events
@@ -17,17 +17,17 @@ import org.halvors.weathercontrol.util.WorldConfig;
 public class WeatherControlWorldListener extends WorldListener {
 	private final WeatherControl plugin;
 	
-	private final ConfigManager configManager;
+	private final ConfigurationManager configManager;
 	
 	public WeatherControlWorldListener(final WeatherControl plugin) {
 		this.plugin = plugin;
-		this.configManager = plugin.getConfigManager();
+		this.configManager = plugin.getConfigurationManager();
 	}
 	
 	@Override
 	public void onWorldLoad(WorldLoadEvent event) {
 		World world = event.getWorld();
-		WorldConfig worldConfig = configManager.getWorldConfig(world);
+		WorldConfiguration worldConfig = configManager.get(world);
 		String worldName = world.getName();
 		
 		if (!worldConfig.weatherEnable && world.hasStorm()) {

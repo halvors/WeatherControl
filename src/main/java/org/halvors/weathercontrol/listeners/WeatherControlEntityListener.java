@@ -26,12 +26,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreeperPowerEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.PigZapEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.halvors.weathercontrol.WeatherControl;
-import org.halvors.weathercontrol.util.ConfigManager;
-import org.halvors.weathercontrol.util.WorldConfig;
+import org.halvors.weathercontrol.util.ConfigurationManager;
+import org.halvors.weathercontrol.util.WorldConfiguration;
 
 /**
  * Handle events for all Entity related events
@@ -41,11 +41,11 @@ import org.halvors.weathercontrol.util.WorldConfig;
 public class WeatherControlEntityListener extends EntityListener {
 //    private final WeatherControl plugin;
     
-    private final ConfigManager configManager;
+	private final ConfigurationManager configManager;
     
     public WeatherControlEntityListener(final WeatherControl plugin) {
 //        this.plugin = plugin;
-        this.configManager = plugin.getConfigManager();
+        this.configManager = plugin.getConfigurationManager();
     }
     
     @Override
@@ -54,7 +54,7 @@ public class WeatherControlEntityListener extends EntityListener {
             if (event instanceof EntityDamageByEntityEvent) {
                 Entity entity = event.getEntity();
                 DamageCause cause = event.getCause();
-                WorldConfig worldConfig = configManager.getWorldConfig(entity.getWorld());
+                WorldConfiguration worldConfig = configManager.get(entity.getWorld());
                 
                 if (entity instanceof Player) {
                     if ((worldConfig.lightningDisableLightningStrikePlayerDamage) && (cause == DamageCause.LIGHTNING)) {
@@ -73,7 +73,7 @@ public class WeatherControlEntityListener extends EntityListener {
     public void onCreeperPower(CreeperPowerEvent event) {
         if (!event.isCancelled()) {
             World world = event.getEntity().getWorld();
-            WorldConfig worldConfig = configManager.getWorldConfig(world);
+            WorldConfiguration worldConfig = configManager.get(world);
         
             if (worldConfig.lightningDisableCreeperPower) {
                 event.setCancelled(true);
@@ -85,8 +85,8 @@ public class WeatherControlEntityListener extends EntityListener {
     public void onPigZap(PigZapEvent event) {
         if (!event.isCancelled()) {
             World world = event.getEntity().getWorld();
-            WorldConfig worldConfig = configManager.getWorldConfig(world);
-        
+            WorldConfiguration worldConfig = configManager.get(world);
+            
             if (worldConfig.lightningDisablePigZap) {
                 event.setCancelled(true);
             }

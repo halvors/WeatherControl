@@ -34,8 +34,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.halvors.weathercontrol.WeatherControl;
 import org.halvors.weathercontrol.manager.WandManager;
-import org.halvors.weathercontrol.util.ConfigManager;
-import org.halvors.weathercontrol.util.WorldConfig;
+import org.halvors.weathercontrol.util.ConfigurationManager;
+import org.halvors.weathercontrol.util.WorldConfiguration;
 
 /**
  * Handle commands
@@ -45,12 +45,12 @@ import org.halvors.weathercontrol.util.WorldConfig;
 public class WeatherControlCommandExecutor implements CommandExecutor {
     private final WeatherControl plugin;
 
-    private final ConfigManager configManager;
+    private final ConfigurationManager configManager;
     private final WandManager wandManager;
     
     public WeatherControlCommandExecutor(final WeatherControl plugin) {
         this.plugin = plugin;
-        this.configManager = plugin.getConfigManager();
+        this.configManager = plugin.getConfigurationManager();
         this.wandManager = plugin.getWandManager();
     }
     
@@ -77,7 +77,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                     if (plugin.hasPermissions(player, "WeatherControl.status")) {
                         World world = player.getWorld();
                         
-                        if ((world.isThundering()) && (world.hasStorm())) {
+                        if (world.isThundering() && world.hasStorm()) {
                             player.sendMessage(ChatColor.GREEN + configManager.It_is_thundering);
                         } else if (world.hasStorm()) {
                             player.sendMessage(ChatColor.GREEN + configManager.It_is_storming);
@@ -90,7 +90,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                 } else if (subCommand.equalsIgnoreCase("weather")) {
                     if (plugin.hasPermissions(player, "WeatherControl.weather")) {
                         World world = player.getWorld();                    
-                        WorldConfig worldConfig = configManager.getWorldConfig(world);
+                        WorldConfiguration worldConfig = configManager.get(world);
                         
                         if (worldConfig.weatherEnable) {
                             if (args.length == 1) {
@@ -133,7 +133,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                 } else if (subCommand.equalsIgnoreCase("thunder")) {
                     if (plugin.hasPermissions(player, "WeatherControl.thunder")) {
                         World world = player.getWorld();
-                        WorldConfig worldConfig = configManager.getWorldConfig(world);
+                        WorldConfiguration worldConfig = configManager.get(world);
                             
                         if (worldConfig.thunderEnable) {
                             if (args.length == 1) {
@@ -191,19 +191,19 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                 } else if (subCommand.equalsIgnoreCase("strike")) {
                     if (plugin.hasPermissions(player, "WeatherControl.strike")) {
                         World world = player.getWorld();
-                        WorldConfig worldConfig = configManager.getWorldConfig(world);
+                        WorldConfiguration worldConfig = configManager.get(world);
                         
                         if (worldConfig.lightningEnable) {
                             Player target = null;
                             
                             switch (args.length) {
                             case 1:
-                                    target = player;
-                                    player.sendMessage(ChatColor.GREEN + configManager.You_have_been_struck_by_lightning);
+                                target = player;
+                                player.sendMessage(ChatColor.GREEN + configManager.You_have_been_struck_by_lightning);
                                 break;
                                 
                             case 2:
-                                target = plugin.getServer().getPlayer(args[1]);
+                                target = getPlayer(args[1]);
                                     
                                 if (target != null) {
                                     player.sendMessage(ChatColor.GREEN + configManager.Player_have_been_struck_by_lightning.replace("<player>", target.getName()));
@@ -223,7 +223,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                 } else if (subCommand.equalsIgnoreCase("strikemob")) {
                     if (plugin.hasPermissions(player, "WeatherControl.strikemob")) {    
                         World world = player.getWorld();
-                        WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+                        WorldConfiguration worldConfig = configManager.get(world);
                             
                         if (worldConfig.lightningEnable) {
                             if (args.length >= 2) {
@@ -277,7 +277,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                 } else if (subCommand.equalsIgnoreCase("strikepos")) {
                     if (plugin.hasPermissions(player, "WeatherControl.strikepos")) {
                         World world = player.getWorld();
-                        WorldConfig worldConfig = plugin.getConfigManager().getWorldConfig(world);
+                        WorldConfiguration worldConfig = configManager.get(world);
                                 
                         if (worldConfig.lightningEnable) {
                             if (args.length == 4) {
@@ -298,7 +298,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                 } else if (subCommand.equalsIgnoreCase("wand")) {
                     if (plugin.hasPermissions(player, "WeatherControl.wand")) {
                         World world = player.getWorld();
-                        WorldConfig worldConfig = configManager.getWorldConfig(world);
+                        WorldConfiguration worldConfig = configManager.get(world);
                         
                         if (args.length == 1) {
                             int item = worldConfig.lightningWand;
@@ -321,12 +321,6 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                             	player.sendMessage(ChatColor.GREEN + configManager.Wand_count_set_to.replace("<count>", Integer.toString(count)));
                             }
                         }
-                        
-                        return true;
-                    }
-                } else {
-                    if (plugin.hasPermissions(player, "WeatherControl.help")) {
-                        showHelp(player, label);
                         
                         return true;
                     }
@@ -380,7 +374,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
         }
     }
     
-    private String formatTime(final int seconds) {
+    private String formatTime(int seconds) {
         String format = null;
         String type = " ";
         
@@ -411,5 +405,15 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
         }
         
         return format;
+    }
+    
+    /**
+     * Get the best matching player.
+     * 
+     * @param name
+     * @return
+     */
+    public Player getPlayer(String name) {
+    	return plugin.getServer().matchPlayer(name).get(0);
     }
 }
