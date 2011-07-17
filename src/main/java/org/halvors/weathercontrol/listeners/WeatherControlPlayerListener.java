@@ -37,15 +37,13 @@ import org.halvors.weathercontrol.util.WorldConfiguration;
  * @author halvors
  */
 public class WeatherControlPlayerListener extends PlayerListener {
-    private final WeatherControl plugin;
+//    private final WeatherControl plugin;
 
     private final ConfigurationManager configManager;
-    private final WandManager wandManager;
     
-    public WeatherControlPlayerListener(final WeatherControl plugin) {
-        this.plugin = plugin;
+    public WeatherControlPlayerListener(WeatherControl plugin) {
+//        this.plugin = plugin;
         this.configManager = plugin.getConfigurationManager();
-        this.wandManager = plugin.getWandManager();
     }   
 
     @Override
@@ -56,12 +54,12 @@ public class WeatherControlPlayerListener extends PlayerListener {
         WorldConfiguration worldConfig = configManager.get(world);
         
         if (event.hasItem()) {
-            if (plugin.hasPermissions(player, "WeatherControl.wand")) {
+            if (player.hasPermission("weathercontrol.weather.wand")) {
             	int item = worldConfig.lightningWand;
                 int count = worldConfig.lightningCount;
                     
-                if (wandManager.hasWandCount(player.getName())) {
-                	count = wandManager.getWandCount(player.getName());
+                if (WandManager.hasWandCount(player)) {
+                	count = WandManager.getWandCount(player);
                 }
             
                 if (item != 0) {

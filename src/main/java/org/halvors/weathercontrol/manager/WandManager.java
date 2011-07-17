@@ -2,7 +2,7 @@ package org.halvors.weathercontrol.manager;
 
 import java.util.HashMap;
 
-import org.halvors.weathercontrol.WeatherControl;
+import org.bukkit.entity.Player;
 
 /**
  * Manage wands
@@ -10,19 +10,15 @@ import org.halvors.weathercontrol.WeatherControl;
  * @author halvors
  */
 public class WandManager {
-//	private WeatherControl plugin;
-	
-	private final HashMap<String, Integer> wands = new HashMap<String, Integer>();
+	private final static HashMap<String, Integer> wands = new HashMap<String, Integer>();
 
-	public WandManager(WeatherControl plugin) {
-//		this.plugin = plugin;
+	public static int getWandCount(Player player) {
+		return wands.get(player.getName());
 	}
 
-	public Integer getWandCount(String name) {
-		return wands.get(name);
-	}
-
-	public void addWandCount(String name, int count) {
+	public static void addWandCount(Player player, int count) {
+		String name = player.getName();
+		
 		if (wands.containsKey(name)) {
 			wands.remove(name);
 		}
@@ -30,17 +26,15 @@ public class WandManager {
 		wands.put(name, count);
 	}
 
-	public void removeWandCount(String name) {
+	public static void removeWandCount(Player player) {
+		String name = player.getName();
+		
 		if (wands.containsKey(name)) {
 			wands.remove(name);
 		}
 	}
 
-	public boolean hasWandCount(String name) {
-		if (wands.containsKey(name)) {
-			return true;
-		}
-	    
-	    return false;
+	public static boolean hasWandCount(Player player) {
+		return wands.containsKey(player.getName());
 	}
 }

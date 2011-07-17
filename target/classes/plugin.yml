@@ -1,10 +1,52 @@
 name: WeatherControl
 main: org.halvors.weathercontrol.WeatherControl
 version: 0.9.1
+description: Lupi is a wolf plugin for Bukkit.
 author: halvors
-
+website: http://forums.bukkit.org/threads/fun-admin-weathercontrol-v0-9-control-the-weather-or-and-disable-it-928.14283/
 commands:
-    weather:
+    wolf:
         aliases: [wc]
-        description:
-        usage:
+        description: WeatherControl commands.
+        usage: |
+            /<command> help - Show help.
+            /<command> status - Show weather status.
+            /<command> weather <on|off> <duration> - Show or toogle weather.
+            /<command> thunder <on|off> <duration> - Show or toogle thunder.
+            /<command> clear  - Toogle clear.
+            /<command> strike <player> - Lightning strike you or/and other senders.
+            /<command> strikemob <pig|creeper> <distance> - Lightning strike mob.
+            /<command> strikepos <x> <y> <z> - Lightning strike a specific position.
+            /<command> wand <count> - Get wand item or set count.
+permissions:
+    weathercontrol.weather.*:
+        default: op
+        description: Allows use of all /weather commands.
+        children:
+            weathercontrol.weather.help: true
+            weathercontrol.weather.status: true
+            weathercontrol.weather.weather: true
+            weathercontrol.weather.thunder: true
+            weathercontrol.weather.clear: true
+            weathercontrol.weather.strike: true
+            weathercontrol.weather.strikemob: true
+            weathercontrol.weather.strikepos: true
+            weathercontrol.weather.wand: true
+    weathercontrol.weather.help:
+        description: Allows viewing of usage for /weather.
+    weathercontrol.weather.status:
+        description: Allows use of /weather status.
+    weathercontrol.weather.weather:
+        description: Allows use of /weather weather.
+    weathercontrol.weather.thunder:
+        description: Allows use of /weather thunder.
+    weathercontrol.weather.clear:
+        description: Allows use of /weather clear.
+    weathercontrol.weather.strike:
+        description: Allows use of /weather strike.
+    weathercontrol.weather.strikemob:
+        description: Allows use of /weather strikemob.
+    weathercontrol.weather.strikepos:
+        description: Allows use of /weather strikepos.
+    weathercontrol.weather.wand:
+        description: Allows use of /weather wand.

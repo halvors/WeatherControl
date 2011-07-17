@@ -2,18 +2,18 @@ package org.halvors.weathercontrol.thread;
 
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.halvors.weathercontrol.WeatherControl;
 import org.halvors.weathercontrol.util.ConfigurationManager;
 import org.halvors.weathercontrol.util.WorldConfiguration;
 
 public class WeatherControlThread implements Runnable {
-    private WeatherControl plugin;
+    private final WeatherControl plugin;
     
     private final ConfigurationManager configManager;
     
     public boolean interrupted = false;
-    
     public int rainSteps = 0; // 1 step = 5 seconds
     public int rainIntSteps = 0;
     public int thunderSteps = 0; // 1 step = 5 seconds
@@ -29,7 +29,7 @@ public class WeatherControlThread implements Runnable {
             try {
                 Thread.sleep(5000); // 5 seconds
                 
-                for (World world : plugin.getServer().getWorlds()) {
+                for (World world : Bukkit.getServer().getWorlds()) {
                 	WorldConfiguration worldConfig = configManager.get(world);
                 	
                 	if (worldConfig.intervalEnable) {
@@ -82,7 +82,7 @@ public class WeatherControlThread implements Runnable {
                     	}
                 	}
                 }
-            } catch (InterruptedException ex) {
+            } catch (InterruptedException e) {
                 break;
             }
 

@@ -22,10 +22,9 @@ package org.halvors.weathercontrol;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -40,21 +39,18 @@ import org.halvors.weathercontrol.thread.WeatherControlThread;
 import org.halvors.weathercontrol.util.ConfigurationManager;
 import org.halvors.weathercontrol.util.WorldConfiguration;
 
-import com.nijiko.permissions.PermissionHandler;
-import com.nijikokun.bukkit.Permissions.Permissions;
-
 /**
  * @author halvors
  */
 public class WeatherControl extends JavaPlugin {
     private final Logger log = Logger.getLogger("Minecraft");
+    
     private PluginManager pm;
     private PluginDescriptionFile desc;
-    
     private Thread thread;
     
     private final ConfigurationManager configManager;
-    private final WandManager wandManager;
+
     
     private final WeatherControlBlockListener blockListener;
     private final WeatherControlEntityListener entityListener;
@@ -62,11 +58,10 @@ public class WeatherControl extends JavaPlugin {
     private final WeatherControlWeatherListener weatherListener;
     private final WeatherControlWorldListener worldListener;
     
-    public static PermissionHandler Permissions;
+    private final static WandManager wandManager = new WandManager();
     
     public WeatherControl() {
         this.configManager = new ConfigurationManager(this);
-        this.wandManager = new WandManager(this);
         
         this.blockListener = new WeatherControlBlockListener(this);
         this.entityListener = new WeatherControlEntityListener(this);
@@ -87,7 +82,7 @@ public class WeatherControl extends JavaPlugin {
         thread = new Thread(new WeatherControlThread(this), "wc_thread" );
         thread.start();
         
-        for (World world : getServer().getWorlds()) {
+        for (World world : Bukkit.getServer().getWorlds()) {
         	WorldConfiguration worldConfig = configManager.get(world);
         	
         	if (worldConfig.intervalEnable) {
@@ -115,11 +110,9 @@ public class WeatherControl extends JavaPlugin {
         pm.registerEvent(Event.Type.WORLD_LOAD, worldListener, Event.Priority.Normal, this);
         
         // Register our commands        
-        this.getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));
+        this.getCommand("weather").setExecutor(new WeatherControlCommandExecutor(this));
         
         log(Level.INFO, "version " + getVersion() + " is enabled!");
-        
-        setupPermissions();
     }
     
     @Override
@@ -134,27 +127,7 @@ public class WeatherControl extends JavaPlugin {
         	e.printStackTrace();
         }
         
-        log(Level.INFO, "Plugin disabled!");
-    }
-    
-    private void setupPermissions() {
-        Plugin permissions = getServer().getPluginManager().getPlugin("Permissions");
-
-        if (Permissions == null) {
-            if (permissions != null) {
-                Permissions = ((Permissions)permissions).getHandler();
-            } else {
-                log(Level.INFO, "Permission system not detected, defaulting to OP");
-            }
-        }
-    }
-    
-    public boolean hasPermissions(Player player, String node) {
-        if (Permissions != null) {
-            return Permissions.has(player, node);
-        } else {
-            return player.isOp();
-        }
+        log(Level.INFO, "version " + getVersion() + " is disabled!");
     }
     
     public String getName() {
@@ -173,7 +146,7 @@ public class WeatherControl extends JavaPlugin {
         return configManager;
     }
     
-    public WandManager getWandManager() {
+    public static WandManager getWandManager() {
     	return wandManager;
     }
 }
