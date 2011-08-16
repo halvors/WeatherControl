@@ -3,7 +3,8 @@
 # This is the a per-world configuration file. It only affects one
 # corresponding world.
 
-disableSnowForm: false # Prevent snow to be placed by the enviroment
+disableSnowForm: false # Prevent snow from being placed by the environment
+disableIceForm: false # Prevent ice from being placed by the environment
 
 interval:
     enable: false # Enable interval.

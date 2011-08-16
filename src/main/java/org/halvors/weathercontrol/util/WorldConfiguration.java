@@ -43,6 +43,7 @@ public class WorldConfiguration {
     
     /* Configuration data start */
     public boolean disableSnowForm;
+    public boolean disableIceForm;
     
     public boolean intervalEnable;
     public int intervalWeatherLength;
@@ -91,7 +92,8 @@ public class WorldConfiguration {
         config.load();
         
         disableSnowForm = config.getBoolean("disableSnowForm", disableSnowForm);
-        
+        disableIceForm = config.getBoolean("disableIceForm", disableIceForm);
+
         intervalEnable = config.getBoolean("interval.enable", intervalEnable);
         intervalWeatherLength = config.getInt("interval.weatherLength", intervalWeatherLength);
         intervalWeatherInterval = config.getInt("interval.weatherInterval", intervalWeatherInterval);

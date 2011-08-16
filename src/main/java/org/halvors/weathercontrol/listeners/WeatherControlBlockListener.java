@@ -36,40 +36,42 @@ import org.halvors.weathercontrol.util.WorldConfiguration;
  * @author halvors
  */
 public class WeatherControlBlockListener extends BlockListener {
-//	private final WeatherControl plugin;
 	
-	private final ConfigurationManager configManager;
+    private final ConfigurationManager configManager;
 	
     public WeatherControlBlockListener(final WeatherControl plugin) {
-//        this.plugin = plugin;
         this.configManager = plugin.getConfigurationManager();
     }
 	
     @Override
-	public void onBlockIgnite(BlockIgniteEvent event) {
-		if (!event.isCancelled()) {
-			Block block = event.getBlock();
-			IgniteCause cause = event.getCause();
-			World world = block.getWorld();
-			WorldConfiguration worldConfig = configManager.get(world);
+    public void onBlockIgnite(BlockIgniteEvent event) {
+        if (!event.isCancelled()) {
+            Block block = event.getBlock();
+            IgniteCause cause = event.getCause();
+            World world = block.getWorld();
+            WorldConfiguration worldConfig = configManager.get(world);
 			
-			if ((worldConfig.lightningDisableLightningStrikeFire) && (cause == IgniteCause.LIGHTNING)) {
-				event.setCancelled(true);
-			}
-		}
-	}
+            if ((worldConfig.lightningDisableLightningStrikeFire) && (cause == IgniteCause.LIGHTNING)) {
+                event.setCancelled(true);
+            }
+        }
+    }
     
     @Override
     public void onBlockForm(BlockFormEvent event) {
-    	if (!event.isCancelled()) {
-    		Block block = event.getBlock();
-    		Material type = block.getType();
-    		World world = block.getWorld();
-    		WorldConfiguration worldConfig = configManager.get(world);
+        if (!event.isCancelled()) {
+            Block block = event.getBlock();
+            Material type = block.getType();
+            World world = block.getWorld();
+            WorldConfiguration worldConfig = configManager.get(world);
     		
-    		if (type.equals(Material.SNOW) && worldConfig.disableSnowForm) {
-    			event.setCancelled(true);
-    		}
-    	}
+            if (type.equals(Material.SNOW) && worldConfig.disableSnowForm) {
+                event.setCancelled(true);
+            }
+
+            if(type.equals(Material.ICE) && worldConfig.disableIceForm) {
+                event.setCancelled(true);
+            }
+        }
     }
 }
