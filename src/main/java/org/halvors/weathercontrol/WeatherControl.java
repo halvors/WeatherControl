@@ -100,7 +100,7 @@ public class WeatherControl extends JavaPlugin {
         
         // Register our events
         pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.SNOW_FORM, blockListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.BLOCK_FORM, blockListener, Event.Priority.Normal, this);
         
         pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.CREEPER_POWER, entityListener, Event.Priority.Normal, this);
