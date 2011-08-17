@@ -27,8 +27,9 @@ lightning:
     count: 1 # Default count of lightning per strike.
     distance: 10 # Default distance for strikemob command.
 
-    disableCreeperPower: false # Disable creeper power.
-    disablePigZap: false # Disable pig zap.
-    disableLightningStrikePlayerDamage: false # Prevent players to be damaged by lightning stirke.
-    disableLightningStrikeMobDamage: false # Prevent mobs to be damaged by lightning stirke.
-    disableLightningStrikeFire: false # Prevent lightning strike to cause fire.
+    disableChargedCreeper: false # Disable charged creepers.
+    disablePigZap: false # Disable pig zapping (turning into zombie pigmen).
+    disableStrikePlayerDamage: false # Prevent players from being damaged by lightning strikes.
+    disableStrikeMobDamage: false # Prevent mobs from being damaged by lightning strikes.
+    disableStrikeFire: false # Prevent lightning strike from causing fire.
+

@@ -62,11 +62,11 @@ public class WorldConfiguration {
     public int lightningCount;
     public int lightningDistance;
     
-    public boolean lightningDisableCreeperPower;
+    public boolean lightningDisableChargedCreeper;
     public boolean lightningDisablePigZap;
-    public boolean lightningDisableLightningStrikePlayerDamage;
-    public boolean lightningDisableLightningStrikeMobDamage;
-    public boolean lightningDisableLightningStrikeFire;
+    public boolean lightningDisableStrikePlayerDamage;
+    public boolean lightningDisableStrikeMobDamage;
+    public boolean lightningDisableStrikeFire;
     /* Configuration data end */
     
     public WorldConfiguration(WeatherControl plugin, String worldName) {
@@ -111,11 +111,11 @@ public class WorldConfiguration {
         lightningCount = config.getInt("lightning.count", lightningCount);
         lightningDistance = config.getInt("lightning.distance", lightningDistance);
         
-        lightningDisableCreeperPower = config.getBoolean("lightning.disableCreeperPower", lightningDisableCreeperPower);
+        lightningDisableChargedCreeper = config.getBoolean("lightning.disableCreeperPower", lightningDisableChargedCreeper);
         lightningDisablePigZap = config.getBoolean("lightning.disablePigZap", lightningDisablePigZap);
-        lightningDisableLightningStrikePlayerDamage = config.getBoolean("lightning.disableLightningStrikePlayerDamage", lightningDisableLightningStrikePlayerDamage);
-        lightningDisableLightningStrikeMobDamage = config.getBoolean("lightning.disableLightningStrikeMobDamage", lightningDisableLightningStrikeMobDamage);
-        lightningDisableLightningStrikeFire = config.getBoolean("lightning.disableLightningStrikeFire", lightningDisableLightningStrikeFire);
+        lightningDisableStrikePlayerDamage = config.getBoolean("lightning.disableStrikePlayerDamage", lightningDisableStrikePlayerDamage);
+        lightningDisableStrikeMobDamage = config.getBoolean("lightning.disableStrikeMobDamage", lightningDisableStrikeMobDamage);
+        lightningDisableStrikeFire = config.getBoolean("lightning.disableLightningStrikeFire", lightningDisableStrikeFire);
         
         config.save();
     }
