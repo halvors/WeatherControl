@@ -39,12 +39,9 @@ import org.halvors.weathercontrol.util.WorldConfiguration;
  * @author halvors
  */
 public class WeatherControlEntityListener extends EntityListener {
-//    private final WeatherControl plugin;
-    
-	private final ConfigurationManager configManager;
-    
+    private final ConfigurationManager configManager;
+
     public WeatherControlEntityListener(final WeatherControl plugin) {
-//        this.plugin = plugin;
         this.configManager = plugin.getConfigurationManager();
     }
     
@@ -57,11 +54,11 @@ public class WeatherControlEntityListener extends EntityListener {
                 WorldConfiguration worldConfig = configManager.get(entity.getWorld());
                 
                 if (entity instanceof Player) {
-                    if ((worldConfig.lightningDisableLightningStrikePlayerDamage) && (cause == DamageCause.LIGHTNING)) {
+                    if ((worldConfig.lightningDisableStrikePlayerDamage) && (cause == DamageCause.LIGHTNING)) {
                         event.setCancelled(true);
                     }
                 } else if (entity instanceof Creature) {
-                    if ((worldConfig.lightningDisableLightningStrikeMobDamage) && (cause == DamageCause.LIGHTNING)) {
+                    if ((worldConfig.lightningDisableStrikeMobDamage) && (cause == DamageCause.LIGHTNING)) {
                         event.setCancelled(true);
                     }
                 }
@@ -75,12 +72,12 @@ public class WeatherControlEntityListener extends EntityListener {
             World world = event.getEntity().getWorld();
             WorldConfiguration worldConfig = configManager.get(world);
         
-            if (worldConfig.lightningDisableCreeperPower) {
+            if (worldConfig.lightningDisableChargedCreeper) {
                 event.setCancelled(true);
             }
         }
     }
-    
+
     @Override
     public void onPigZap(PigZapEvent event) {
         if (!event.isCancelled()) {

@@ -1,6 +1,13 @@
+Version 0.9.1
+    - Compatible with CraftBukkit 1060
+    - Add disableIceForm option
+
+Version 0.9
+    - Compatible with CraftBukkit 928.
+
 Version 0.8.2
-	- Added max wand count for prevent lag.
-	- Possibly fixed errors in console.
+    - Added max wand count for prevent lag.
+    - Possibly fixed errors in console.
 
 Version 0.8.1
     - Compatible with CraftBukkit 803.
