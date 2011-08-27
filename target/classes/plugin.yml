@@ -2,9 +2,49 @@ name: WeatherControl
 main: org.halvors.weathercontrol.WeatherControl
 version: 0.9.1
 author: halvors
+website: http://forums.bukkit.org/threads/fun-admin-weathercontrol-v0-9-control-the-weather-or-and-disable-it-928.14283/page-11#post-586340
 
 commands:
     weather:
         aliases: [wc]
-        description:
-        usage:
+        description: WeatherControl commands.
+        usage: |
+            /<command> help - Show help.
+            /<command> status - Show weather status.
+            /<command> weather <on|off> <duration> - Show or toogle weather.
+            /<command> thunder <on|off> <duration> - Show or toogle thunder.
+            /<command> clear - Toogle clear.
+            /<command> strike <player> - Lightning strike you or/and other players.
+            /<command> strikemob [creeper|pig] <distance> - Lightning strike mob.
+            /<command> wand <count> - Get wand item or set count.         
+            
+permissions:
+    weathercontrol.*:
+        default: op
+        description: Allows use of all WeatherControl features.
+        children:
+            weathercontrol.help: true
+            weathercontrol.status: true
+            weathercontrol.weather: true
+            weathercontrol.thunder: true
+            weathercontrol.clear: true
+            weathercontrol.strike: true
+            weathercontrol.strikemob: true
+            weathercontrol.wand: true
+        
+    weathercontrol.help:
+        description: Allows use of /weather help.
+    weathercontrol.status:
+        description: Allows use of /weather status.
+    weathercontrol.weather:
+        description: Allows use of /weather weather.
+    weathercontrol.thunder:
+        description: Allows use of /weather thunder.
+    weathercontrol.clear:
+        description: Allows use of /weather clear.
+    weathercontrol.strike:
+        description: Allows use of /weather strike.
+    weathercontrol.strikemob:
+        description: Allows use of /weather strikemob.
+    weathercontrol.wand:
+        description: Allows use of /weather wand.

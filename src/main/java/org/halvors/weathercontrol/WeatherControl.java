@@ -23,9 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,9 +37,6 @@ import org.halvors.weathercontrol.manager.WandManager;
 import org.halvors.weathercontrol.thread.WeatherControlThread;
 import org.halvors.weathercontrol.util.ConfigurationManager;
 import org.halvors.weathercontrol.util.WorldConfiguration;
-
-import com.nijiko.permissions.PermissionHandler;
-import com.nijikokun.bukkit.Permissions.Permissions;
 
 /**
  * @author halvors
@@ -61,8 +56,6 @@ public class WeatherControl extends JavaPlugin {
     private final WeatherControlPlayerListener playerListener;
     private final WeatherControlWeatherListener weatherListener;
     private final WeatherControlWorldListener worldListener;
-    
-    public static PermissionHandler Permissions;
     
     public WeatherControl() {
         this.configManager = new ConfigurationManager(this);
@@ -118,8 +111,6 @@ public class WeatherControl extends JavaPlugin {
         this.getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));
         
         log(Level.INFO, "version " + getVersion() + " is enabled!");
-        
-        setupPermissions();
     }
     
     @Override
@@ -135,26 +126,6 @@ public class WeatherControl extends JavaPlugin {
         }
         
         log(Level.INFO, "Plugin disabled!");
-    }
-    
-    private void setupPermissions() {
-        Plugin permissions = getServer().getPluginManager().getPlugin("Permissions");
-
-        if (Permissions == null) {
-            if (permissions != null) {
-                Permissions = ((Permissions)permissions).getHandler();
-            } else {
-                log(Level.INFO, "Permission system not detected, defaulting to OP");
-            }
-        }
-    }
-    
-    public boolean hasPermissions(Player player, String node) {
-        if (Permissions != null) {
-            return Permissions.has(player, node);
-        } else {
-            return player.isOp();
-        }
     }
     
     public String getName() {

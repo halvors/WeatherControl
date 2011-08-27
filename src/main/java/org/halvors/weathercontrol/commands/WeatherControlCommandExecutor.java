@@ -59,7 +59,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
             Player player = (Player) sender;
             
             if (args.length == 0) {
-                if (plugin.hasPermissions(player, "WeatherControl.help")) {
+                if (player.hasPermission("weathercontrol.help")) {
                     showHelp(player, label);
                     
                     return true;
@@ -68,13 +68,13 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                 String subCommand = args[0];
                 
                 if (subCommand.equalsIgnoreCase("help")) {
-                    if (plugin.hasPermissions(player, "WeatherControl.help")) {
+                    if (player.hasPermission("weathercontrol.help")) {
                         showHelp(player, label);
                         
                         return true;
                     }
                 } else if (subCommand.equalsIgnoreCase("status")) {
-                    if (plugin.hasPermissions(player, "WeatherControl.status")) {
+                    if (player.hasPermission("weathercontrol.status")) {
                         World world = player.getWorld();
                         
                         if (world.isThundering() && world.hasStorm()) {
@@ -88,7 +88,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                         return true;
                     }
                 } else if (subCommand.equalsIgnoreCase("weather")) {
-                    if (plugin.hasPermissions(player, "WeatherControl.weather")) {
+                    if (player.hasPermission("weathercontrol.weather")) {
                         World world = player.getWorld();                    
                         WorldConfiguration worldConfig = configManager.get(world);
                         
@@ -131,7 +131,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                         return true;
                     }
                 } else if (subCommand.equalsIgnoreCase("thunder")) {
-                    if (plugin.hasPermissions(player, "WeatherControl.thunder")) {
+                    if (player.hasPermission("weathercontrol.thunder")) {
                         World world = player.getWorld();
                         WorldConfiguration worldConfig = configManager.get(world);
                             
@@ -174,7 +174,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                         return true;
                     }
                 } else if (subCommand.equalsIgnoreCase("clear")) {
-                    if (plugin.hasPermissions(player, "WeatherControl.clear")) {
+                    if (player.hasPermission("weathercontrol.clear")) {
                         World world = player.getWorld();
                     
                         if ((world.hasStorm()) || (world.isThundering())) {
@@ -189,7 +189,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                         return true;
                     }
                 } else if (subCommand.equalsIgnoreCase("strike")) {
-                    if (plugin.hasPermissions(player, "WeatherControl.strike")) {
+                    if (player.hasPermission("weathercontrol.strike")) {
                         World world = player.getWorld();
                         WorldConfiguration worldConfig = configManager.get(world);
                         
@@ -221,7 +221,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                         }
                     }
                 } else if (subCommand.equalsIgnoreCase("strikemob")) {
-                    if (plugin.hasPermissions(player, "WeatherControl.strikemob")) {    
+                    if (player.hasPermission("weathercontrol.strikemob")) {    
                         World world = player.getWorld();
                         WorldConfiguration worldConfig = configManager.get(world);
                             
@@ -275,7 +275,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                         }
                     }
                 } else if (subCommand.equalsIgnoreCase("strikepos")) {
-                    if (plugin.hasPermissions(player, "WeatherControl.strikepos")) {
+                    if (player.hasPermission("weathercontrol.strikepos")) {
                         World world = player.getWorld();
                         WorldConfiguration worldConfig = configManager.get(world);
                                 
@@ -296,7 +296,7 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
                         }
                     }
                 } else if (subCommand.equalsIgnoreCase("wand")) {
-                    if (plugin.hasPermissions(player, "WeatherControl.wand")) {
+                    if (player.hasPermission("weathercontrol.wand")) {
                         World world = player.getWorld();
                         WorldConfiguration worldConfig = configManager.get(world);
                         
@@ -337,39 +337,39 @@ public class WeatherControlCommandExecutor implements CommandExecutor {
         player.sendMessage(ChatColor.YELLOW + plugin.getName() + ChatColor.GREEN + " (" + ChatColor.WHITE + plugin.getVersion() + ChatColor.GREEN + ")");
         player.sendMessage(ChatColor.RED + "[]" + ChatColor.WHITE + " Required, " + ChatColor.GREEN + "<>" + ChatColor.WHITE + " Optional.");
 
-        if (plugin.hasPermissions(player, "WeatherControl.help")) {
+        if (player.hasPermission("weathercontrol.help")) {
             player.sendMessage(command + "help" + ChatColor.YELLOW + " - Show help.");
         }
         
-        if (plugin.hasPermissions(player, "WeatherControl.status")) {
+        if (player.hasPermission("weathercontrol.status")) {
             player.sendMessage(command + "status" + ChatColor.YELLOW + " - Show weather status.");
         }
         
-        if (plugin.hasPermissions(player, "WeatherControl.weather")) {
+        if (player.hasPermission("weathercontrol.weather")) {
             player.sendMessage(command + "weather " + ChatColor.GREEN + "<" + ChatColor.WHITE + "on|off" + ChatColor.GREEN + "> <" + ChatColor.WHITE + "duration" + ChatColor.GREEN + ">" + ChatColor.YELLOW + " - Show or toogle weather.");
         }
         
-        if (plugin.hasPermissions(player, "WeatherControl.thunder")) {
+        if (player.hasPermission("weathercontrol.thunder")) {
             player.sendMessage(command + "thunder " + ChatColor.GREEN + "<" + ChatColor.WHITE + "on|off" + ChatColor.GREEN + "> <" + ChatColor.WHITE + "duration" + ChatColor.GREEN + ">" + ChatColor.YELLOW + " - Show or toogle thunder.");
         }
         
-        if (plugin.hasPermissions(player, "WeatherControl.clear")) {
+        if (player.hasPermission("weathercontrol.clear")) {
             player.sendMessage(command + "clear " + ChatColor.YELLOW + " - Toogle clear.");
         }
         
-        if (plugin.hasPermissions(player, "WeatherControl.strike")) {
+        if (player.hasPermission("weathercontrol.strike")) {
             player.sendMessage(command + "strike " + ChatColor.GREEN + "<" + ChatColor.WHITE + "player" + ChatColor.GREEN + ">" + ChatColor.YELLOW + " - Lightning strike you or/and other players.");
         }
         
-        if (plugin.hasPermissions(player, "WeatherControl.strikemob")) {
+        if (player.hasPermission("weathercontrol.strikemob")) {
             player.sendMessage(command + "strikemob " + ChatColor.RED + "[" + ChatColor.WHITE + "pig|creeper" + ChatColor.RED + "] " + ChatColor.GREEN + "<" + ChatColor.WHITE + "distance" + ChatColor.GREEN + ">" + ChatColor.YELLOW + " - Lightning strike mob.");
         }
         
-        if (plugin.hasPermissions(player, "WeatherControl.strikepos")) {
+        if (player.hasPermission("weathercontrol.strikepos")) {
             player.sendMessage(command + "strikepos " + ChatColor.RED + "[" + ChatColor.WHITE + "x" + ChatColor.RED + "] [" + ChatColor.WHITE + "y" + ChatColor.RED + "] [" + ChatColor.WHITE + "z" + ChatColor.RED + "]" + ChatColor.YELLOW + " - Lightning strike a specific position.");
         }
         
-        if (plugin.hasPermissions(player, "WeatherControl.wand")) {
+        if (player.hasPermission("weathercontrol.wand")) {
             player.sendMessage(command + "wand " + ChatColor.GREEN + "<" + ChatColor.WHITE + "count" + ">" + ChatColor.YELLOW + " - Get wand item or set count.");
         }
     }

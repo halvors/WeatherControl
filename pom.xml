@@ -4,8 +4,8 @@
   <artifactId>weathercontrol</artifactId>
   <version>0.9.1-SNAPSHOT</version>
   <name>WeatherControl</name>
-  <description></description>
-  <url>https://github.com/halvors/WeatherControl</url>
+  <description>WeatherControl is a Bukkit plugin for controlling the weather.</description>
+  <url>http://forums.bukkit.org/threads/fun-admin-weathercontrol-v0-9-control-the-weather-or-and-disable-it-928.14283/page-11#post-586340</url>
   <issueManagement>
   	<system>Github</system>
   	<url>https://github.com/halvors/WeatherControl/issues</url>
@@ -39,13 +39,6 @@
       <groupId>org.bukkit</groupId>
       <artifactId>craftbukkit</artifactId>
       <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>com.nijikokun.bukkit</groupId>
-      <artifactId>Permissions</artifactId>
-      <version>3.1.6</version>
-      <scope>system</scope>
-      <systemPath>${basedir}/lib/Permissions.jar</systemPath>
     </dependency>
   </dependencies>
   <properties>
