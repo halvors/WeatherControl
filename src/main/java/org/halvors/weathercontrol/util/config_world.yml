@@ -8,6 +8,7 @@ disableIceForm: false # Prevent ice from being placed by the environment
 
 interval:
     enable: false # Enable interval.
+    showMessages: true # Enable or disable interval messages.
     weatherLength: 120 # This is the length of weather, deafult 120 seconds.
     weatherInterval: 600 # This is the time between each weather, default 10 minutes.
     thunderLength: 30 # This is the length of weather, default 30 seconds.

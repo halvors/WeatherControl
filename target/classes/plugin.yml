@@ -1,12 +1,13 @@
 name: WeatherControl
 main: org.halvors.weathercontrol.WeatherControl
-version: 0.9.1
+version: 1.0
 author: halvors
 website: http://forums.bukkit.org/threads/fun-admin-weathercontrol-v0-9-control-the-weather-or-and-disable-it-928.14283/page-11#post-586340
+load: startup
 
 commands:
     weather:
-        aliases: [wc]
+        aliases: [wc, w]
         description: WeatherControl commands.
         usage: |
             /<command> help - Show help.

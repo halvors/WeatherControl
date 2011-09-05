@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.halvors</groupId>
   <artifactId>weathercontrol</artifactId>
-  <version>0.9.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <name>WeatherControl</name>
   <description>WeatherControl is a Bukkit plugin for controlling the weather.</description>
   <url>http://forums.bukkit.org/threads/fun-admin-weathercontrol-v0-9-control-the-weather-or-and-disable-it-928.14283/page-11#post-586340</url>
@@ -15,6 +15,12 @@
     <developerConnection>scm:git:git@github.com:halvors/WeatherControl.git</developerConnection>
     <url>https://github.com/halvors/WeatherControl</url>
   </scm>
+  <repositories>
+    <repository>
+      <id>bukkit-repo</id>
+      <url>http://repo.bukkit.org/artifactory/repo</url>
+    </repository>
+  </repositories>
   <build>
     <plugins>
   	  <plugin>
@@ -28,23 +34,14 @@
       </plugin>
     </plugins>
   </build>
-  <repositories>
-    <repository>
-      <id>bukkit-repo</id>
-      <url>http://repo.bukkit.org/artifactory/repo</url>
-    </repository>
-  </repositories>
   <dependencies>
     <dependency>
       <groupId>org.bukkit</groupId>
-      <artifactId>craftbukkit</artifactId>
+      <artifactId>bukkit</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
   <properties>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  <modules>
-  </modules>
 </project>
-

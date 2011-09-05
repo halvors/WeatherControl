@@ -1,7 +1,7 @@
 # WeatherControl's configuration file.
 
 messages:
-    It_is_thundering: "It's thundering."
+    It_is_thundering: 'Its thundering.'
     It_is_storming: "It's storming."
     It_is_clear: "It's clear."
 

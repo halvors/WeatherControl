@@ -5,17 +5,25 @@ import java.util.HashMap;
 import org.halvors.weathercontrol.WeatherControl;
 
 /**
- * Manage wands
+ * Hold values for each player's wand.
  * 
  * @author halvors
  */
 public class WandManager {
-//	private WeatherControl plugin;
-	
-	private final HashMap<String, Integer> wands = new HashMap<String, Integer>();
+//	private final WeatherControl plugin;
+	private final HashMap<String, Integer> wands;
 
+	private static WandManager instance;
+	
 	public WandManager(WeatherControl plugin) {
 //		this.plugin = plugin;
+		this.wands = new HashMap<String, Integer>();
+		
+		WandManager.instance = this;
+	}
+	
+	public static WandManager getInstance() {
+		return instance;
 	}
 
 	public Integer getWandCount(String name) {

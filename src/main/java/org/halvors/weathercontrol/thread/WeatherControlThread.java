@@ -2,6 +2,7 @@ package org.halvors.weathercontrol.thread;
 
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.halvors.weathercontrol.WeatherControl;
 import org.halvors.weathercontrol.util.ConfigurationManager;
@@ -24,12 +25,13 @@ public class WeatherControlThread implements Runnable {
         this.configManager = plugin.getConfigurationManager();
     }
 
+    @Override
     public void run() {
         while (true) {
             try {
                 Thread.sleep(5000); // 5 seconds
                 
-                for (World world : plugin.getServer().getWorlds()) {
+                for (World world : Bukkit.getServer().getWorlds()) {
                 	WorldConfiguration worldConfig = configManager.get(world);
                 	
                 	if (worldConfig.intervalEnable) {

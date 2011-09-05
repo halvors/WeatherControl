@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.util.config.Configuration;
 import org.halvors.weathercontrol.WeatherControl;
@@ -45,60 +46,35 @@ public class ConfigurationManager {
     private static ConfigurationManager instance;
     
     /* Configuration data start */
-    // It's thundering.
     public String It_is_thundering;
-    // It's storming
     public String It_is_storming;
-    // It's clear.
     public String It_is_clear;
     
-    // It will storm for another <duration>.
     public String It_will_storm_for_another;
-    // It will now storm for <duration>.
     public String It_will_now_storm_for;
-    // It's no longer storm.
     public String It_is_no_longer_storm;
-    // It's no active storm!
     public String It_is_no_active_storm;
-    // Weather is disabled!
     public String Weather_is_disabled;
     
-    // It will thunder for another <duration>.
     public String It_will_thunder_for_another;
-    // It will now thunder for <duration>.
     public String It_will_now_thunder_for;
-    // It's no longer thunder.
     public String It_is_no_longer_thunder;
-    // It's no active thunder
     public String It_is_no_active_thunder;
-    // Thunder is disabled!
     public String Thunder_is_disabled;
     
-    // It's now clearing.
     public String It_is_now_clearing;
-    // It's already clear.
     public String It_is_already_clear;
     
-    // You have been struck by lightning!
     public String You_have_been_struck_by_lightning;
     public String Player_have_been_struck_by_lightning;
-    // <count> <entity> have been struck by lightning!
     public String Have_been_struck_by_lightning;
-    // Player does not exist!
     public String Player_does_not_exist;
-    // Lightning is disabled!
     public String Lightning_is_disabled;
-    // Position <location> have been struck by lightning! // TODO: Finish <x> <y> <z>
     public String Position_has_been_struck_by_lightning;
-    // You have to specify a valid position!
     public String You_have_to_specify_a_valid_position;
-    // You got the lightning strike wand.
     public String You_got_the_lightning_strike_wand;
-    // Wand not set in configuration file!
     public String Wand_not_set_in_configuration_file;
-    // Maximum wand count is <count>.
     public String Maximum_wand_count_is;
-    // Wand count set to <count>.
     public String Wand_count_set_to;
     /* Configuration data end */
     
@@ -124,7 +100,7 @@ public class ConfigurationManager {
         config.load();
 
         // Load configurations for each world
-        for (World world : plugin.getServer().getWorlds()) {
+        for (World world : Bukkit.getServer().getWorlds()) {
             get(world);
         }
         

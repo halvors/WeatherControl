@@ -46,6 +46,7 @@ public class WorldConfiguration {
     public boolean disableIceForm;
     
     public boolean intervalEnable;
+    public boolean intervalShowMessages;
     public int intervalWeatherLength;
     public int intervalWeatherInterval;
     public int intervalThunderLength;
@@ -95,6 +96,7 @@ public class WorldConfiguration {
         disableIceForm = config.getBoolean("disableIceForm", disableIceForm);
 
         intervalEnable = config.getBoolean("interval.enable", intervalEnable);
+        intervalShowMessages = config.getBoolean("interval.showMessages", intervalShowMessages);
         intervalWeatherLength = config.getInt("interval.weatherLength", intervalWeatherLength);
         intervalWeatherInterval = config.getInt("interval.weatherInterval", intervalWeatherInterval);
         intervalThunderLength = config.getInt("interval.thunderLength", intervalThunderLength);
@@ -105,12 +107,10 @@ public class WorldConfiguration {
         thunderEnable = config.getBoolean("thunder.enable", thunderEnable);
 
         lightningEnable = config.getBoolean("lightning.enable", lightningEnable);
-        
         lightningExplosion = config.getBoolean("lightning.explosion", lightningExplosion);
         lightningWand = config.getInt("lightning.wand", lightningWand);
         lightningCount = config.getInt("lightning.count", lightningCount);
         lightningDistance = config.getInt("lightning.distance", lightningDistance);
-        
         lightningDisableChargedCreeper = config.getBoolean("lightning.disableCreeperPower", lightningDisableChargedCreeper);
         lightningDisablePigZap = config.getBoolean("lightning.disablePigZap", lightningDisablePigZap);
         lightningDisableStrikePlayerDamage = config.getBoolean("lightning.disableStrikePlayerDamage", lightningDisableStrikePlayerDamage);

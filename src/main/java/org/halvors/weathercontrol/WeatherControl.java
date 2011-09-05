@@ -28,19 +28,16 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.halvors.weathercontrol.commands.WeatherControlCommandExecutor;
-import org.halvors.weathercontrol.listeners.WeatherControlBlockListener;
-import org.halvors.weathercontrol.listeners.WeatherControlEntityListener;
-import org.halvors.weathercontrol.listeners.WeatherControlPlayerListener;
-import org.halvors.weathercontrol.listeners.WeatherControlWeatherListener;
-import org.halvors.weathercontrol.listeners.WeatherControlWorldListener;
+import org.halvors.weathercontrol.listeners.BlockListener;
+import org.halvors.weathercontrol.listeners.EntityListener;
+import org.halvors.weathercontrol.listeners.PlayerListener;
+import org.halvors.weathercontrol.listeners.WeatherListener;
+import org.halvors.weathercontrol.listeners.WorldListener;
 import org.halvors.weathercontrol.manager.WandManager;
 import org.halvors.weathercontrol.thread.WeatherControlThread;
 import org.halvors.weathercontrol.util.ConfigurationManager;
 import org.halvors.weathercontrol.util.WorldConfiguration;
 
-/**
- * @author halvors
- */
 public class WeatherControl extends JavaPlugin {
     private final Logger log = Logger.getLogger("Minecraft");
     private PluginManager pm;
@@ -48,24 +45,28 @@ public class WeatherControl extends JavaPlugin {
     
     private Thread thread;
     
+    private static WeatherControl instance;
+    
     private final ConfigurationManager configManager;
     private final WandManager wandManager;
     
-    private final WeatherControlBlockListener blockListener;
-    private final WeatherControlEntityListener entityListener;
-    private final WeatherControlPlayerListener playerListener;
-    private final WeatherControlWeatherListener weatherListener;
-    private final WeatherControlWorldListener worldListener;
+    private final BlockListener blockListener;
+    private final EntityListener entityListener;
+    private final PlayerListener playerListener;
+    private final WeatherListener weatherListener;
+    private final WorldListener worldListener;
     
     public WeatherControl() {
+    	WeatherControl.instance = this;
+    	
         this.configManager = new ConfigurationManager(this);
         this.wandManager = new WandManager(this);
         
-        this.blockListener = new WeatherControlBlockListener(this);
-        this.entityListener = new WeatherControlEntityListener(this);
-        this.playerListener = new WeatherControlPlayerListener(this);
-        this.weatherListener = new WeatherControlWeatherListener(this);
-        this.worldListener = new WeatherControlWorldListener(this);
+        this.blockListener = new BlockListener(this);
+        this.entityListener = new EntityListener(this);
+        this.playerListener = new PlayerListener(this);
+        this.weatherListener = new WeatherListener(this);
+        this.worldListener = new WorldListener(this);
     }
     
     @Override
@@ -138,6 +139,10 @@ public class WeatherControl extends JavaPlugin {
     
     public void log(Level level, String msg) {
         this.log.log(level, "[" + getName() + "] " + msg);
+    }
+    
+    public static WeatherControl getInstance() {
+    	return instance;
     }
     
     public ConfigurationManager getConfigurationManager() {
