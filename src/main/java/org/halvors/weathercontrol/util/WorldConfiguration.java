@@ -1,22 +1,20 @@
-/* 
- * Copyright (C) 2011 halvors <halvors@skymiastudios.com>
- * Copyright (C) 2011 speeddemon92 <speeddemon92@gmail.com>
- * Copyright (C) 2011 adamonline45 <adamonline45@gmail.com>
- * 
- * This file is part of Lupi.
- * 
- * Lupi is free software: you can redistribute it and/or modify
+/*
+ * Copyright (C) 2011 halvors <halvors@skymiastudios.com>.
+ *
+ * This file is part of WeatherControl.
+ *
+ * WeatherControl is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
- * Lupi is distributed in the hope that it will be useful,
+ *
+ * WeatherControl is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
- * along with Lupi.  If not, see <http://www.gnu.org/licenses/>.
+ * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.halvors.weathercontrol.util;
@@ -111,7 +109,7 @@ public class WorldConfiguration {
         lightningWand = config.getInt("lightning.wand", lightningWand);
         lightningCount = config.getInt("lightning.count", lightningCount);
         lightningDistance = config.getInt("lightning.distance", lightningDistance);
-        lightningDisableChargedCreeper = config.getBoolean("lightning.disableCreeperPower", lightningDisableChargedCreeper);
+        lightningDisableChargedCreeper = config.getBoolean("lightning.disableChargedCreeper", lightningDisableChargedCreeper);
         lightningDisablePigZap = config.getBoolean("lightning.disablePigZap", lightningDisablePigZap);
         lightningDisableStrikePlayerDamage = config.getBoolean("lightning.disableStrikePlayerDamage", lightningDisableStrikePlayerDamage);
         lightningDisableStrikeMobDamage = config.getBoolean("lightning.disableStrikeMobDamage", lightningDisableStrikeMobDamage);

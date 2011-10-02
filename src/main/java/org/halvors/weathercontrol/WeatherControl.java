@@ -27,7 +27,7 @@ import org.bukkit.event.Event;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.halvors.weathercontrol.commands.WeatherControlCommandExecutor;
+import org.halvors.weathercontrol.commands.WeatherCommandExecutor;
 import org.halvors.weathercontrol.listeners.BlockListener;
 import org.halvors.weathercontrol.listeners.EntityListener;
 import org.halvors.weathercontrol.listeners.PlayerListener;
@@ -109,7 +109,7 @@ public class WeatherControl extends JavaPlugin {
         pm.registerEvent(Event.Type.WORLD_LOAD, worldListener, Event.Priority.Normal, this);
         
         // Register our commands        
-        this.getCommand("wc").setExecutor(new WeatherControlCommandExecutor(this));
+        this.getCommand("weather").setExecutor(new WeatherCommandExecutor(this));
         
         log(Level.INFO, "version " + getVersion() + " is enabled!");
     }

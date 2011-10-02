@@ -43,13 +43,13 @@ import org.halvors.weathercontrol.util.WorldConfiguration;
  * 
  * @author halvors
  */
-public class WeatherControlCommandExecutor implements CommandExecutor {
+public class WeatherCommandExecutor implements CommandExecutor {
     private final WeatherControl plugin;
 
     private final ConfigurationManager configManager;
     private final WandManager wandManager;
     
-    public WeatherControlCommandExecutor(WeatherControl plugin) {
+    public WeatherCommandExecutor(WeatherControl plugin) {
         this.plugin = plugin;
         this.configManager = plugin.getConfigurationManager();
         this.wandManager = plugin.getWandManager();

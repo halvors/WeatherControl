@@ -1,3 +1,22 @@
+/*
+ * Copyright (C) 2011 halvors <halvors@skymiastudios.com>.
+ *
+ * This file is part of WeatherControl.
+ *
+ * WeatherControl is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * WeatherControl is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with WeatherControl.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.halvors.weathercontrol.thread;
 
 import java.util.logging.Level;
@@ -40,7 +59,9 @@ public class WeatherControlThread implements Runnable {
                 				world.setStorm(true);
                 				world.setThundering(false);
 
-                				plugin.log(Level.INFO, "It's now storm in " + world.getName() + ".");
+                				if (worldConfig.intervalShowMessages) {
+                					plugin.log(Level.INFO, "It's now storm in " + world.getName() + ".");
+                				}
                 			}
 
                 			if ((rainIntSteps * 5) >= worldConfig.intervalWeatherLength) {
@@ -50,7 +71,9 @@ public class WeatherControlThread implements Runnable {
                 				rainIntSteps = 0;
                 				rainSteps = 0;
                             
-                				plugin.log(Level.INFO, "It's no longer storm in " + world.getName() + ".");
+                				if (worldConfig.intervalShowMessages) {
+                					plugin.log(Level.INFO, "It's no longer storm in " + world.getName() + ".");
+                				}
                 			} else {
                 				rainIntSteps++;
                 			}
@@ -58,7 +81,10 @@ public class WeatherControlThread implements Runnable {
                 			if ((thunderSteps * 5) >= worldConfig.intervalThunderInterval) { // 10 seconds
                 				if (thunderIntSteps == 0) {
                 					world.setThundering(true);
-                					plugin.log(Level.INFO, "It's now thunder in " + world.getName() + ".");
+                					
+                					if (worldConfig.intervalShowMessages) {
+                						plugin.log(Level.INFO, "It's now thunder in " + world.getName() + ".");
+                					}
                 				}
 
                 				if ((thunderIntSteps * 5) >= worldConfig.intervalThunderLength) {
@@ -67,7 +93,9 @@ public class WeatherControlThread implements Runnable {
                 					thunderIntSteps = 0;
                 					thunderSteps = 0;
                                 
-                					plugin.log(Level.INFO, "It's no longer thunder in " + world.getName() + ".");
+                					if (worldConfig.intervalShowMessages) {
+                						plugin.log(Level.INFO, "It's no longer thunder in " + world.getName() + ".");
+                					}
                 				} else {
                 					thunderIntSteps++;
                 				}
